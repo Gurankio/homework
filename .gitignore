@@ -1,4 +1,5 @@
-# Executables
-*.exe
-*.out
+# Disable all files
+*
 
+# Allow C source files
+!*.c
