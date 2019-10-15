@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- *
+ * #014 16.10.2019
  * Riconosce se un triangolo dati i lati e': equilatero, isoscele, rettangolo o scaleno.
  */
 

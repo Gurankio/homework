@@ -1,7 +1,7 @@
 /*
  * Jacopo Del Granchio
- *
- *
+ * #000 GG.MM.YYYY
+ * Lorem ipsum dolor sit amet.
  */
 
 #include <stdlib.h>
