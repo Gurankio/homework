@@ -1,52 +1,27 @@
-//
+/*
+ * Jacopo Del Granchio
+ * #003
+ * Dati 5 numeri in input calcola la media dei numeri e il prodotto dei dispari.
+ */
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
-int a, b, c, d, e;
-int size = 0, average = 0, product = 0;
+int t, size = 0, average = 0, product = 0;
 
 int main() {
-  printf("Dammi cinque numeri.\n");
-  scanf(" %d %d %d %d %d", &a, &b, &c, &d, &e);
+  for (int i = 0; i < 5; i++) {
+    printf("Dammi un numero: ");
+    scanf(" %d", &t);
 
-  if (a % 2 == 0) {
-    average += a;
-    size++;
-  } else {
-    if (product != 0) product *= a;
-    else product += a;
-  }
-
-  if (b % 2 == 0) {
-    average += b;
-    size++;
-  } else {
-    if (product != 0) product *= b;
-    else product += b;
-  }
-
-  if (c % 2 == 0) {
-    average += c;
-    size++;
-  } else {
-    if (product != 0) product *= c;
-    else product += c;
-  }
-
-  if (d % 2 == 0) {
-    average += d;
-    size++;
-  } else {
-    if (product != 0) product *= d;
-    else product += d;
-  }
-
-  if (e % 2 == 0) {
-    average += e;
-    size++;
-  } else {
-    if (product != 0) product *= e;
-    else product += e;
+    if (t % 2 == 0) {
+      average += t;
+      size++;
+    } else {
+      if (product != 0) product *= t;
+      else product += t;
+    }
   }
 
   if (average != 0) printf("Media dei pari: %d\n", average / size);
