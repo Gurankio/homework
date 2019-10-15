@@ -3,3 +3,4 @@
 
 # Allow C source files
 !*.c
+!*.md
