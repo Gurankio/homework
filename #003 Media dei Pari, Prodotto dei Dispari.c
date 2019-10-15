@@ -55,8 +55,6 @@ int main() {
   if (product != 0) printf("Prodotto dei dispari: %d\n", product);
   else printf("Nessun numero dispari.\n");
 
-  // equivalente a system("pause") ma multipiattaforma. system("pause") è solo per windows.
-  // https://stackoverflow.com/questions/9386651/pause-screen-at-program-completion-in-c
   getchar();
   return 0;
 }
