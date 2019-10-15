@@ -17,19 +17,19 @@ int main() {
 
   switch (operazione) {
     case '+':
-      printf("Il risultato è: %d\n", a + b);
+      printf("Il risultato è %d\n", a + b);
       break;
 
     case '-':
-      printf("Il risultato è: %d\n", a - b);
+      printf("Il risultato è %d\n", a - b);
       break;
 
     case '*':
-      printf("Il risultato è: %d\n", a * b);
+      printf("Il risultato è %d\n", a * b);
       break;
 
     case '/':
-      printf("Il risultato è: %d\n", a / b);
+      printf("Il risultato è %d con resto %d\n", a / b, a % b);
       break;
 
     default:
