@@ -51,7 +51,7 @@ int main() {
             fatto = 1;
           }
 
-          break;
+          // niente break perchè è l'ultimo caso.
       }
     } else if (scelta == '#') {
       printf("Chiudo il programma\n");
