@@ -1,5 +1,6 @@
 /*
  * Jacopo Del Granchio
+ * #010 15.10.2019
  *
  * Risolve una equazione di secondo grado.
  */
@@ -9,7 +10,6 @@
 #include <math.h>
 
 int main() {
-  int t = 0;
   float a, b, c, delta;
 
   printf("Dammi i coefficenti di una equazione: ");

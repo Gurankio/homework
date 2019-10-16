@@ -1,8 +1,9 @@
 /*
-* Jacopo Del Granchio
-*
-* Dati 3 numeri in input stamparli on ordine crescente.
-*/
+ * Jacopo Del Granchio
+ * #009
+ *
+ * Dati 3 numeri in input stamparli on ordine crescente.
+ */
 
 #include <stdlib.h>
 #include <stdio.h>

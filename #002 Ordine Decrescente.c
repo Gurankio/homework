@@ -1,6 +1,13 @@
-// Dati tre numeri gli scrive in ordine decrescente.
+/*
+ * Jacopo Del Granchio
+ * #002
+ *
+ * Dati tre numeri gli mette in ordine decrescente.
+ */
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int main() {
   int a, b, c, min, mid, max;

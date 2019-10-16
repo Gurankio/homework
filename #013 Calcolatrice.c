@@ -1,5 +1,6 @@
 /*
  * Jacopo Del Granchio
+ * #013 16.10.19
  *
  * Una smeplice calcolatrice che supporta le operazion: +, -, * e /.
  */
@@ -9,31 +10,53 @@
 #include <math.h>
 
 int main() {
-  char operazione;
-  int a, b;
+  char scelta;
+  int a, b, risultato, fatto = 0;
 
-  printf("Dammi un' operazione: ");
-  scanf("%d %c %d", &a, &operazione, &b);
+  printf("Premi + per sommare.\n");
+  printf("Premi - per sottrarre.\n");
+  printf("Premi * per moltiplicare.\n");
+  printf("Premi / per dividere.\n");
+  printf("Premi # per uscire.\n");
 
-  switch (operazione) {
-    case '+':
-      printf("Il risultato è: %d\n", a + b);
+  for (int i = 0; i < 3; i++) {
+    printf("\nScelta: ");
+    scanf(" %c", &scelta);
+
+    if (scelta == '+' || scelta == '-' || scelta == '*' || scelta == '/') {
+      printf("Dammi due numeri: ");
+      scanf(" %d %d", &a, &b);
+
+      switch (scelta) {
+        case '+':
+          risultato = a + b;
+          fatto = 1;
+          break;
+
+        case '-':
+          risultato = a - b;
+          fatto = 1;
+          break;
+
+        case '*':
+          risultato = a * b;
+          fatto = 1;
+          break;
+
+        case '/':
+          risultato = a / b;
+          fatto = 1;
+          break;
+      }
+    } else if (scelta == '#') {
+      printf("Chiudo il programma\n");
       break;
+    }
 
-    case '-':
-      printf("Il risultato è: %d\n", a - b);
+    if (fatto) {
+      printf("Il risultato e' %d\n", risultato);
       break;
-
-    case '*':
-      printf("Il risultato è: %d\n", a * b);
-      break;
-
-    case '/':
-      printf("Il risultato è: %d\n", a / b);
-      break;
-
-    default:
-      printf("Operazione inesistente.\n");
+    }
   }
 
   // getchar();
