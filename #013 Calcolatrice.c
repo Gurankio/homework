@@ -45,13 +45,13 @@ int main() {
 
         case '/':
 
-          if (b == 0) printf("Impossibil dividere per 0\n");
+          if (b == 0) printf("Impossibile dividere per 0\n");
           else {
             risultato = a / b;
             fatto = 1;
           }
 
-          break;
+          // niente break perchè è l'ultimo caso.
       }
     } else if (scelta == '#') {
       printf("Chiudo il programma\n");
