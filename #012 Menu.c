@@ -1,6 +1,10 @@
 /*
  * Jacopo Del Granchio
  * #012 15.10.2019
+<<<<<<< HEAD
+=======
+ *
+>>>>>>> 9311976320145f8ba08dc75961e0a32628a1231d
  * Visualizza un semplice menu.
  */
 

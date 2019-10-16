@@ -1,7 +1,12 @@
 /*
  * Jacopo Del Granchio
  * #014 16.10.2019
+<<<<<<< HEAD
  * Riconosce se un triangolo dati i lati e': equilatero, isoscele, rettangolo o scaleno.
+=======
+ *
+ * Riconosce se un triangolo dati i lati è: equilatero, isoscele, rettangolo o scaleno.
+>>>>>>> 9311976320145f8ba08dc75961e0a32628a1231d
  */
 
 #include <stdlib.h>

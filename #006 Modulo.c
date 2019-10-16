@@ -1,4 +1,13 @@
+/*
+ * Jacopo Del Granchio
+ * #006
+ *
+ * Controlla se un numero è divisibile per il secondo input ma non per il terzo.
+ */
+
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int a, b, c;
 
