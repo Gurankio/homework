@@ -1,10 +1,7 @@
 /*
  * Jacopo Del Granchio
  * #015  19.10.2019
-<<<<<<< HEAD
-=======
  *
->>>>>>> 9311976320145f8ba08dc75961e0a32628a1231d
  * Stampa da quanti giorni è composto un mese in input.
  */
 

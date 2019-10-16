@@ -1,10 +1,7 @@
 /*
  * Jacopo Del Granchio
  * #010 15.10.2019
-<<<<<<< HEAD
-=======
  *
->>>>>>> 9311976320145f8ba08dc75961e0a32628a1231d
  * Risolve una equazione di secondo grado.
  */
 

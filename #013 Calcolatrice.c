@@ -2,7 +2,7 @@
  * Jacopo Del Granchio
  * #013 16.10.2019
  *
-  * Una smeplice calcolatrice che supporta le operazion: +, -, * e /.
+ * Una smeplice calcolatrice che supporta le operazion: +, -, * e /.
  */
 
 #include <stdlib.h>
@@ -19,23 +19,6 @@ int main() {
   printf("Premi / per dividere.\n");
   printf("Premi # per uscire.\n");
 
-<<<<<<< HEAD
-  switch (operazione) {
-    case '+':
-      printf("Il risultato è %d\n", a + b);
-      break;
-
-    case '-':
-      printf("Il risultato è %d\n", a - b);
-      break;
-
-    case '*':
-      printf("Il risultato è %d\n", a * b);
-      break;
-
-    case '/':
-      printf("Il risultato è %d con resto %d\n", a / b, a % b);
-=======
   for (int i = 0; i < 3; i++) {
     printf("\nScelta: ");
     scanf(" %c", &scelta);
@@ -72,7 +55,6 @@ int main() {
       }
     } else if (scelta == '#') {
       printf("Chiudo il programma\n");
->>>>>>> 9311976320145f8ba08dc75961e0a32628a1231d
       break;
     }
 
