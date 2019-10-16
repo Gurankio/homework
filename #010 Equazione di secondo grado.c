@@ -1,6 +1,7 @@
 /*
  * Jacopo Del Granchio
  * #010 15.10.2019
+ *
  * Risolve una equazione di secondo grado.
  */
 

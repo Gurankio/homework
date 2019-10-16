@@ -1,4 +1,13 @@
+/*
+ * Jacopo Del Granchio
+ * #004
+ *
+ * Controlla se un numero è divisibile per 5 e 3.
+ */
+
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define B 5
 #define C 3

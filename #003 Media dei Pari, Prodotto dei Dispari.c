@@ -1,4 +1,13 @@
+/*
+ * Jacopo Del Granchio
+ * #003
+ *
+ * Dati 5 numeri in input, fa la somma dei pari e il prodotto dei dispari.
+ */
+
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int main() {
   int t, size = 0, average = 0, product = 0;

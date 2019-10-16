@@ -1,6 +1,13 @@
-// Controlla se a alla b e' un numero pari o dispari senza la funzione pow()
+/*
+ * Jacopo Del Granchio
+ * #007
+ *
+ * Controlla se la a alla n è pari o dispari.
+ */
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int a, b;
 
@@ -9,9 +16,9 @@ int main() {
   scanf(" %d %d", &a, &b);
 
   if (b != 0) {
-    if (a % 2 == 0) printf("'%d' alla '%d' e' pari.\n", a, b);
-    else printf("'%d' alla '%d' e' dispari.\n", a, b);
-  } else printf("'%d' alla '%d' e' dispari.\n", a, b);
+    if (a % 2 == 0) printf("'%d' alla '%d' è pari.\n", a, b);
+    else printf("'%d' alla '%d' è dispari.\n", a, b);
+  } else printf("'%d' alla '%d' è dispari.\n", a, b);
 
   getchar();
   return 0;
