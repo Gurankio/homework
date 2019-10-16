@@ -44,8 +44,13 @@ int main() {
           break;
 
         case '/':
-          risultato = a / b;
-          fatto = 1;
+
+          if (b == 0) printf("Impossibil dividere per 0\n");
+          else {
+            risultato = a / b;
+            fatto = 1;
+          }
+
           break;
       }
     } else if (scelta == '#') {
@@ -61,4 +66,5 @@ int main() {
 
   // getchar();
   // system("pause");
+  return 0;
 }
