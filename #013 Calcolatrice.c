@@ -10,34 +10,53 @@
 #include <math.h>
 
 int main() {
-  char operazione;
-  int a, b;
+  printf("Premi + per sommare.\n");
+  printf("Premi - per sottrarre.\n");
+  printf("Premi * per moltiplicare.\n");
+  printf("Premi / per dividere.\n");
+  printf("Premi # per uscire.\n");
 
-  printf("Dammi un' operazione: ");
-  scanf("%d %c %d", &a, &operazione, &b);
+  for (int i = 0; i < 3; ++i) {
+    char scelta = 0;
+    int a = 0, b = 0;
 
-  switch (operazione) {
-    case '+':
-      printf("Il risultato è: %d\n", a + b);
-      break;
+    printf("\nScelta:");
+    scanf("%c", &scelta);
 
-    case '-':
-      printf("Il risultato è: %d\n", a - b);
-      break;
+    switch (scelta) {
+      case '+':
+        printf("Dammi i due numeri: ");
+        scanf("%d %d", &a, &b);
+        printf("Il risultato e' %d\n", a + b);
+        return 0;
 
-    case '*':
-      printf("Il risultato è: %d\n", a * b);
-      break;
+      case '-':
+        printf("Dammi i due numeri: ");
+        scanf("%d %d", &a, &b);
+        printf("Il risultato e' %d\n", a - b);
+        return 0;
 
-    case '/':
-      printf("Il risultato è: %d\n", a / b);
-      break;
+      case '*':
+        printf("Dammi i due numeri: ");
+        scanf("%d %d", &a, &b);
+        printf("Il risultato e' %d\n", a * b);
+        return 0;
 
-    default:
-      printf("Operazione inesistente.\n");
+      case '/':
+        printf("Dammi i due numeri: ");
+        scanf("%d %d", &a, &b);
+        printf("Il risultato e' %d con resto %d\n", a / b, a % b);
+        return 0;
+
+      case '#':
+        printf("Chiudo il programma.\n");
+        return 0;
+
+      default:
+        printf("Scelta inesistente.\n");
+    }
   }
 
   // getchar();
   // system("pause");
-  return 0;
 }
