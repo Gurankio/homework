@@ -17,6 +17,13 @@ int main() {
     scanf("%d", &n);
   } while (n < 0);
 
+  /* int i = 0;
+   * while () {
+   *  [...]
+   *  ++i;
+   * }
+   */
+
   for (int i = 1; i <= n; ++i)
     risultato *= i;
 

@@ -15,6 +15,13 @@ int main() {
   printf("Quanti numeri interi? ");
   scanf("%d", &n);
 
+  /* int i = 0;
+   * while () {
+   *  [...]
+   *  ++i;
+   * }
+   */
+
   for (int i = 1; i <= n; ++i)
     s += i;
 
