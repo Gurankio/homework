@@ -2,7 +2,7 @@
  * Jacopo Del Granchio
  * #020 22.10.2019
  *
- * Stampa la somma dei primi N numeri interi positivi.
+ * Calcola il fattoriale di un numero in input.
  */
 
 #include <stdlib.h>
