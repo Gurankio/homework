@@ -1,8 +1,7 @@
 /*
  * Jacopo Del Granchio
  * #003
- *
- * Dati 5 numeri in input, fa la somma dei pari e il prodotto dei dispari.
+ * Dati 5 numeri in input calcola la media dei numeri e il prodotto dei dispari.
  */
 
 #include <stdlib.h>
@@ -31,8 +30,6 @@ int main() {
   if (product != 0) printf("Prodotto dei dispari: %d\n", product);
   else printf("Nessun numero dispari.\n");
 
-  // equivalente a system("pause") ma multipiattaforma. system("pause") è solo per windows.
-  // https://stackoverflow.com/questions/9386651/pause-screen-at-program-completion-in-c
   getchar();
   return 0;
 }
