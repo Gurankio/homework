@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #020 22.10.2019
+ * #023 22.10.2019
  *
  * Calcola il fattoriale di un numero in input.
  */
