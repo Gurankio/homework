@@ -39,6 +39,7 @@ int main() {
   printf("Pari: %d\n", par);
   printf("Dispari: %d\n", dis);
 
+
   // getchar();
   // system("pause");
   return 0;
