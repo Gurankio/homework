@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #0xx 06.11.2019
+ * #032 06.11.2019
  *
  * Conta i numeri positivi, nulli, negativi, pari e dispari.
  */

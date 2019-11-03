@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #0xx 06.11.2019
+ * #028 06.11.2019
  *
  * Calcola lo sconto a un prezzo in input.
  */
@@ -23,9 +23,9 @@ int main() {
     scanf("%f", &n);
   } while (n <= 0);
 
-  if (n < 100) printf("Il prezzo scontato è %.2f\n", n - (n * C1));
-  else if (n < 300) printf("Il prezzo scontato è %.2f\n", n - (n * C2));
-  else printf("Il prezzo scontato è %.2f\n", n - (n * C3));
+  if (n < 100) printf("Il prezzo scontato ï¿½ %.2f\n", n - (n * C1));
+  else if (n < 300) printf("Il prezzo scontato ï¿½ %.2f\n", n - (n * C2));
+  else printf("Il prezzo scontato ï¿½ %.2f\n", n - (n * C3));
 
   // getchar();
   // system("pause");

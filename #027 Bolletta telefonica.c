@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #0xx 06.11.2019
+ * #027 06.11.2019
  *
  * Calcola il costo della bolletta telefonica,
  * dati in input il numero degli scatti.
@@ -32,7 +32,7 @@ int main() {
 
   if (n > 100) r += C3 * (n - B);
 
-  printf("Il costo totale è %.2f\n", r);
+  printf("Il costo totale ï¿½ %.2f\n", r);
 
   // getchar();
   // system("pause");

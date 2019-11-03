@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #0xx 06.11.2019
+ * #030 06.11.2019
  *
  * Dato un numero tra 1 e 365 lo converte nel giorno e mese corrispondente.
  */

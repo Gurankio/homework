@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #031 06.11.2019
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Fa la media di piu N numeri in input.
  */
 
 #include <stdlib.h>
@@ -26,7 +25,7 @@ int main() {
     risultato += t;
   }
 
-  printf("La media è %.2f\n", (float)risultato / n);
+  printf("La media ï¿½ %.2f\n", (float)risultato / n);
 
   // getchar();
   // system("pause");
