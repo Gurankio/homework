@@ -19,7 +19,7 @@ int main() {
     printf("Dammi un numero: ");
     scanf("%d", &t);
 
-    if (t % 2 == 0) risultato++;
+    if (t % 3 == 0) risultato++;
   }
 
   // getchar();

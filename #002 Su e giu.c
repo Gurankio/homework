@@ -36,6 +36,9 @@ int main() {
   printf("Ordine Decrescente.\n");
   printf("%d, %d, %d\n", max, mid, min);
 
+  printf("Ordine Crescente.\n");
+  printf("%d, %d, %d\n", min, mid, max);
+
   getchar();
   return 0;
 }

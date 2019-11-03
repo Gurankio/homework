@@ -9,8 +9,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <locale.h>
 
 int main() {
+  setlocale(LC_ALL, "");
+
   // getchar();
   // system("pause");
   return 0;
