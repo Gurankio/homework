@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #026
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Calcola varie operazioni su due numeri in input.
  */
 
 #include <stdlib.h>
@@ -19,9 +18,9 @@ int main() {
   printf("Dammi due numeri: ");
   scanf("%d %d\n", &a, &b);
 
-  printf("Il secondo numero è %s\n", b > 0 ? "positivo." : "negativo.");
-  printf("Il primo numero è %s\n", a % 2 == 0 ? "pari." : "dispari.");
-  printf("La somma è %d\n", a + b);
+  printf("Il secondo numero ï¿½ %s\n", b > 0 ? "positivo." : "negativo.");
+  printf("Il primo numero ï¿½ %s\n", a % 2 == 0 ? "pari." : "dispari.");
+  printf("La somma ï¿½ %d\n", a + b);
   printf("La somma massima si ottine con %cA + %cB\n", a > 0 ? '+' : '-', b > 0 ? '+' : '-');
 
   // getchar();

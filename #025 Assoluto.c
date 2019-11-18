@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #025
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Calcola il valore assoluto di un numero in input.
  */
 
 #include <stdlib.h>
@@ -19,7 +18,7 @@ int main() {
   printf("Dammi un numero: ");
   scanf("%d", &n);
 
-  printf("Il valore assoluto è %d\n", abs(n));
+  printf("Il valore assoluto ï¿½ %d\n", abs(n));
 
   // getchar();
   // system("pause");
