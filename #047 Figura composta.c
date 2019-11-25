@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #047 26.11.2019
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Figura composta.
  */
 
 #include <stdlib.h>
@@ -20,7 +19,11 @@ void chiedi(char *, char *, ...);
 int main() {
   setlocale(LC_ALL, "");
 
-
+  float a, b, r;
+  chiedi("Inserisci la base del rettangolo: ", "%f", &a);
+  chiedi("Inserisci l'altezza del rettangolo: ", "%f", &b);
+  chiedi("Inserisci il raggio del cerchio: ", "%f", &r);
+  printf("L'area totale è %.2f\n", a * b + 3.14 * r * r);
 
   // getchar();
   // system("pause");

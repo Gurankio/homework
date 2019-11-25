@@ -1,2 +1,2 @@
 # C Homework
-Repository for C language homework.
+Compiti in C e C++.
