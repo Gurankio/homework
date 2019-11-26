@@ -13,8 +13,12 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
+// Macro
+#define chiedi(msg, format, ...) \
+  printf(msg); \
+  scanf(format, __VA_ARGS__);
+
 // Prototipi
-void chiedi(char *, char *, ...);
 
 
 // Funzioni
@@ -26,12 +30,4 @@ int main() {
   // getchar();
   // system("pause");
   return 0;
-}
-
-void chiedi(char *msg, char *format, ...) {
-  printf(msg);
-  va_list list;
-  va_start(list, format);
-  vscanf(format, list);
-  va_end(list);
 }
