@@ -11,6 +11,7 @@
 #include <math.h>
 #include <locale.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 // Prototipi
 void chiedi(char *, char *, ...);
