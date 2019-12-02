@@ -345,11 +345,11 @@ void tui_reprint(tui *tui) {
 
 // Formats a string and returns it.
 char * string_format(char *format, ...) {
-  char *result = (char *)malloc(10 * sizeof(result));
+  char *result = (char *)malloc(128 * sizeof(result));
   va_list list;
 
   va_start(list, format);
-  vsnprintf(result, 10, format, list);
+  vsnprintf(result, 128, format, list);
   va_end(list);
 
   string_remove_all(result, "\n");
