@@ -54,9 +54,9 @@ void chiedi(char *msg, char *format, ...) {
 }
 
 int delta(int a, int b, int c) {
-  int t = b * b + 4 * a * c;
+  int t = b * b - 4 * a * c;
 
-  if (t > 0) return t;
+  if (t >= 0) return t;
   else return -1;
 }
 
@@ -71,8 +71,8 @@ int primoGrado(int b, int c, int *r) {
 }
 
 void soluzioni(int a, int b, int d, int *r1, int *r2) {
-  float t1 = (-b * +sqrt(d)) / 2 * a;
-  float t2 = (-b * -sqrt(d)) / 2 * a;
+  float t1 = (-1 * b + sqrt(d)) / (2 * a);
+  float t2 = (-1 * b - sqrt(d)) / (2 * a);
 
   *r1 = (int)t1;
   *r2 = (int)t2;
