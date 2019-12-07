@@ -75,11 +75,13 @@ int intersezione(int a[], int x, int b[], int y, int c[]) {
       if (a[j] == b[k]) {
         bool exists = false;
 
-        for (int o = 0; o < (x < y ? x : y); o++)
+        for (int o = 0; o < i; o++)
           if (c[o] == a[j]) exists = true;
 
         if (!exists) c[i++] = a[j];
       }
     }
   }
+
+  return i;
 }
