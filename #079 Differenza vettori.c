@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #058 04.12.2019
+ * #079 18.12.2019
  *
- * Calcola l'intersezione di due vettori in uno solo.
+ * Calcola la differenza di due vettori.
  */
 
 #include <stdlib.h>
