@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #070 18.12.2019
+ * #076 18.12.2019
  *
- * Riempie un vettore con numeri casuali.
+ * Copia i pari e i dispari di un vettore in altri due vettori appositi.
  */
 
 #include <stdlib.h>
@@ -21,45 +21,45 @@
 // Prototipi
 void caricaRand(int v[], int n, int);
 void scarica(int v[], int n);
-int esiste(int v[], int n, int x);
+void calcola(int v[], int n, int pari[], int *iP, int dispari[], int *iD);
 
 // Funzioni
 int main() {
-  setlocale(LC_ALL, "");
+  setlocale(LC_ALL, "en_US");
 
-  int n, max;
+  int n;
   chiedi("Inserisci la lunghezza: ", "%d", &n);
-  chiedi("Inserisci il numero massimo: ", "%d", &max);
-
-  if (max < n) return 0;
 
   int v[n];
-  caricaRand(v, n, max);
+  caricaRand(v, n, n);
   scarica(v, n);
+
+  int pari[n], iP = 0, dispari[n], iD = 0;
+  calcola(v, n, pari, &iP, dispari, &iD);
+
+  printf("Pari: ");
+  scarica(pari, iP);
+
+  printf("Dispari: ");
+  scarica(dispari, iD);
 
   // getchar();
   // system("pause");
   return 0;
 }
 
-int esiste(int v[], int n, int x) {
-  int r = 0;
-
-  for (int i = 0; i < n; i++)
-    if (v[i] == x) r += 1;
-
-  return r != 0;
+void calcola(int v[], int n, int pari[], int *iP, int dispari[], int *iD) {
+  for (int i = 0; i < n; ++i) {
+    if (v[i] % 2 == 0) pari[(*iP)++] = v[i];
+    else dispari[(*iD)++] = v[i];
+  }
 }
 
 void caricaRand(int v[], int n, int max) {
   srand((unsigned)time(NULL) + rand());
 
-  v[0] = rand() % max;
-
-  for (int i = 1; i < n; i++) {
-    do v[i] = rand() % max;
-    while (esiste(v, i, v[i]));
-  }
+  for (int i = 0; i < n; i++)
+    v[i] = rand() % max;
 }
 
 void scarica(int v[], int n) {

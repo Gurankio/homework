@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #070 18.12.2019
+ * #071 18.12.2019
  *
- * Riempie un vettore con numeri casuali.
+ * Controlla se un vettore è crescente o decrescente.
  */
 
 #include <stdlib.h>
@@ -19,27 +19,49 @@
   scanf(format, __VA_ARGS__);
 
 // Prototipi
+int esiste(int v[], int n, int x);
 void caricaRand(int v[], int n, int);
 void scarica(int v[], int n);
-int esiste(int v[], int n, int x);
+
+bool crescente(int v[], int n);
+bool decrescente(int v[], int n);
 
 // Funzioni
 int main() {
   setlocale(LC_ALL, "");
 
-  int n, max;
+  int n;
   chiedi("Inserisci la lunghezza: ", "%d", &n);
-  chiedi("Inserisci il numero massimo: ", "%d", &max);
-
-  if (max < n) return 0;
 
   int v[n];
-  caricaRand(v, n, max);
+  caricaRand(v, n, n);
   scarica(v, n);
+
+  if (crescente(v, n)) printf("Crescente.\n");
+  else if (decrescente(v, n)) printf("Decrescente.\n");
+  else printf("Ne crescente ne decrescente.\n");
 
   // getchar();
   // system("pause");
   return 0;
+}
+
+bool crescente(int v[], int n) {
+  bool r = 1;
+
+  for (int i = 1; i < n; i++)
+    if (v[i - 1] > v[i]) r = 0;
+
+  return r;
+}
+
+bool decrescente(int v[], int n) {
+  bool r = 1;
+
+  for (int i = 1; i < n; i++)
+    if (v[i - 1] < v[i]) r = 0;
+
+  return r;
 }
 
 int esiste(int v[], int n, int x) {
@@ -58,7 +80,7 @@ void caricaRand(int v[], int n, int max) {
 
   for (int i = 1; i < n; i++) {
     do v[i] = rand() % max;
-    while (esiste(v, i, v[i]));
+    while (esiste(v, i - 1, v[i]));
   }
 }
 

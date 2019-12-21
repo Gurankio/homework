@@ -1,8 +1,8 @@
 /*
- * Jacopo "Java" Del Granchio
+ * Jacopo Del Granchio
  * #013 19.10.2019
  *
- * Calcolatrice con FOR.
+ * Calcolatrice.
  */
 
 #include <stdlib.h>
@@ -12,10 +12,10 @@
 int main() {
   char scelta = 0;          // Scelta del menu.
   const int MAX_ERRORI = 3; // Massimo numero di errori.
+  int errori = MAX_ERRORI;  // Contatore degli errori.
   int a = 0, b = 0;         // Variabili delle operazioni.
 
-  // Ripeto finchè non ho esaurito gli errori.
-  for (int errori = MAX_ERRORI; errori != 0;) {
+  do {
     // Stampo il menu.
     printf("Premi '#' per Uscire\n");
     printf("Premi '+' per Sommare\n");
@@ -90,7 +90,7 @@ int main() {
         break;
       }
     }
-  }
+  } while (errori != 0); // Ripeto finchè non ho esaurito errori.
 
   printf("Esco dal programma.\n");
   // system("PAUSE");

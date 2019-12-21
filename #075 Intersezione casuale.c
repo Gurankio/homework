@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #070 18.12.2019
+ * #075 18.12.2019
  *
- * Riempie un vettore con numeri casuali.
+ * Calcola l'intersezione di due vettori caricati in modo casuale.
  */
 
 #include <stdlib.h>
@@ -21,45 +21,40 @@
 // Prototipi
 void caricaRand(int v[], int n, int);
 void scarica(int v[], int n);
-int esiste(int v[], int n, int x);
+void calcola(int a[], int b[], int n, int c[], int *iC);
 
 // Funzioni
 int main() {
-  setlocale(LC_ALL, "");
+  setlocale(LC_ALL, "en_US");
 
-  int n, max;
+  int n;
   chiedi("Inserisci la lunghezza: ", "%d", &n);
-  chiedi("Inserisci il numero massimo: ", "%d", &max);
 
-  if (max < n) return 0;
+  int a[n], b[n];
+  caricaRand(a, n, 10);
+  caricaRand(b, n, 10);
+  scarica(a, n);
+  scarica(b, n);
 
-  int v[n];
-  caricaRand(v, n, max);
-  scarica(v, n);
+  int c[n], iC = 0;
+  calcola(a, b, n, c, &iC);
+  scarica(c, iC);
 
   // getchar();
   // system("pause");
   return 0;
 }
 
-int esiste(int v[], int n, int x) {
-  int r = 0;
-
-  for (int i = 0; i < n; i++)
-    if (v[i] == x) r += 1;
-
-  return r != 0;
+void calcola(int a[], int b[], int n, int c[], int *iC) {
+  for (int i = 0; i < n; ++i)
+    if (a[i] == b[i]) c[(*iC)++] = a[i];
 }
 
 void caricaRand(int v[], int n, int max) {
   srand((unsigned)time(NULL) + rand());
 
-  v[0] = rand() % max;
-
-  for (int i = 1; i < n; i++) {
-    do v[i] = rand() % max;
-    while (esiste(v, i, v[i]));
-  }
+  for (int i = 0; i < n; i++)
+    v[i] = rand() % max;
 }
 
 void scarica(int v[], int n) {

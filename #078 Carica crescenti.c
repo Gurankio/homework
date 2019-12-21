@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #070 18.12.2019
+ * #078 18.12.2019
  *
- * Riempie un vettore con numeri casuali.
+ * Riempie un vettore con numeri casuali crescenti.
  */
 
 #include <stdlib.h>
@@ -19,9 +19,10 @@
   scanf(format, __VA_ARGS__);
 
 // Prototipi
+void caricaCrescente(int v[], int n, int max);
+bool controllaCrescente(int v[], int n);
 void caricaRand(int v[], int n, int);
 void scarica(int v[], int n);
-int esiste(int v[], int n, int x);
 
 // Funzioni
 int main() {
@@ -29,12 +30,10 @@ int main() {
 
   int n, max;
   chiedi("Inserisci la lunghezza: ", "%d", &n);
-  chiedi("Inserisci il numero massimo: ", "%d", &max);
-
-  if (max < n) return 0;
+  chiedi("Inserisci il massimo: ", "%d", &max);
 
   int v[n];
-  caricaRand(v, n, max);
+  caricaCrescente(v, n, max);
   scarica(v, n);
 
   // getchar();
@@ -42,24 +41,35 @@ int main() {
   return 0;
 }
 
-int esiste(int v[], int n, int x) {
-  int r = 0;
+void caricaCrescente(int v[], int n, int max) {
+  caricaRand(v, n, max);
+  int t;
 
-  for (int i = 0; i < n; i++)
-    if (v[i] == x) r += 1;
+  while (!controllaCrescente(v, n)) {
+    for (int i = 1; i < n; i++) {
+      if (v[i - 1] > v[i]) {
+        t = v[i - 1];
+        v[i - 1] = v[i];
+        v[i] = t;
+      }
+    }
+  }
+}
 
-  return r != 0;
+bool controllaCrescente(int v[], int n) {
+  bool r = 1;
+
+  for (int i = 1; i < n; i++)
+    if (v[i - 1] > v[i]) r = 0;
+
+  return r;
 }
 
 void caricaRand(int v[], int n, int max) {
   srand((unsigned)time(NULL) + rand());
 
-  v[0] = rand() % max;
-
-  for (int i = 1; i < n; i++) {
-    do v[i] = rand() % max;
-    while (esiste(v, i, v[i]));
-  }
+  for (int i = 0; i < n; i++)
+    v[i] = rand() % max;
 }
 
 void scarica(int v[], int n) {

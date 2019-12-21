@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #070 18.12.2019
+ * #077 18.12.2019
  *
- * Riempie un vettore con numeri casuali.
+ * Copia i pari in testa e i dispari in coda di un vettore in altro vettore.
  */
 
 #include <stdlib.h>
@@ -21,45 +21,42 @@
 // Prototipi
 void caricaRand(int v[], int n, int);
 void scarica(int v[], int n);
-int esiste(int v[], int n, int x);
+void calcola(int v[], int n, int out[]);
 
 // Funzioni
 int main() {
-  setlocale(LC_ALL, "");
+  setlocale(LC_ALL, "en_US");
 
-  int n, max;
+  int n;
   chiedi("Inserisci la lunghezza: ", "%d", &n);
-  chiedi("Inserisci il numero massimo: ", "%d", &max);
-
-  if (max < n) return 0;
 
   int v[n];
-  caricaRand(v, n, max);
+  caricaRand(v, n, n);
   scarica(v, n);
+
+  int out[n];
+  calcola(v, n, out);
+  scarica(out, n);
 
   // getchar();
   // system("pause");
   return 0;
 }
 
-int esiste(int v[], int n, int x) {
-  int r = 0;
+void calcola(int v[], int n, int out[]) {
+  int p = 0, d = n - 1;
 
-  for (int i = 0; i < n; i++)
-    if (v[i] == x) r += 1;
-
-  return r != 0;
+  for (int i = 0; i < n; ++i) {
+    if (v[i] % 2 == 0) out[p++] = v[i];
+    else out[d--] = v[i];
+  }
 }
 
 void caricaRand(int v[], int n, int max) {
   srand((unsigned)time(NULL) + rand());
 
-  v[0] = rand() % max;
-
-  for (int i = 1; i < n; i++) {
-    do v[i] = rand() % max;
-    while (esiste(v, i, v[i]));
-  }
+  for (int i = 0; i < n; i++)
+    v[i] = rand() % max;
 }
 
 void scarica(int v[], int n) {
