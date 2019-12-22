@@ -1,9 +1,19 @@
+/*
+ * VTS - Virtual Terminal Sequences
+ * Partial (Full?) implementation of https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences.
+ */
+
 #ifndef VTS
 #define VTS
 
 #include <locale.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 // // Prototypes
 
@@ -18,8 +28,22 @@ void vts_asciiSet();
 
 // Cursor
 void vts_xy(int, int);
+void vts_cursorBlink();
+void vts_cursorStill();
+void vts_cursorShow();
+void vts_cursorHide();
 
-// Text Modifier
+// Viewport
+void vts_viewportUp(int);
+void vts_viewportDown(int);
+
+// Text Modifiers
+void vts_textInsertChar(int);
+void vts_textDeleteChar(int);
+void vts_textEraseChar(int);
+void vts_textInsertLine(int);
+void vts_textDeleteLine(int);
+
 void vts_textBold();
 void vts_textLowIntesity();
 void vts_textUnderline();
@@ -74,19 +98,33 @@ void vts_backgroundReset();
 // // Functions
 
 #ifdef _WIN32
-void vts_activateCommands() {
-  HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-  DWORD consoleMode;
+bool vts_activateCommands() {
+  // Set output mode to handle virtual terminal sequences
+  HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-  GetConsoleMode(hConsole, &consoleMode);
-  consoleMode |= 0x004;
+  if (hOut == INVALID_HANDLE_VALUE) {
+    printf("Error during activation. Check for Windows updates.\n");
+    return false;
+  }
 
-  if (!SetConsoleMode(hConsole, consoleMode)) cout << "Error during activation. Check for windows updates." << endl;
+  DWORD dwMode = 0;
 
-  // Should quit.
+  if (!GetConsoleMode(hOut, &dwMode)) {
+    printf("Error during activation. Check for Windows updates.\n");
+    return false;
+  }
+
+  dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+
+  if (!SetConsoleMode(hOut, dwMode)) {
+    printf("Error during activation. Check for Windows updates.\n");
+    return false;
+  }
+
+  return true;
 }
 
-#else
+#else  /* ifdef _WIN32 */
 void vts_activateCommands() {
   // NO-OP
   // There is no need on non windows systems.
@@ -130,7 +168,64 @@ void vts_xy(int x, int y) {
   fflush(stdout);
 }
 
+void vts_cursorBlink() {
+  printf("\e[?12h");
+  fflush(stdout);
+}
+
+void vts_cursorStill() {
+  printf("\e[?12l");
+  fflush(stdout);
+}
+
+void vts_cursorShow() {
+  printf("\e[?25h");
+  fflush(stdout);
+}
+
+void vts_cursorHide() {
+  printf("\e[?25l");
+  fflush(stdout);
+}
+
+// Viewport
+
+void vts_viewportUp(int n) {
+  printf("\e[%dS", n);
+  fflush(stdout);
+}
+
+void vts_viewportDown(int n) {
+  printf("\e[%dT", n);
+  fflush(stdout);
+}
+
 // Text Modifier
+
+void vts_textInsertChar(int n) {
+  printf("\e[%d@", n);
+  fflush(stdout);
+}
+
+void vts_textDeleteChar(int n) {
+  printf("\e[%dP", n);
+  fflush(stdout);
+}
+
+void vts_textEraseChar(int n) {
+  printf("\e[%dX", n);
+  fflush(stdout);
+}
+
+void vts_textInsertLine(int n) {
+  printf("\e[%dL", n);
+  fflush(stdout);
+}
+
+void vts_textDeleteLine(int n) {
+  printf("\e[%dM", n);
+  fflush(stdout);
+}
 
 void vts_textBold() {
   printf("\e[1m");
