@@ -1,6 +1,9 @@
-# Disable all files
+# Ignore all
 *
 
-# Allow C source files
+# Unignore all with extensions
 !*.c
 !*.md
+
+# Unignore all dirs
+!*/
