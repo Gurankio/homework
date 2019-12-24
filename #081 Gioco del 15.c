@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #081 07.01.2019
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Gioco del 15.
  */
 
 #include <stdlib.h>
@@ -13,7 +12,6 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "libraries/vts.c"
 #include "libraries/sleep.c"
@@ -110,7 +108,7 @@ void swap(int board[], int a, int b) {
 }
 
 int randomBoard(int board[], int times) {
-  for (int i = 0; i < 16; ++i) board[i] = i;
+  for (int i = 0; i < 16; ++i) board[i] = (i+1) % 16;
 
   srand((unsigned)time(NULL) + rand());
 
