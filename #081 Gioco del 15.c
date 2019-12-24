@@ -15,7 +15,6 @@
 #include <time.h>
 
 #include "libraries/vts.c"
-#include "libraries/sleep.c"
 
 // Macro
 #define chiedi(msg, format, ...) \
@@ -23,14 +22,13 @@
   scanf(format, __VA_ARGS__);
 
 // Prototipi
+int menu();
+void newGame(int);
 int getIndex(int, int);
-
-void print(int[]);
-
+void printBoard(int[]);
 int exists(int[], int, int);
 void swap(int[], int, int);
 int randomBoard(int[], int);
-
 int move(int);
 bool hasWon(int[]);
 
@@ -39,15 +37,58 @@ int main() {
   setlocale(LC_ALL, "");
   vts_activateCommands();
 
+  int s, diff = 50;
+
+  do {
+    s = menu();
+
+    switch (s) {
+      case 1:
+        chiedi("Inserisci la nuova difficoltà: ", "%d", &diff);
+        break;
+
+      case 2:
+        newGame(diff);
+        break;
+
+      case 3:
+        printf("Arrivederci.\n");
+        break;
+
+      default:
+        printf("Scelta non valida.\n");
+        break;
+    }
+  } while (s != 3);
+
+  newGame(10);
+
+  return 0;
+}
+
+int menu() {
+  printf("1) Difficoltà\n");
+  printf("2) Nuovo Gioco\n");
+  printf("3) Esci\n");
+  int s;
+  chiedi("Scelta: ", "%d", &s);
+
+  char nl;
+  scanf("%c", &nl);
+
+  return s;
+}
+
+void newGame(int difficulty) {
   int board[16];
-  int zeroP = randomBoard(board, 100);
+  int zeroP = randomBoard(board, difficulty);
 
   vts_cursorHide();
 
   do {
     vts_clear();
     vts_xy(0, 0);
-    print(board);
+    printBoard(board);
 
     // Get new position
     int newP = move(zeroP);
@@ -60,13 +101,12 @@ int main() {
 
   vts_clear();
   vts_xy(0, 0);
-  print(board);
+  printBoard(board);
 
   vts_xy(0, 5);
   vts_textBrightGreen();
-  printf("Hai vinto!");
+  printf("Hai vinto!\n");
   vts_textColorReset();
-  return 0;
 }
 
 //
@@ -77,7 +117,7 @@ int getIndex(int row, int column) {
 
 //
 
-void print(int board[]) {
+void printBoard(int board[]) {
   for (int r = 0; r < 4; ++r) {
     for (int c = 0; c < 4; ++c) {
       int t = board[getIndex(r, c)];
@@ -115,16 +155,17 @@ int randomBoard(int board[], int times) {
 
   for (int i = 0; i < times; ++i) {
     int row = rand() % 4, column = rand() % 4;
-    int posA = getIndex(row, column), posB;
+    int posA = getIndex(row, column), newRow, newColumn;
 
     do {
+      newRow = row, newColumn = column;
       int step = (rand() % 2 ? 1 : -1);
 
-      if (rand() % 2) posB = getIndex(row + step, column);
-      else posB = getIndex(row, column + step);
-    } while (posB < 0 || posB > 15);
+      if (rand() % 2) newRow += step;
+      else newColumn += step;
+    } while (newRow < 0 || newRow > 3 || newColumn < 0 || newColumn > 3);
 
-    swap(board, posA, posB);
+    swap(board, posA, getIndex(newRow, newColumn));
   }
 
   int zeroP = 0;
@@ -138,9 +179,7 @@ int randomBoard(int board[], int times) {
 //
 
 int move(int zeroP) {
-  int column = zeroP % 4;
-  int row = zeroP / 4;
-
+  int row = zeroP / 4, column = zeroP % 4;
   char a, b, c, nl;
   int found = 0;
 
