@@ -3,6 +3,7 @@
  * #081 07.01.2019
  *
  * Gioco del 15.
+ * Esistono delle partite non risolvibili.
  */
 
 #include <stdlib.h>
