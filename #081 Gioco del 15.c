@@ -3,7 +3,6 @@
  * #081 07.01.2019
  *
  * Gioco del 15.
- * Esistono delle partite non risolvibili.
  */
 
 #include <stdlib.h>
@@ -36,8 +35,7 @@ bool hasWon(int[]);
 int main() {
   setlocale(LC_ALL, "");
   vts_activateCommands();
-
-  int s, diff = 50;
+  int s, diff = 1000;
 
   do {
     s = menu();
@@ -60,9 +58,6 @@ int main() {
         break;
     }
   } while (s != 3);
-
-  newGame(10);
-
   return 0;
 }
 
@@ -104,9 +99,9 @@ void newGame(int difficulty) {
   printBoard(board);
 
   vts_xy(0, 5);
-  vts_textBrightGreen();
-  printf("Hai vinto!\n");
-  vts_textColorReset();
+  vts_foregroundBrightGreen();
+  printf("Hai vinto!\n\n");
+  vts_foregroundDefault();
 }
 
 //
@@ -149,13 +144,15 @@ void swap(int board[], int a, int b) {
 }
 
 int randomBoard(int board[], int times) {
-  for (int i = 0; i < 16; ++i) board[i] = (i+1) % 16;
+  for (int i = 0; i < 16; ++i) board[i] = (i + 1) % 16;
+
+  int zeroP = 15;
 
   srand((unsigned)time(NULL) + rand());
 
   for (int i = 0; i < times; ++i) {
-    int row = rand() % 4, column = rand() % 4;
-    int posA = getIndex(row, column), newRow, newColumn;
+    int row = zeroP / 4, column = zeroP % 4;
+    int newRow, newColumn;
 
     do {
       newRow = row, newColumn = column;
@@ -165,13 +162,10 @@ int randomBoard(int board[], int times) {
       else newColumn += step;
     } while (newRow < 0 || newRow > 3 || newColumn < 0 || newColumn > 3);
 
-    swap(board, posA, getIndex(newRow, newColumn));
+    int newIndex = getIndex(newRow, newColumn);
+    swap(board, zeroP, newIndex);
+    zeroP = newIndex;
   }
-
-  int zeroP = 0;
-
-  for (int i = 0; i < 16; ++i)
-    if (board[i] == 0) zeroP = i;
 
   return zeroP;
 }
@@ -186,13 +180,13 @@ int move(int zeroP) {
   do {
     fflush(stdin);
     vts_xy(0, 5);
-    vts_textBlack();
+    vts_foregroundBlack();
 
     scanf("%c", &a);
 
     vts_xy(0, 4);
     vts_textDeleteLine(1);
-    vts_textBrightRed();
+    vts_foregroundBrightRed();
 
     if (a != 27) {
       printf("Not an arrow.\n");
@@ -252,7 +246,7 @@ int move(int zeroP) {
     scanf("%c", &nl);
   } while (found == 0);
 
-  vts_textColorReset();
+  vts_foregroundDefault();
 
   return getIndex(row, column);
 }
