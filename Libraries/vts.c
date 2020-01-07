@@ -21,7 +21,7 @@
 
 // // Prototypes
 
-void vts_activateCommands();
+bool vts_activateCommands();
 
 // Miscellanous
 void vts_resize(int, int);
@@ -181,7 +181,7 @@ bool vts_activateCommands() {
 }
 
 #else  /* ifdef _WIN32 */
-void vts_activateCommands() {
+bool vts_activateCommands() {
   // NO-OP
   // There is no need on non windows systems.
 }
