@@ -42,8 +42,10 @@ int main() {
   printf("Inserire le coordinate della seconda stringa: ");
   scanf("%d %d", &w, &z);
 
-  sostituisci(a, x, y, b, w, z);
-  printf("Output: %s\n", a);
+  bool risultato = sostituisci(a, x, y, b, w, z);
+
+  if (risultato) printf("Output: %s\n", a);
+  else printf("La sostituzione e' fallita.");
 
   // getchar();
   // system("pause");
