@@ -170,7 +170,7 @@ bool vts_activateCommands() {
     return false;
   }
 
-  dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+  dwMode |= 0x0004;
 
   if (!SetConsoleMode(hOut, dwMode)) {
     printf("Error during activation. Check for Windows updates.\n");
