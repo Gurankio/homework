@@ -14,13 +14,17 @@
 
 #ifdef _WIN32
 #include <windows.h>
+
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif
+
 #endif
 
 // // Macro
 #define vts_xy(x, y) vts_cursorXY(x, y);
 
 // // Prototypes
-
 bool vts_activateCommands();
 
 // Miscellanous
@@ -151,8 +155,8 @@ void vts_mainScreenBuffer();
 // Soft Reset
 void vts_softReset();
 
-// // Functions
 
+// // Functions
 #ifdef _WIN32
 bool vts_activateCommands() {
   // Set output mode to handle virtual terminal sequences
@@ -170,7 +174,7 @@ bool vts_activateCommands() {
     return false;
   }
 
-  dwMode |= 0x0004;
+  dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
 
   if (!SetConsoleMode(hOut, dwMode)) {
     printf("Error during activation. Check for Windows updates.\n");
@@ -182,373 +186,386 @@ bool vts_activateCommands() {
 
 #else  /* ifdef _WIN32 */
 bool vts_activateCommands() {
-  // NO-OP
-  // There is no need on non windows systems.
+  // Always true, there is no need on non windows systems.
+  return true;
 }
 
 #endif /* ifdef _WIN32 */
 
 // Miscellanous
 void vts_resize(int width, int height) {
-  // [8);50);100t what does the 8 mean?
-  printf("\e[8);%d);%dt", height, width);
+  #ifdef _WIN32
+  SMALL_RECT rect;
+  rect.Top = 0;
+  rect.Left = 0;
+  rect.Bottom = height - 1;
+  rect.Right = width - 1;
+  SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), 1, &rect);
+  #else
+  printf("\x1b[8);%d);%dt", height, width);
   fflush(stdout);
+  #endif
 }
 
 void vts_clear() {
-  printf("\e[2J");
+  printf("\x1b[2J");
   fflush(stdout);
 }
 
 // Cursor Positioning
 void vts_cursorUp(int n) {
-  printf("\e[%dA", n);
+  printf("\x1b[%dA", n);
   fflush(stdout);
 }
 
 void vts_cursorDown(int n) {
-  printf("\e[%dB", n);
+  printf("\x1b[%dB", n);
   fflush(stdout);
 }
 
 void vts_cursorRight(int n) {
-  printf("\e[%dC", n);
+  printf("\x1b[%dC", n);
   fflush(stdout);
 }
 
 void vts_cursorLeft(int n) {
-  printf("\e[%dD", n);
+  printf("\x1b[%dD", n);
   fflush(stdout);
 }
 
 void vts_cursorNextLine(int n) {
-  printf("\e[%dE", n);
+  printf("\x1b[%dE", n);
   fflush(stdout);
 }
 
 void vts_cursorPreviousLine(int n) {
-  printf("\e[%dF", n);
+  printf("\x1b[%dF", n);
   fflush(stdout);
 }
 
 void vts_cursorHorizontalAbsolute(int n) {
-  printf("\e[%dG", n);
+  printf("\x1b[%dG", n);
   fflush(stdout);
 }
 
 void vts_cursorVerticalAbsolute(int n) {
-  printf("\e[%dd", n);
+  printf("\x1b[%dd", n);
   fflush(stdout);
 }
 
 void vts_cursorXY(int x, int y) {
-  printf("\e[%d);%dH", y + 1, x);
+  #ifdef _WIN32
+  COORD p = { x, (short int)(y + 2) };
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
+  #else
+  printf("\x1b[%d);%dH", y + 1, x + 1);
   fflush(stdout);
+  #endif
 }
 
 void vts_cursorSave() {
-  printf("\e[s");
+  printf("\x1b[s");
   fflush(stdout);
 }
 
 void vts_cursorRestore() {
-  printf("\e[u");
+  printf("\x1b[u");
   fflush(stdout);
 }
 
 // Cursor Visibility
 void vts_cursorBlink() {
-  printf("\e[?12h");
+  printf("\x1b[?12h");
   fflush(stdout);
 }
 
 void vts_cursorStill() {
-  printf("\e[?12l");
+  printf("\x1b[?12l");
   fflush(stdout);
 }
 
 void vts_cursorShow() {
-  printf("\e[?25h");
+  printf("\x1b[?25h");
   fflush(stdout);
 }
 
 void vts_cursorHide() {
-  printf("\e[?25l");
+  printf("\x1b[?25l");
   fflush(stdout);
 }
 
 // Viewport
 void vts_viewportUp(int n) {
-  printf("\e[%dS", n);
+  printf("\x1b[%dS", n);
   fflush(stdout);
 }
 
 void vts_viewportDown(int n) {
-  printf("\e[%dT", n);
+  printf("\x1b[%dT", n);
   fflush(stdout);
 }
 
 // Text Modification
 void vts_textInsertChar(int n) {
-  printf("\e[%d@", n);
+  printf("\x1b[%d@", n);
   fflush(stdout);
 }
 
 void vts_textDeleteChar(int n) {
-  printf("\e[%dP", n);
+  printf("\x1b[%dP", n);
   fflush(stdout);
 }
 
 void vts_textEraseChar(int n) {
-  printf("\e[%dX", n);
+  printf("\x1b[%dX", n);
   fflush(stdout);
 }
 
 void vts_textInsertLine(int n) {
-  printf("\e[%dL", n);
+  printf("\x1b[%dL", n);
   fflush(stdout);
 }
 
 void vts_textDeleteLine(int n) {
-  printf("\e[%dM", n);
+  printf("\x1b[%dM", n);
   fflush(stdout);
 }
 
 // Text Formatting
 void vts_textDefault() {
-  printf("\e[1m");
+  printf("\x1b[0m");
   fflush(stdout);
 }
 
 void vts_textBold() {
-  printf("\e[1m");
+  printf("\x1b[1m");
   fflush(stdout);
 }
 
 void vts_textUnderline() {
-  printf("\e[4m");
+  printf("\x1b[4m");
   fflush(stdout);
 }
 
 void vts_textNoUnderline() {
-  printf("\e[24m");
+  printf("\x1b[24m");
   fflush(stdout);
 }
 
 void vts_textNegative() {
-  printf("\e[7m");
+  printf("\x1b[7m");
   fflush(stdout);
 }
 
 void vts_textPositive() {
-  printf("\e[27m");
+  printf("\x1b[27m");
   fflush(stdout);
 }
 
 // Foreground Colors
 void vts_foregroundBlack() {
-  printf("\e[30m");
+  printf("\x1b[30m");
   fflush(stdout);
 }
 
 void vts_foregroundRed() {
-  printf("\e[31m");
+  printf("\x1b[31m");
   fflush(stdout);
 }
 
 void vts_foregroundGreen() {
-  printf("\e[32m");
+  printf("\x1b[32m");
   fflush(stdout);
 }
 
 void vts_foregroundYellow() {
-  printf("\e[33m");
+  printf("\x1b[33m");
   fflush(stdout);
 }
 
 void vts_foregroundBlue() {
-  printf("\e[34m");
+  printf("\x1b[34m");
   fflush(stdout);
 }
 
 void vts_foregroundMagenta() {
-  printf("\e[35m");
+  printf("\x1b[35m");
   fflush(stdout);
 }
 
 void vts_foregroundCyan() {
-  printf("\e[36m");
+  printf("\x1b[36m");
   fflush(stdout);
 }
 
 void vts_foregroundWhite() {
-  printf("\e[37m");
+  printf("\x1b[37m");
   fflush(stdout);
 }
 
 // Bright Foreground Colors
 void vts_foregroundBrightBlack() {
-  printf("\e[91m");
+  printf("\x1b[91m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightRed() {
-  printf("\e[91m");
+  printf("\x1b[91m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightGreen() {
-  printf("\e[92m");
+  printf("\x1b[92m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightYellow() {
-  printf("\e[93m");
+  printf("\x1b[93m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightBlue() {
-  printf("\e[94m");
+  printf("\x1b[94m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightMagenta() {
-  printf("\e[95m");
+  printf("\x1b[95m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightCyan() {
-  printf("\e[96m");
+  printf("\x1b[96m");
   fflush(stdout);
 }
 
 void vts_foregroundBrightWhite() {
-  printf("\e[97m");
+  printf("\x1b[97m");
   fflush(stdout);
 }
 
 // Advanced Foreground Colors
 void vts_foregroundExtended(int r, int g, int b) {
-  printf("\e[38;2;%d;%d;%dm", r, g, b);
+  printf("\x1b[38;2;%d;%d;%dm", r, g, b);
   fflush(stdout);
 }
 
 void vts_foregroundDefault() {
-  printf("\e[39m");
+  printf("\x1b[39m");
   fflush(stdout);
 }
 
 // Background Colors
 void vts_backgroundBlack() {
-  printf("\e[40m");
+  printf("\x1b[40m");
   fflush(stdout);
 }
 
 void vts_backgroundRed() {
-  printf("\e[41m");
+  printf("\x1b[41m");
   fflush(stdout);
 }
 
 void vts_backgroundGreen() {
-  printf("\e[42m");
+  printf("\x1b[42m");
   fflush(stdout);
 }
 
 void vts_backgroundYellow() {
-  printf("\e[43m");
+  printf("\x1b[43m");
   fflush(stdout);
 }
 
 void vts_backgroundBlue() {
-  printf("\e[44m");
+  printf("\x1b[44m");
   fflush(stdout);
 }
 
 void vts_backgroundMagenta() {
-  printf("\e[45m");
+  printf("\x1b[45m");
   fflush(stdout);
 }
 
 void vts_backgroundCyan() {
-  printf("\e[46m");
+  printf("\x1b[46m");
   fflush(stdout);
 }
 
 void vts_backgroundWhite() {
-  printf("\e[47m");
+  printf("\x1b[47m");
   fflush(stdout);
 }
 
 // Bright Background Colors
 void vts_backgroundBrightBlack() {
-  printf("\e[100m");
+  printf("\x1b[100m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightRed() {
-  printf("\e[101m");
+  printf("\x1b[101m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightGreen() {
-  printf("\e[102m");
+  printf("\x1b[102m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightYellow() {
-  printf("\e[102m");
+  printf("\x1b[102m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightBlue() {
-  printf("\e[104m");
+  printf("\x1b[104m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightMagenta() {
-  printf("\e[105m");
+  printf("\x1b[105m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightCyan() {
-  printf("\e[106m");
+  printf("\x1b[106m");
   fflush(stdout);
 }
 
 void vts_backgroundBrightWhite() {
-  printf("\e[107m");
+  printf("\x1b[107m");
   fflush(stdout);
 }
 
 // Advanced Background Colors
 void vts_backgroundExtended(int r, int g, int b) {
-  printf("\e[48;2;%d;%d;%dm", r, g, b);
+  printf("\x1b[48;2;%d;%d;%dm", r, g, b);
   fflush(stdout);
 }
 
 void vts_backgroundDefault() {
-  printf("\e[49m");
+  printf("\x1b[49m");
   fflush(stdout);
 }
 
 // Mode Changes
 void vts_keypadApplicationMode() {
-  printf("\e=");
+  printf("\x1b=");
   fflush(stdout);
 }
 
 void vts_keypadNumericMode() {
-  printf("\e>");
+  printf("\x1b>");
   fflush(stdout);
 }
 
 void vts_cursorKeysApplicationMode() {
-  printf("\e[?1h");
+  printf("\x1b[?1h");
   fflush(stdout);
 }
 
 void vts_cursorKeysNumericMode() {
-  printf("\e[?1l");
+  printf("\x1b[?1l");
   fflush(stdout);
 }
 
@@ -556,72 +573,72 @@ void vts_cursorKeysNumericMode() {
 
 // Tabs
 void vts_tabStop() {
-  printf("\eH");
+  printf("\x1bH");
   fflush(stdout);
 }
 
 void vts_cursorForwardTab(int n) {
-  printf("\e[%dI", n);
+  printf("\x1b[%dI", n);
   fflush(stdout);
 }
 
 void vts_cursorBackwardTab(int n) {
-  printf("\e[%dZ", n);
+  printf("\x1b[%dZ", n);
   fflush(stdout);
 }
 
 void vts_tabClearCurrent() {
-  printf("\e[0g");
+  printf("\x1b[0g");
   fflush(stdout);
 }
 
 void vts_tabClearAll() {
-  printf("\e[3g");
+  printf("\x1b[3g");
   fflush(stdout);
 }
 
 // Character Set
 void vts_lineDrawingSet() {
-  printf("\e(0");
+  printf("\x1b(0");
   fflush(stdout);
 }
 
 void vts_asciiSet() {
-  printf("\e(B");
+  printf("\x1b(B");
   fflush(stdout);
 }
 
 // Scrolling Margins
 void vts_scrollingMargin(int t, int b) {
-  printf("\e[%d;%dr", t, b);
+  printf("\x1b[%d;%dr", t, b);
   fflush(stdout);
 }
 
 // Window Title
 void vts_iconTitle(char *title) {
-  printf("\e]0);%s\x07", title);
+  printf("\x1b]0);%s\x07", title);
   fflush(stdout);
 }
 
 void vts_title(char *title) {
-  printf("\e]2);%s\x07", title);
+  printf("\x1b]2);%s\x07", title);
   fflush(stdout);
 }
 
 // Alternate Screen Buffer
 void vts_alternateScreenBuffer() {
-  printf("\e[1049h");
+  printf("\x1b[1049h");
   fflush(stdout);
 }
 
 void vts_mainScreenBuffer() {
-  printf("\e[1049l");
+  printf("\x1b[1049l");
   fflush(stdout);
 }
 
 // Soft Reset
 void vts_softReset() {
-  printf("\e[!p");
+  printf("\x1b[!p");
   fflush(stdout);
 }
 
