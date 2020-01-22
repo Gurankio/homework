@@ -15,9 +15,10 @@
 #include <time.h>
 
 #include "libraries/vts.c" // Colori per il terminale.
+#include "libraries/sleep.c" // Sleep multi-piattaforma.
 
 // Costanti
-#define NC 50  // Numero di città
+#define NC 40  // Numero di città (Non piu di 11.)
 #define LS 64 /// Lunghezza massima di una stringa
 #define LC 12 // larghezza Cella
 
@@ -94,6 +95,8 @@ void caricaRand(char nomi[NC][LS], float temperature[NC][4]) {
 // Output
 
 void griglia(int colonne, int righe, int larghezzaCella) {
+  cp_sleep(250);
+  vts_resize((larghezzaCella + 1) * colonne, righe * 2 + 2);
   vts_lineDrawingSet();
 
   for (int j = 0; j < colonne - 1; j++)
@@ -162,8 +165,9 @@ void stampa(char nomi[NC][LS], float temperature[NC][4], int estremi[NC][4], flo
     stampaCoordSide(buffer, 5,  i + 1, LC, true);
   }
 
+  stampaCoord("Generale", 0, NC + 1, LC);
   sprintf(buffer, "%.2f", medie[NC]);
-  stampaCoordSide(buffer, 5, NC, LC, true);
+  stampaCoordSide(buffer, 5, NC + 1, LC, true);
 }
 
 // Logica
