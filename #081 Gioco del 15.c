@@ -35,6 +35,8 @@ bool hasWon(int[]);
 int main() {
   setlocale(LC_ALL, "");
   vts_activateCommands();
+  vts_cursorKeysApplicationMode();
+
   int s, diff = 1000;
 
   do {
@@ -78,6 +80,7 @@ void newGame(int difficulty) {
   int board[16];
   int zeroP = randomBoard(board, difficulty);
 
+  vts_clear();
   vts_cursorHide();
 
   do {
@@ -180,13 +183,13 @@ int move(int zeroP) {
   do {
     fflush(stdin);
     vts_xy(0, 5);
-    vts_foregroundBlack();
+    // vts_foregroundBlack();
 
     scanf("%c", &a);
 
     vts_xy(0, 4);
     vts_textDeleteLine(1);
-    vts_foregroundBrightRed();
+    // vts_foregroundBrightRed();
 
     if (a != 27) {
       printf("Not an arrow.\n");

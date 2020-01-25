@@ -14,13 +14,13 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "libraries/vts.c" // Colori per il terminale.
+#include "libraries/vts.c" // Colori per il terminale e altro.
 #include "libraries/sleep.c" // Sleep multi-piattaforma.
 
 // Costanti
-#define NC 40  // Numero di città (Non piu di 11.)
+#define NC 10  // Numero di città (Non piu di 11.)
 #define LS 64 /// Lunghezza massima di una stringa
-#define LC 12 // larghezza Cella
+#define LC 16 // larghezza Cella
 
 const char STAGIONI[4][LS] = { "Inverno", "Primavera", "Estate", "Autunno" };
 
@@ -43,7 +43,7 @@ int main() {
   setlocale(LC_ALL, "");
   vts_activateCommands();
 
-  char nomi[NC][LS];
+  char nomi[NC][LS] = { "" };
   float temperature[NC][4];
 
   //carica(nomi, temperature);

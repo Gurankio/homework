@@ -208,8 +208,12 @@ void vts_resize(int width, int height) {
 }
 
 void vts_clear() {
+  #ifdef _WIN32
+  system("cls");
+  #else
   printf("\x1b[2J");
   fflush(stdout);
+  #endif
 }
 
 // Cursor Positioning
