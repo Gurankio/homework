@@ -22,7 +22,7 @@
   scanf(format, __VA_ARGS__);
 
 // Prototipi
-int match(char input[LENGTH], char pattern[LENGTH]);
+int match(char input[LENGTH], char pattern[LENGTH], int position[LENGTH]);
 
 // Funzioni
 int main() {
@@ -31,26 +31,34 @@ int main() {
   char input[LENGTH], pattern[LENGTH];
   printf("Inserire la stringa: ");
   gets(input);
-  printf("Inserire la sotto-stringa: ");
+  printf("Inserire il pattern: ");
   gets(pattern);
 
-  int count = match(input, pattern);
+
+  int out[LENGTH], count = match(input, pattern, out);
   printf("Il pattern e' stato trovato %d volte.\n", count);
+
+  for (int i = 0; i < count; i++)
+    printf("\tPosizione: %d\n", out[i]);
 
   // getchar();
   // system("pause");
   return 0;
 }
 
-int match(char input[LENGTH], char pattern[LENGTH]) {
+int match(char input[LENGTH], char pattern[LENGTH], int position[LENGTH]) {
   int count = 0;
 
-  char *temp = strstr(input, pattern);
+  for (int i = 0; i < strlen(input) - strlen(pattern) + 1; i++) {
+    int trovato = 1;
 
-  while (temp != NULL) {
-    printf("Posizione della sotto-stringa %d -> %d\n", count + 1, (int)temp - (int)&input[0] + 1);
-    count++;
-    temp = strstr(temp + 1, pattern);
+    for (int j = 0; j < strlen(pattern); j++)
+      if (input[i + j] != pattern[j]) trovato = 0;
+
+    if (trovato) {
+      position[count] = i;
+      count++;
+    }
   }
 
   return count;
