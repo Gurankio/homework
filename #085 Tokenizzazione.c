@@ -45,13 +45,31 @@ int main() {
 }
 
 int token(char input[LENGTH], char output[LENGTH][LENGTH]) {
-  int count = 0;
-  char *temp = strtok(input, " ");
+  for (int i = 0; i < LENGTH; i++)
+    for (int j = 0; j < LENGTH; j++)
+      output[i][j] = '\0';
 
-  while (temp != NULL) {
-    strcpy(output[count++], temp);
-    temp = strtok(NULL, " ");
+  int countOut = 0;
+
+  for (int i = 0; i < strlen(input) + 1; i++) {
+    int j;
+
+    for (j = i; j < strlen(input) + 1; j++) {
+      if (input[j] == ' ' || input[j] == '\0') {
+        int a;
+
+        if (j - i == 0) break;
+
+        for (a = 0; a < (j - i); a++)
+          output[countOut][a] = input[i + a];
+
+        countOut++;
+        break;
+      }
+    }
+
+    i = j;
   }
 
-  return count;
+  return countOut;
 }
