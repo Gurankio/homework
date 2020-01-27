@@ -12,7 +12,6 @@
 #include <locale.h>
 #include <stdarg.h>
 #include <stdbool.h>
-#include <string.h>
 
 #define LENGTH 64
 
@@ -23,6 +22,7 @@
 
 // Prototipi
 int match(char input[LENGTH], char pattern[LENGTH], int position[LENGTH]);
+int len(char *input);
 
 // Funzioni
 int main() {
@@ -49,10 +49,10 @@ int main() {
 int match(char input[LENGTH], char pattern[LENGTH], int position[LENGTH]) {
   int count = 0;
 
-  for (int i = 0; i < strlen(input) - strlen(pattern) + 1; i++) {
+  for (int i = 0; i < len(input) - len(pattern) + 1; i++) {
     int trovato = 1;
 
-    for (int j = 0; j < strlen(pattern); j++)
+    for (int j = 0; j < len(pattern); j++)
       if (input[i + j] != pattern[j]) trovato = 0;
 
     if (trovato) {
@@ -62,4 +62,12 @@ int match(char input[LENGTH], char pattern[LENGTH], int position[LENGTH]) {
   }
 
   return count;
+}
+
+int len(char *input) {
+  int i = 0;
+
+  while (input[i] != '\0') i++;
+
+  return i;
 }

@@ -11,7 +11,6 @@
 #include <locale.h>
 #include <stdarg.h>
 #include <stdbool.h>
-#include <string.h>
 
 #define LENGTH 64
 
@@ -22,6 +21,7 @@
 
 // Prototipi
 int token(char input[LENGTH], char output[LENGTH][LENGTH]);
+int len(char *input);
 
 // Funzioni
 int main() {
@@ -51,10 +51,10 @@ int token(char input[LENGTH], char output[LENGTH][LENGTH]) {
 
   int countOut = 0;
 
-  for (int i = 0; i < strlen(input) + 1; i++) {
+  for (int i = 0; i < len(input) + 1; i++) {
     int j;
 
-    for (j = i; j < strlen(input) + 1; j++) {
+    for (j = i; j < len(input) + 1; j++) {
       if (input[j] == ' ' || input[j] == '\0') {
         int a;
 
@@ -72,4 +72,12 @@ int token(char input[LENGTH], char output[LENGTH][LENGTH]) {
   }
 
   return countOut;
+}
+
+int len(char *input) {
+  int i = 0;
+
+  while (input[i] != '\0') i++;
+
+  return i;
 }

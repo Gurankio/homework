@@ -11,7 +11,6 @@
 #include <locale.h>
 #include <stdarg.h>
 #include <stdbool.h>
-#include <string.h>
 
 #define LENGTH 64
 
@@ -22,6 +21,7 @@
 
 // Prototipi
 bool sostituisci(char a[LENGTH], int x, int y, char b[LENGTH], int w, int z);
+int len(char *input);
 
 // Funzioni
 int main() {
@@ -53,9 +53,9 @@ int main() {
 }
 
 bool sostituisci(char *a, int x, int y, char *b, int w, int z) {
-  if (x < 0 || y > strlen(a)) return false;
+  if (x < 0 || y > len(a)) return false;
 
-  if (w < 0 || z > strlen(b)) return false;
+  if (w < 0 || z > len(b)) return false;
 
   if (y - x != z - w) return false;
 
@@ -65,4 +65,12 @@ bool sostituisci(char *a, int x, int y, char *b, int w, int z) {
     a[x + (c++)] = b[i];
 
   return true;
+}
+
+int len(char *input) {
+  int i = 0;
+
+  while (input[i] != '\0') i++;
+
+  return i;
 }
