@@ -177,36 +177,36 @@ int randomBoard(int board[], int times) {
 
 int move(int zeroP) {
   int row = zeroP / 4, column = zeroP % 4;
-  char a, b, c, nl;
+  char c, nl;
   int found = 0;
 
   do {
     fflush(stdin);
     vts_xy(0, 5);
-    // vts_foregroundBlack();
-
-    scanf("%c", &a);
-
-    vts_xy(0, 4);
-    vts_textDeleteLine(1);
-    // vts_foregroundBrightRed();
-
-    if (a != 27) {
-      printf("Not an arrow.\n");
-      continue;
-    }
-
-    scanf("%c", &b);
-
-    if (b != 91) {
-      printf("Not an arrow.\n");
-      continue;
-    }
+    vts_foregroundBlack();
 
     scanf("%c", &c);
 
+    vts_xy(0, 4);
+    vts_textDeleteLine(1);
+    vts_foregroundBrightRed();
+
+    /*
+       if (a != 27) {
+       printf("Not an arrow.\n");
+       continue;
+       }
+
+       scanf("%c", &b);
+
+       if (b != 91) {
+       printf("Not an arrow.\n");
+       continue;
+       }
+     */
+
     switch (c) {
-      case 65:
+      case 'w':
 
         // printf("Arrow UP.\n");
 
@@ -215,7 +215,7 @@ int move(int zeroP) {
 
         break;
 
-      case 66:
+      case 's':
 
         // printf("Arrow DOWN.\n");
 
@@ -224,7 +224,7 @@ int move(int zeroP) {
 
         break;
 
-      case 67:
+      case 'd':
 
         // printf("Arrow RIGHT.\n");
 
@@ -233,7 +233,7 @@ int move(int zeroP) {
 
         break;
 
-      case 68:
+      case 'a':
 
         // printf("Arrow LEFT.\n");
 
@@ -243,7 +243,7 @@ int move(int zeroP) {
         break;
 
       default:
-        printf("Not an arrow.\n");
+        printf("Not W A S D.\n");
     }
 
     scanf("%c", &nl);
