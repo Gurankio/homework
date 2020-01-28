@@ -112,15 +112,15 @@ static void typeRender(int type) {
       break;
 
     case ATR_RED:
-      vts_foregroundRed();
+      vts_foregroundBrightRed();
       break;
 
     case ATR_BLUE:
-      vts_foregroundBlue();
+      vts_foregroundBrightCyan();
       break;
 
     case ATR_GREEN:
-      vts_foregroundGreen();
+      vts_foregroundBrightGreen();
       break;
   }
 }
