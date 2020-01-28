@@ -14,11 +14,6 @@
 
 /*
  * Type of Rendering to use.
- * 0 -> Standar
- * 1 -> Lines
- * 11 -> Red
- * 12 -> Blue
- * 13 -> Green
  */
  #define ATR_DEFAULT 0
  #define ATR_LINES   1
@@ -161,26 +156,6 @@ void printLayers(atr_layer layers[], int count) {
 
     printf("\n");
   }
-}
-
-//
-
-int main() {
-  atr_layer l[2];
-
-  atr_layerStart(&l[0], 15, 5);
-  atr_layerStart(&l[1], 15, 5);
-
-  atr_layerTypeSet(&l[0], ATR_LINES);
-  atr_layerSetBuffer(&l[0], 0, 0, "qxnnqnxqqq");
-
-  atr_layerTypeSet(&l[1], ATR_GREEN);
-  atr_layerSetFormat(&l[1], 2, 4, "%d", 9842);
-
-  printLayers(l, 2);
-
-  atr_layerEnd(&l[0]);
-  atr_layerEnd(&l[1]);
 }
 
 #endif /* ifndef ATR */
