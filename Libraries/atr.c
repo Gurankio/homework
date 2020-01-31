@@ -38,11 +38,11 @@ void atr_layerSet(atr_layer *layer, int x, int y, char c);
 void atr_layerSetBuffer(atr_layer *layer,  int x, int y, char c[]);
 void atr_layerSetFormat(atr_layer *layer, int x, int y, char c[], ...);
 
-static void typeRender(int type);
+static void atr_typeRender(int type);
 // static void dataMerge(char **data, char *output);
 
-void printLayer(atr_layer layer);
-void printLayers(atr_layer layers[], int count);
+void atr_printLayer(atr_layer layer);
+void atr_printLayers(atr_layer layers[], int count);
 
 // Funzioni
 
@@ -95,7 +95,7 @@ void atr_layerSetFormat(atr_layer *layer, int x, int y, char pattern[], ...) {
 
 //
 
-static void typeRender(int type) {
+static void atr_typeRender(int type) {
   vts_asciiSet();
   switch (type) {
     case ATR_DEFAULT:
@@ -120,18 +120,18 @@ static void typeRender(int type) {
   }
 }
 
-void printLayer(atr_layer layer) {
-  typeRender(layer.type);
+void atr_printLayer(atr_layer layer) {
+  atr_typeRender(layer.type);
 
   for (int i = 0; i < layer.height; i++) {
     for (int j = 0; j < layer.width; j++)
-      printf("%c", layer.data[i][j] != -1 ? layer.data[i][j] : ' ');
+      putchar(layer.data[i][j] != -1 ? layer.data[i][j] : ' ');
 
-    printf("\n");
+    putchar('\n');
   }
 }
 
-void printLayers(atr_layer layers[], int count) {
+void atr_printLayers(atr_layer layers[], int count) {
   if (count < 1) return;
 
   for (int i = 0; i < layers[0].height; i++) {
@@ -143,18 +143,18 @@ void printLayers(atr_layer layers[], int count) {
 
         if (value == -1) continue;
 
-        typeRender(layers[n].type);
-        printf("%c", value);
+        atr_typeRender(layers[n].type);
+        putchar(value);
         break;
       }
 
       if (n == count) {
-        typeRender(ATR_DEFAULT); // Default
-        printf("%c", ' ');
+        atr_typeRender(ATR_DEFAULT); // Default
+        putchar(' ');
       }
     }
 
-    printf("\n");
+    putchar('\n');
   }
 }
 

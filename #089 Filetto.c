@@ -72,12 +72,17 @@ int main() {
 
   for (int i = 0; i < 9; i++) {
     vts_clear();
-    printLayers(layers, 3);
+    atr_printLayers(layers, 3);
 
-    int n;
-    chiedi("\nFai la tua mossa: ", "%d", &n);
+    int n, row, column;
+    do {
+      chiedi("\nFai la tua mossa: ", "%d", &n);
+      row = (n - 1) % 3, column = (n - 1) / 3;
 
-    int row = (n - 1) % 3, column = (n - 1) / 3;
+      if (matrix[row][column] != 0) printf("Mossa non valida\n");
+    } while (matrix[row][column] != 0);
+
+
     atr_layerSet(&layers[0], row * 4 + 1, column * 4 + 1, i % 2 ? 'X' : 'O');
     matrix[row][column] = i % 2 ? 1 : -1;
     state = checkWin(matrix);
@@ -86,7 +91,7 @@ int main() {
   }
 
   vts_clear();
-  printLayers(layers, 3);
+  atr_printLayers(layers, 3);
 
   switch (state) {
     case -1:
