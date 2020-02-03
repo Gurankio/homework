@@ -15,11 +15,12 @@
 /*
  * Type of Rendering to use.
  */
- #define ATR_DEFAULT 0
- #define ATR_LINES   1
- #define ATR_RED     11
- #define ATR_BLUE    12
- #define ATR_GREEN   13
+ #define ATR_DEFAULT 0b00000000
+ #define ATR_LINES   0b00000001
+ #define ATR_BOLD    0b00000010
+ #define ATR_RED     0b00000100
+ #define ATR_BLUE    0b00001000
+ #define ATR_GREEN   0b00010000
 
 
 typedef struct {
@@ -34,7 +35,9 @@ void atr_layerEnd(atr_layer *layer);
 
 void atr_layerTypeSet(atr_layer *layer, int type);
 
+char atr_layerGet(atr_layer *layer, int x, int y);
 void atr_layerSet(atr_layer *layer, int x, int y, char c);
+
 void atr_layerSetBuffer(atr_layer *layer,  int x, int y, char c[]);
 void atr_layerSetFormat(atr_layer *layer, int x, int y, char c[], ...);
 
@@ -71,7 +74,15 @@ void atr_layerTypeSet(atr_layer *layer, int type) {
 
 //
 
+char atr_layerGet(atr_layer *layer, int x, int y) {
+  return layer->data[y][x];
+}
+
 void atr_layerSet(atr_layer *layer, int x, int y, char c) {
+  if (x < 0 || x > layer->width) fprintf(stderr, "atr_layerSet(): Parameter X (%d) out of bounds.\n", x);
+
+  if (y < 0 || y > layer->height) fprintf(stderr, "atr_layerSet(): Parameter Y (%d) out of bounds.\n", y);
+
   layer->data[y][x] = c;
 }
 
@@ -95,29 +106,31 @@ void atr_layerSetFormat(atr_layer *layer, int x, int y, char pattern[], ...) {
 
 //
 
+// TODO: BITWISE
 static void atr_typeRender(int type) {
   vts_asciiSet();
-  switch (type) {
-    case ATR_DEFAULT:
-      vts_foregroundDefault();
-      break;
+  vts_foregroundDefault();
+  vts_textDefault();
 
-    case ATR_LINES:
-      vts_lineDrawingSet();
-      break;
+  if (type % 2) vts_lineDrawingSet();
 
-    case ATR_RED:
-      vts_foregroundBrightRed();
-      break;
+  type /= 2;
 
-    case ATR_BLUE:
-      vts_foregroundBrightCyan();
-      break;
+  if (type % 2) vts_textBold();
 
-    case ATR_GREEN:
-      vts_foregroundBrightGreen();
-      break;
-  }
+  type /= 2;
+
+  if (type % 2) vts_foregroundRed();
+
+  type /= 2;
+
+  if (type % 2) vts_foregroundCyan();
+
+  type /= 2;
+
+  if (type % 2) vts_foregroundGreen();
+
+  type /= 2;
 }
 
 void atr_printLayer(atr_layer layer) {
