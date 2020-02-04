@@ -24,6 +24,7 @@
 
 // Prototipi
 int menu();
+void prelievo(int [3]);
 
 // Funzioni
 int main() {
@@ -41,12 +42,12 @@ int main() {
         prelievo(banconote);
         break;
 
-      case 2:
+      case 0:
         printf("Arrivederci.\n");
         break;
     }
     //
-  } while (scelta != 2);
+  } while (scelta != 0);
 
   // getchar();
   // system("pause");
@@ -55,7 +56,7 @@ int main() {
 
 int menu() {
   printf("1: Prelievo");
-  printf("2: Esci");
+  printf("0: Esci");
 
   int n;
   chiedi("Scelta: ", "%d", &n);
