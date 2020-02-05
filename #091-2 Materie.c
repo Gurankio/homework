@@ -36,6 +36,8 @@ void cercaStudente(char [NS][NM][LS], int, int);
 void rimuoviStudente(char [NS][NM][LS], int *, int);
 
 void voti(char [NS][NM][LS], int, int);
+
+void creaMedie(char [NS][NM][LS], char [NS][NM][LS], int, int);
 void media(char [NS][NM][LS], int, int);
 void bilancio(char [NS][NM][LS], int, int);
 
@@ -48,6 +50,8 @@ int main() {
   setlocale(LC_ALL, "");
 
   char dati[NS][NM][LS];
+  strcpy(dati[0][0], "Studenti");
+
   int studenti = 0, materie = 0;
 
   int s;
@@ -111,6 +115,7 @@ int menu() {
   printf("6) Stampa Voti\n");
   printf("7) Stampa Media\n");
   printf("8) Stampa Bilancio Bocciati/Promossi\n");
+  printf("0) Esci\n");
 
   int s;
   char nl;
@@ -133,10 +138,10 @@ void aggiungiMateria(char dati[NS][NM][LS], int studenti, int *materie) {
 
   int indice;
 
-  for (indice = 0; indice < *materie; indice++) {
+  for (indice = 1; indice < *materie + 1; indice++) {
     if (strcmp(dati[0][indice], buffer) > 0) {
-      for (int j = *materie; j > indice; j--)
-        for (int k = 0; k < studenti; k++)
+      for (int j = *materie + 1; j > indice; j--)
+        for (int k = 0; k < studenti + 1; k++)
           strcpy(dati[k][j], dati[k][j - 1]);
 
       break;
@@ -169,7 +174,7 @@ void aggiungiMateria(char dati[NS][NM][LS], int studenti, int *materie) {
         float voto;
         sscanf(tokens[n], "%f", &voto);
 
-        if (voto < 0 || voto > 10) {
+        if (voto < 1 || voto > 10) {
           ripeti = 1;
           printf("Il voto %.2f non è valido.\n", voto);
         }
@@ -191,7 +196,7 @@ void rimuoviMateria(char dati[NS][NM][LS], int studenti, int *materie) {
 
   int indice = -1;
 
-  for (int i = 0; i < *materie; i++) {
+  for (int i = 1; i < *materie + 1; i++) {
     if (strcmp(buffer, dati[0][i]) == 0) {
       indice = i;
       break;
@@ -206,8 +211,8 @@ void rimuoviMateria(char dati[NS][NM][LS], int studenti, int *materie) {
   //
   // Pulisco
 
-  for (int i = indice; i < *materie - 1; i++)
-    for (int j = 0; j < studenti; j++)
+  for (int i = indice; i < *materie; i++)
+    for (int j = 0; j < studenti + 1; j++)
       strcpy(dati[j][i], dati[j][i + 1]);
 
   (*materie)--;
@@ -219,17 +224,17 @@ void aggiungiStudente(char dati[NS][NM][LS], int *studenti, int materie) {
   char buffer[LS];
 
   //
-  // Nuova materia. Inserimento ordinato.
+  // Nuovo studente. Inserimento ordinato.
 
   printf("Inserire il nome dello studente: ");
   gets(buffer);
 
   int indice;
 
-  for (indice = 0; indice < *studenti; indice++) {
+  for (indice = 1; indice < *studenti + 1; indice++) {
     if (strcmp(dati[indice][0], buffer) > 0) {
-      for (int j = *studenti; j > indice; j--)
-        for (int k = 0; k < materie; k++)
+      for (int j = *studenti + 1; j > indice; j--)
+        for (int k = 0; k < materie + 1; k++)
           strcpy(dati[j][k], dati[j - 1][k]);
 
       break;
@@ -262,7 +267,7 @@ void aggiungiStudente(char dati[NS][NM][LS], int *studenti, int materie) {
         float voto;
         sscanf(tokens[n], "%f", &voto);
 
-        if (voto < 0 || voto > 10) {
+        if (voto < 1 || voto > 10) {
           ripeti = 1;
           printf("Il voto %.2f non è valido.\n", voto);
         }
@@ -274,19 +279,141 @@ void aggiungiStudente(char dati[NS][NM][LS], int *studenti, int materie) {
 }
 
 void cercaStudente(char dati[NS][NM][LS], int studenti, int materie) {
+  char buffer[LS];
+
+  printf("Inserire lo studente da cercare: ");
+  gets(buffer);
+
+  //
+  // Ricerca
+
+  int indice = -1;
+
+  for (int i = 1; i < studenti + 1; i++) {
+    if (strcmp(buffer, dati[i][0]) == 0) {
+      indice = i;
+      break;
+    }
+  }
+
+  if (indice == -1) printf("Studente \"%s\" non trovato.\n", buffer);
+  else {
+    for (int i = 0; i < materie + 1; i++)
+      printf("%*s", LS, dati[0][i]);
+
+    for (int i = 0; i < materie + 1; i++)
+      printf("%*s", LS, dati[indice][i]);
+  }
 }
 
 void rimuoviStudente(char dati[NS][NM][LS], int *studenti, int materie) {
+  char buffer[LS];
+
+  printf("Inserire lo studente da rimuovere: ");
+  gets(buffer);
+
+  //
+  // Ricerca
+
+  int indice = -1;
+
+  for (int i = 1; i < *studenti + 1; i++) {
+    if (strcmp(buffer, dati[i][0]) == 0) {
+      indice = i;
+      break;
+    }
+  }
+
+  if (indice == -1) {
+    printf("Studente \"%s\" non trovato.\n", buffer);
+    return;
+  }
+
+  //
+  // Pulisco
+
+  for (int i = indice; i < *studenti; i++)
+    for (int j = 0; j < materie + 1; j++)
+      strcpy(dati[i][j], dati[i + 1][j]);
+
+  (*studenti)--;
+
+  printf("Rimossa la materia \"%s\".\n", buffer);
 }
 
 void voti(char dati[NS][NM][LS], int studenti, int materie) {
   stampa(dati, studenti, materie);
 }
 
+void creaMedie(char media[NS][NM][LS], char dati[NS][NM][LS], int studenti, int materie) {
+  for (int i = 0; i < studenti + 1; i++)
+    strcpy(media[i][0], dati[i][0]);
+
+  for (int i = 0; i < materie + 1; i++)
+    strcpy(media[0][i], dati[0][i]);
+
+  for (int i = 1; i < studenti + 1; i++) {
+    for (int j = 1; j < materie + 1; j++) {
+      char tokens[LS][LS];
+      int numeroToken = token(dati[i][j], tokens);
+
+      float somma = 0;
+
+      for (int n = 0; n < numeroToken; n++) {
+        float voto;
+        sscanf(tokens[n], "%f", &voto);
+
+        somma += voto;
+      }
+
+      if (numeroToken != 0) {
+        char buffer[LS];
+        sprintf(buffer, "%.2f", somma / numeroToken);
+        strcpy(media[i][j], buffer);
+      }
+    }
+  }
+}
+
 void media(char dati[NS][NM][LS], int studenti, int materie) {
+  char media[NS][NM][LS];
+
+  creaMedie(media, dati, studenti, materie);
+  stampa(media, studenti, materie);
 }
 
 void bilancio(char dati[NS][NM][LS], int studenti, int materie) {
+  char medie[NS][NM][LS];
+
+  creaMedie(medie, dati, studenti, materie);
+
+  int totalePromossi = 0;
+  int totaleRimandati = 0;
+  int totaleBocciati = 0;
+
+  for (int i = 1; i < studenti + 1; i++) {
+    int insufficenti = 0;
+
+    for (int j = 1; j < materie + 1; j++) {
+      float media;
+      sscanf(medie[i][j], "%f", &media);
+
+      if (media < 6) insufficenti++;
+    }
+
+    if (insufficenti == 0) {
+      totalePromossi++;
+      printf("Lo studente %s e' promosso.\n", medie[i][0]);
+    } else if (insufficenti == 1) {
+      totaleRimandati++;
+      printf("Lo studente %s e' rimandato.\n", medie[i][0]);
+    } else {
+      totaleBocciati++;
+      printf("Lo studente %s e' bocciato.\n", medie[i][0]);
+    }
+  }
+
+  printf("\nCi sono %d promossi, %d rimandati, %d bocciati.\n", totalePromossi, totaleRimandati, totaleBocciati);
 }
 
 //
