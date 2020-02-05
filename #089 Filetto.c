@@ -76,14 +76,15 @@ int main() {
 
     int n, row, column;
     do {
-      chiedi("\nFai la tua mossa: ", "%d", &n);
+      printf("\nFai la tua mossa giocatore %c: ", i % 2 ? 'O' : 'X');
+      scanf("%d", &n);
       row = (n - 1) % 3, column = (n - 1) / 3;
 
       if (matrix[row][column] != 0) printf("Mossa non valida\n");
     } while (matrix[row][column] != 0);
 
 
-    atr_layerSet(&layers[0], row * 4 + 1, column * 4 + 1, i % 2 ? 'X' : 'O');
+    atr_layerSet(&layers[0], row * 4 + 1, column * 4 + 1, i % 2 ? 'O' : 'X');
     matrix[row][column] = i % 2 ? 1 : -1;
     state = checkWin(matrix);
 
@@ -95,7 +96,7 @@ int main() {
 
   switch (state) {
     case -1:
-      printf("Ha vinto il giocatore O.\n");
+      printf("Ha vinto il giocatore X.\n");
       break;
 
     case 0:
@@ -103,7 +104,7 @@ int main() {
       break;
 
     case 1:
-      printf("Ha vinto il giocatore X.\n");
+      printf("Ha vinto il giocatore O.\n");
       break;
   }
 
