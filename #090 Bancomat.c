@@ -15,8 +15,6 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
-#include "libraries/vts.c"
-
 const int INIZIALE = 20;
 const int MASSIMO_TRANSAZIONE = 5;
 
