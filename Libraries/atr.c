@@ -142,6 +142,8 @@ void atr_printLayer(atr_layer layer) {
 
     putchar('\n');
   }
+
+  atr_typeRender(ATR_DEFAULT); // Default
 }
 
 void atr_printLayers(atr_layer layers[], int count) {
@@ -169,6 +171,8 @@ void atr_printLayers(atr_layer layers[], int count) {
 
     putchar('\n');
   }
+
+  atr_typeRender(ATR_DEFAULT); // Default
 }
 
 #endif /* ifndef ATR */
