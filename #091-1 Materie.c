@@ -1,9 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #091 GG.MM.YYYY
- *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * #091-1 11.02.2020
  */
 
 #include <stdlib.h>
