@@ -79,9 +79,9 @@ char atr_layerGet(atr_layer *layer, int x, int y) {
 }
 
 void atr_layerSet(atr_layer *layer, int x, int y, char c) {
-  if (x < 0 || x > layer->width) fprintf(stderr, "atr_layerSet(): Parameter X (%d) out of bounds.\n", x);
+  if (x < 0 || x >= layer->width) fprintf(stderr, "atr_layerSet(): Parameter X (%d) out of bounds.\n", x);
 
-  if (y < 0 || y > layer->height) fprintf(stderr, "atr_layerSet(): Parameter Y (%d) out of bounds.\n", y);
+  if (y < 0 || y >= layer->height) fprintf(stderr, "atr_layerSet(): Parameter Y (%d) out of bounds.\n", y);
 
   layer->data[y][x] = c;
 }

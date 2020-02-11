@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #092 GG.MM.YYYY
+ * #092 12.02.2020
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Gioco del Forza 4.
  */
 
 #include <stdlib.h>
@@ -37,14 +36,13 @@ int main() {
 
   for (int i = 0; i < 6; i++)
     for (int j = 0; j < 7; j++)
-      m[i][j] = -1;
+      m[i][j] = 0;
 
   // 0 -> Griglia
   // 1 -> Aiuti
   // 2 -> Giocatore 1
   // 3 -> Giocatore 2
   const int WIDTH = 29, HEIGHT = 19;
-  // vts_resize(WIDTH * 2, HEIGHT + 2);
   atr_layer layers[4];
 
   atr_layerStart(&layers[0], WIDTH, HEIGHT);
@@ -61,7 +59,7 @@ int main() {
   griglia(&layers[0]);
   aiuti(&layers[1]);
 
-  int player = 0;
+  int player = 1;
 
   do {
     vts_clear();
@@ -71,13 +69,13 @@ int main() {
     int s;
 
     do {
-      printf("Fai la tua mossa giocatore %s: ", player ? "blu" : "rosso");
+      printf("Fai la tua mossa giocatore %s: ", player == 1 ? "rosso" : "blu");
       scanf("%d", &s);
       s--;
 
       if (s < 0 || s > 6) printf("Input non valido.\n");
-      else if (m[0][s] != -1) printf("Non c'e' spazio.\n");
-    } while (s < 0 || s > 6 || m[0][s] != -1);
+      else if (m[0][s] != 0) printf("Non c'e' spazio.\n");
+    } while (s < 0 || s > 6 || m[0][s] != 0);
 
 
     // ANIMAZIONE e COLLISIONE
@@ -85,11 +83,11 @@ int main() {
 
     do {
       //
-      if (m[r + 1][s] == -1) r++;
+      if (m[r + 1][s] == 0) r++;
       else break;
 
       //
-    } while (r < 6);
+    } while (r < 5);
 
     m[r][s] = player;
 
@@ -97,29 +95,27 @@ int main() {
       if (k != 0)
         for (int i = 0; i < 2; i++)
           for (int j = 0; j < 3; j++)
-            atr_layerSet(&layers[2 + player], (1 + j) + (s * 4), (1 + i) + (k - 1) * 3, -1);
+            atr_layerSet(&layers[2 + (player == 1 ? 0 : 1)], (1 + j) + (s * 4), (1 + i) + (k - 1) * 3, -1);
 
       for (int i = 0; i < 2; i++)
         for (int j = 0; j < 3; j++)
-          atr_layerSet(&layers[2 + player], (1 + j) + (s * 4), (1 + i) + (k) * 3, 'X');
+          atr_layerSet(&layers[2 + (player == 1 ? 0 : 1)], (1 + j) + (s * 4), (1 + i) + (k) * 3, 'X');
 
       vts_clear();
       atr_printLayers(layers, 4);
-      cp_sleep(250);
+      cp_sleep(150);
     }
 
     // CONTROLLA VITTORIA.
-    /*int vincente = vittoria(m);
+    int vincente = vittoria(m);
 
-       if (vincente != -1) {
-       printf("%d", vincente);
-       break;
-       }
-     */
+    if (vincente != -1) {
+      printf("\nIl giocatore %s ha vinto.\n", player == 1 ? "rosso" : "blu");
+      break;
+    }
 
-    player = !player;
+    player *= -1;
   } while (1);
-
 
   atr_layerEnd(&layers[0]);
   atr_layerEnd(&layers[1]);
@@ -131,21 +127,59 @@ int main() {
 }
 
 int vittoria(int m[6][7]) {
-  int out = -1;
-
-  for (int i = 0; i < 6; i++) {
-    for (int k = 0; k < 3; k++) {
+  // Righe
+  for (int k = 0; k < 6; k++) {
+    for (int i = 0; i < 4; i++) {
       int somma = 0;
 
-      for (int j = k; j < 4; j++)
-        somma += m[i][j];
+      for (int j = 0; j < 4; j++)
+        somma += m[k][i + j];
 
-      if (somma == 0) out = 0;
-      else if (somma == 1) out = 1;
+      if (somma == -4) return 0;
+      else if (somma == 4) return 1;
     }
   }
 
-  return out;
+  // Colonne
+  for (int k = 0; k < 7; k++) {
+    for (int i = 0; i < 3; i++) {
+      int somma = 0;
+
+      for (int j = 0; j < 4; j++)
+        somma += m[i + j][k];
+
+      if (somma == -4) return 0;
+      else if (somma == 4) return 1;
+    }
+  }
+
+  // Diagonale 1
+  for (int k = 0; k < 4; k++) {
+    for (int i = 0; i < 3; i++) {
+      int somma = 0;
+
+      for (int j = 0; j < 4; j++)
+        somma += m[i + j][k + j];
+
+      if (somma == -4) return 0;
+      else if (somma == 4) return 1;
+    }
+  }
+
+  // Diagonale 2
+  for (int k = 3; k < 7; k++) {
+    for (int i = 0; i < 3; i++) {
+      int somma = 0;
+
+      for (int j = 0; j < 4; j++)
+        somma += m[i + j][k + (4 - j)];
+
+      if (somma == -4) return 0;
+      else if (somma == 4) return 1;
+    }
+  }
+
+  return -1;
 }
 
 void griglia(atr_layer *layer) {
