@@ -248,6 +248,7 @@ void rimuoviStudente(char classi[NS][LS], char extra[NS][4][LS], int *cStudenti)
 
 void stampaStudenti(char classi[NS][LS], char extra[NS][4][LS], int cStudenti) {
   printf("%*s\n", LS, classi[0]);
+  printf("%*s%*s%*s%*s\n", LS, "Nome", LS, "Sesso", LS, "Data di nascita", LS, "Citta di nascita");
 
   for (int i = 1; i < cStudenti + 1; i++) {
     printf("%*s", LS, classi[i]);

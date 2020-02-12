@@ -15,7 +15,7 @@
 #include "libraries/sleep.c" // Sleep multi-piattaforma.
 
 // Costanti
-#define NC 4000  // Numero di città (Non piu di 11.)
+#define NC 40  // Numero di città (Non piu di 11.)
 #define LS 64 /// Lunghezza massima di una stringa
 #define LC 16 // larghezza Cella
 
