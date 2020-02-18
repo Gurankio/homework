@@ -54,7 +54,8 @@ int main() {
 
     switch (s) {
       case 1:
-        aggiungiAlbergo(nomi, stelle, servizi, &numeroAlberghi);
+        if (numeroAlberghi != MA) aggiungiAlbergo(nomi, stelle, servizi, &numeroAlberghi);
+        else printf("Massimi alberghi.");
         break;
 
       case 2:
@@ -133,7 +134,7 @@ void ricercaAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS],
   printf("Inserire il servizio richiesto: ");
   scanf("%s", buffer);
 
-  if (strcmp(buffer, "-") == 0) controllaServizi = 0; 
+  if (strcmp(buffer, "-") == 0) controllaServizi = 0;
 
   int numeroValidi = 0, validi[numeroAlberghi];
   for (int i=0; i<numeroAlberghi; i++) {
