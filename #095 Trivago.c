@@ -27,7 +27,7 @@
 // Prototipi
 int menu();
 
-void aggiungiAlbergo(char[MA][LS], int[MA], char[MA][MS][LS], int*);
+void aggiungiAlbergo(char[MA][LS], int[MA], char[MA][MS][LS], int *);
 void ricercaAlbergo(char[MA][LS], int[MA], char[MA][MS][LS], int);
 void stampaAlberghi(char[MA][LS], int[MA], char[MA][MS][LS], int);
 void stampaOrdinato(char[MA][LS], int[MA], char[MA][MS][LS], int);
@@ -40,11 +40,9 @@ int main() {
   int stelle[MA];
   char servizi[MA][MS][LS];
 
-  for (int i=0; i<MA; i++) {
-    for (int j=0; j<MS; j++) {
+  for (int i = 0; i < MA; i++)
+    for (int j = 0; j < MS; j++)
       strcpy(servizi[i][j], "");
-    }
-  }
 
   int numeroAlberghi = 0;
 
@@ -54,8 +52,10 @@ int main() {
 
     switch (s) {
       case 1:
+
         if (numeroAlberghi != MA) aggiungiAlbergo(nomi, stelle, servizi, &numeroAlberghi);
         else printf("Massimi alberghi.");
+
         break;
 
       case 2:
@@ -77,7 +77,6 @@ int main() {
       default:
         printf("Scelta non valida.\n");
     }
-
   } while (s != 0);
 
 
@@ -114,8 +113,8 @@ void aggiungiAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS]
   printf("Inserire di quanti servizi dispone l'albergo: ");
   scanf("%d", &n);
 
-  for (int i=0; i<n; i++) {
-    printf("Inserire il %d servizio: ", i+1);
+  for (int i = 0; i < n; i++) {
+    printf("Inserire il %d servizio: ", i + 1);
     scanf("%s", servizi[*numeroAlberghi][i]);
   }
 
@@ -124,6 +123,7 @@ void aggiungiAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS]
 
 void ricercaAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS], int numeroAlberghi) {
   int stelleRichieste;
+
   do {
     printf("Inserire le stelle dell'albergo: ");
     scanf("%d", &stelleRichieste);
@@ -137,20 +137,15 @@ void ricercaAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS],
   if (strcmp(buffer, "-") == 0) controllaServizi = 0;
 
   int numeroValidi = 0, validi[numeroAlberghi];
-  for (int i=0; i<numeroAlberghi; i++) {
-    if (stelle[i] < stelleRichieste) {
-      continue;
-    }
 
-    for (int j=0; j<MS; j++) {
+  for (int i = 0; i < numeroAlberghi; i++) {
+    if (stelle[i] < stelleRichieste) continue;
+
+    for (int j = 0; j < MS; j++) {
       if (controllaServizi) {
-        if (strcmp(servizi[i][j], "") == 0) {
-          continue;
-        }
+        if (strcmp(servizi[i][j], "") == 0) continue;
 
-        if (strcmp(buffer, servizi[i][j]) != 0) {
-          continue;
-        }
+        if (strcmp(buffer, servizi[i][j]) != 0) continue;
       }
 
       validi[numeroValidi++] = i;
@@ -164,9 +159,9 @@ void ricercaAlbergo(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS],
   }
 
   printf("Alberghi validi:\n");
-  for (int i=0; i<numeroValidi; i++) {
+
+  for (int i = 0; i < numeroValidi; i++)
     printf("\t%s\n", nomi[validi[i]]);
-  }
 }
 
 void stampaAlberghi(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS], int numeroAlberghi) {
@@ -177,18 +172,20 @@ void stampaAlberghi(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS],
 
   printf("%-*s%-*s     %-*s\n", LS, "Nome", LS / 2, "Stelle", LS, "Servizi");
 
-  for (int i=0; i<numeroAlberghi; i++) {
+  for (int i = 0; i < numeroAlberghi; i++) {
     printf("%-*s%d%*c     ", LS, nomi[i], stelle[i], (LS / 2) - 1, ' ');
-    char temp[LS+3], buffer[MS * (LS + 3)] = "";
-    for (int j=0; j<MS; j++) {
+    char temp[LS + 3], buffer[MS * (LS + 3)] = "";
+
+    for (int j = 0; j < MS; j++) {
       if (strcmp(servizi[i][j], "") != 0) {
         sprintf(temp, "%s | ", servizi[i][j]);
         strcat(buffer, temp);
       }
     }
-    if (strcmp(buffer, "") == 0) {
-      strcpy(buffer, "-");
-    } else buffer[strlen(buffer)-2] = ' ';
+
+    if (strcmp(buffer, "") == 0) strcpy(buffer, "-");
+    else buffer[strlen(buffer) - 2] = ' ';
+
     printf("%s\n", buffer);
   }
 }
@@ -201,26 +198,26 @@ void stampaOrdinato(char nomi[MA][LS], int stelle[MA], char servizi[MA][MS][LS],
 
   int c = 0, ordinato[numeroAlberghi];
 
-  for (int i=5; i>0; i--) {
-    for (int j=0; j<numeroAlberghi; j++) {
+  for (int i = 5; i > 0; i--)
+    for (int j = 0; j < numeroAlberghi; j++)
       if (stelle[j] == i) ordinato[c++] = j;
-    }
-  }
 
   printf("%-*s%-*s     %-*s\n", LS, "Nome", LS / 2, "Stelle", LS, "Servizi");
 
-  for (int i=0; i<numeroAlberghi; i++) {
+  for (int i = 0; i < numeroAlberghi; i++) {
     printf("%-*s%d%*c     ", LS, nomi[ordinato[i]], stelle[ordinato[i]], (LS / 2) - 1, ' ');
-    char temp[LS+3], buffer[MS * (LS + 3)] = "";
-    for (int j=0; j<MS; j++) {
+    char temp[LS + 3], buffer[MS * (LS + 3)] = "";
+
+    for (int j = 0; j < MS; j++) {
       if (strcmp(servizi[ordinato[i]][j], "") != 0) {
         sprintf(temp, "%s | ", servizi[ordinato[i]][j]);
         strcat(buffer, temp);
       }
     }
-    if (strcmp(buffer, "") == 0) {
-      strcpy(buffer, "-");
-    } else buffer[strlen(buffer)-2] = ' ';
+
+    if (strcmp(buffer, "") == 0) strcpy(buffer, "-");
+    else buffer[strlen(buffer) - 2] = ' ';
+
     printf("%s\n", buffer);
   }
 }

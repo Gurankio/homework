@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <termios.h>
 #include <stdio.h>
 
@@ -58,21 +59,55 @@ void * myThreadFun(void *vargp) {
         case 68:
           printf("Input LEFT\n");
           last = 4;
+=======
+#include <conio.h>
+#include <stdio.h>
+
+#ifdef _WIN32
+
+int main() {
+  unsigned char ch;
+
+  // Avoid for ESC and CTRL+C
+  while ((ch = getch()) != 27 && ch != 03) {
+    if (ch == 224) {
+      ch = getch();
+      switch (ch) {
+        case 72:
+          printf("Arrow Up\n");
+          break;
+
+        case 75:
+          printf("Arrow Left\n");
+          break;
+
+        case 77:
+          printf("Arrow Right\n");
+          break;
+
+        case 80:
+          printf("Arrow Down\n");
+>>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
           break;
       }
     }
 
+<<<<<<< HEAD
     if (esc && ch == 91) command = 1;
     else command = 0;
 
     if (ch == 27) esc = 1;
     else esc = 0;
+=======
+    // printf("%02d", ch);
+>>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
   }
 
   resetTermios();
   return NULL;
 }
 
+<<<<<<< HEAD
 int main() {
   pthread_t thread_id;
 
@@ -135,3 +170,6 @@ int main() {
 // }
 
 // https://gist.github.com/erichschroeter/8199129
+=======
+#endif /* ifdef _WIN32 */
+>>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
