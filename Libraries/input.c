@@ -1,48 +1,38 @@
+#include <conio.h>
 #include <stdio.h>
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
 
-int kbhit(void) {
-  struct termios oldt, newt;
-  int ch;
-  int oldf;
+#ifdef _WIN32
 
-  struct termios info;
+int main() {
+  unsigned char ch;
 
-  tcgetattr(STDIN_FILENO, &info); /* get current terminal attirbutes; 0 is the file descriptor for stdin */
-  info.c_lflag &= ~ICANON;    /* disable canonical mode */
-  info.c_cc[VMIN] = 0;            /* wait until at least one keystroke available */
-  info.c_cc[VTIME] = 0;       /* no timeout */
-  tcsetattr(STDIN_FILENO, TCSANOW, &info); /* set immediately */
+  // Avoid for ESC and CTRL+C
+  while ((ch = getch()) != 27 && ch != 03) {
+    if (ch == 224) {
+      ch = getch();
+      switch (ch) {
+        case 72:
+          printf("Arrow Up\n");
+          break;
 
-  /*
-     tcgetattr(STDIN_FILENO, &oldt);
-     newt = oldt;
-     newt.c_lflag &= ~(ICANON | ECHO);
-     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-     oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-     fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-   */
+        case 75:
+          printf("Arrow Left\n");
+          break;
 
-  ch = getchar();
+        case 77:
+          printf("Arrow Right\n");
+          break;
 
-  //tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-  //fcntl(STDIN_FILENO, F_SETFL, oldf);
+        case 80:
+          printf("Arrow Down\n");
+          break;
+      }
+    }
 
-  tcgetattr(0, &info);
-  info.c_lflag |= ICANON;
-  tcsetattr(0, TCSANOW, &info);
-
-  if (ch != EOF) {
-    ungetc(ch, stdin);
-    return 1;
+    // printf("%02d", ch);
   }
 
   return 0;
 }
 
-int main() {
-  while (1)
-    if (kbhit()) putchar(getchar());
-}
+#endif /* ifdef _WIN32 */
