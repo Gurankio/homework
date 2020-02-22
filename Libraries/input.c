@@ -1,48 +1,137 @@
-#include <stdio.h>
 #include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <stdio.h>
 
-int kbhit(void) {
-  struct termios oldt, newt;
-  int ch;
-  int oldf;
+static struct termios old, current;
 
-  struct termios info;
+/* Initialize new terminal i/o settings */
+void initTermios(int echo) {
+  tcgetattr(0, &old); /* grab old terminal i/o settings */
+  current = old; /* make new settings same as old settings */
+  current.c_lflag &= ~ICANON; /* disable buffered i/o */
 
-  tcgetattr(STDIN_FILENO, &info); /* get current terminal attirbutes; 0 is the file descriptor for stdin */
-  info.c_lflag &= ~ICANON;    /* disable canonical mode */
-  info.c_cc[VMIN] = 0;            /* wait until at least one keystroke available */
-  info.c_cc[VTIME] = 0;       /* no timeout */
-  tcsetattr(STDIN_FILENO, TCSANOW, &info); /* set immediately */
+  if (echo) current.c_lflag |= ECHO;  /* set echo mode */
+  else current.c_lflag &= ~ECHO;      /* set no echo mode */
 
-  /*
-     tcgetattr(STDIN_FILENO, &oldt);
-     newt = oldt;
-     newt.c_lflag &= ~(ICANON | ECHO);
-     tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-     oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-     fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-   */
+  tcsetattr(0, TCSANOW, &current); /* use these new terminal i/o settings now */
+}
 
-  ch = getchar();
+/* Restore old terminal i/o settings */
+void resetTermios(void) {
+  tcsetattr(0, TCSANOW, &old);
+}
 
-  //tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-  //fcntl(STDIN_FILENO, F_SETFL, oldf);
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>  //Header file for sleep(). man 3 sleep for details.
+#include <pthread.h>
+#include <time.h>
 
-  tcgetattr(0, &info);
-  info.c_lflag |= ICANON;
-  tcsetattr(0, TCSANOW, &info);
+int last = 0;
 
-  if (ch != EOF) {
-    ungetc(ch, stdin);
-    return 1;
+void * myThreadFun(void *vargp) {
+  initTermios(0);
+  char ch;
+
+  int esc = 0;
+  int command = 0;
+
+  while ((ch = getchar()) != 0) {
+    // printf("%02d\n", ch);
+
+    if (command) {
+      switch (ch) {
+        case 65:
+          printf("Input UP\n");
+          last = 1;
+          break;
+
+        case 66:
+          printf("Input DOWN\n");
+          last = 2;
+          break;
+
+        case 67:
+          printf("Input RIGHT\n");
+          last = 3;
+          break;
+
+        case 68:
+          printf("Input LEFT\n");
+          last = 4;
+          break;
+      }
+    }
+
+    if (esc && ch == 91) command = 1;
+    else command = 0;
+
+    if (ch == 27) esc = 1;
+    else esc = 0;
   }
 
-  return 0;
+  resetTermios();
+  return NULL;
 }
 
 int main() {
-  while (1)
-    if (kbhit()) putchar(getchar());
+  pthread_t thread_id;
+
+  printf("Before Thread\n");
+  pthread_create(&thread_id, NULL, myThreadFun, NULL);
+
+  while (1) {
+    sleep(1);
+    printf("%ld\t", time(NULL));
+    switch (last) {
+      case 1:
+        printf("Main UP\n");
+        break;
+
+      case 2:
+        printf("Main DOWN\n");
+        break;
+
+      case 3:
+        printf("Main RIGHT\n");
+        break;
+
+      case 4:
+        printf("Main LEFT\n");
+        break;
+    }
+  }
+
+  pthread_join(thread_id, NULL);
+  printf("After Thread\n");
+  exit(0);
 }
+
+// #include <stdio.h>
+// #include <time.h>
+//
+// long timediff(clock_t t1, clock_t t2) {
+//   long elapsed;
+//
+//   elapsed = ((double)t2 - t1) / CLOCKS_PER_SEC * 1000;
+//   return elapsed;
+// }
+//
+// int main(void) {
+//   clock_t t1, t2;
+//   int i;
+//   float x = 2.7182;
+//   long elapsed;
+//
+//   t1 = clock();
+//
+//   for (i = 0; i < 100000000; i++)
+//     x = x * 3.1415;
+//
+//   t2 = clock();
+//
+//   elapsed = timediff(t1, t2);
+//   printf("elapsed: %ld ms\n", elapsed);
+//   return 0;
+// }
+
+// https://gist.github.com/erichschroeter/8199129
