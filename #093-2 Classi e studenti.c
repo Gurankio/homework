@@ -48,12 +48,14 @@ int cercaClasse(classe [NC], int);
 void rimuoviClasse(classe [NC], int *);
 void stampaClassi(classe [NC], int);
 
-int menuClasse();
+int menuClasse(classe);
 
 void aggiungiStudente(classe *);
 int cercaStudente(classe);
 void rimuoviStudente(classe *);
 void stampaStudenti(classe);
+
+void stampaStudente(studente);
 
 // Funzioni
 int main() {
@@ -73,32 +75,43 @@ int main() {
 
       case 2:
         printf("\n");
-        int classe = cercaClasse(classi, numClassi);
+        int classeIndice = cercaClasse(classi, numClassi);
+
+        if (classeIndice == -1) {
+          printf("Classe non trovata.\n");
+          break;
+        }
+
+        printf("Classe trovata.\n");
+        classe *c = &classi[classeIndice];
 
         do {
-          s = menuClasse();
+          s = menuClasse(*c);
 
           switch (s) {
             case 1:
-              aggiungiStudente(&classi[classe]);
+              aggiungiStudente(c);
               break;
 
             case 2:
               printf("\n");
-              int studente = cercaStudente(classi[classe]);
-              printf("%d\n", studente);
+              int studenteIndice = cercaStudente(*c);
+
+              printf("\n");
+              printf("%-*s%-*s%-*s%-*s\n", LS, "Nome", LS / 2, "Sesso", LS, "Data di nascita", LS, "Citta di nascita");
+              stampaStudente(c->studenti[studenteIndice]);
               break;
 
             case 3:
-              rimuoviStudente(&classi[classe]);
+              rimuoviStudente(c);
               break;
 
             case 4:
-              stampaStudenti(classi[classe]);
+              stampaStudenti(*c);
               break;
 
             case 0:
-              printf("Esco dalla classe %s\n", classi[classe].nome);
+              printf("Esco dalla classe %s\n", c->nome);
               break;
 
             default:
@@ -149,6 +162,11 @@ int menu() {
 }
 
 void aggiungiClasse(classe classi[NC], int *numClassi) {
+  if (*numClassi >= NC) {
+    printf("Massimo numero di classi raggiunto.\n");
+    return;
+  }
+
   printf("Inserire il nome della nuova classe: ");
   classi[*numClassi].numStudenti = 0;
   gets(classi[(*numClassi)++].nome);
@@ -167,6 +185,11 @@ int cercaClasse(classe classi[NC], int numClassi) {
 }
 
 void rimuoviClasse(classe classi[NC], int *numClassi) {
+  if (*numClassi <= 0) {
+    printf("Non ci sono classi.\n");
+    return;
+  }
+
   int classe = cercaClasse(classi, *numClassi);
 
   if (classe == -1) {
@@ -182,10 +205,13 @@ void rimuoviClasse(classe classi[NC], int *numClassi) {
 }
 
 void stampaClassi(classe classi[NC], int numClassi) {
-  if (numClassi == 0) return;
+  if (numClassi == 0) {
+    printf("Non ci sono classi.\n");
+    return;
+  }
 
   for (int i = 0; i < numClassi; i++)
-    printf("%*s", LS, classi[i].nome);
+    printf("%-*s", LS, classi[i].nome);
 
   putchar('\n');
 
@@ -196,15 +222,15 @@ void stampaClassi(classe classi[NC], int numClassi) {
 
   for (int j = 0; j < max; j++) {
     for (int i = 0; i < numClassi; i++)
-      printf("%*s", LS, classi[i].numStudenti >= j ? classi[i].studenti[j].nome : "");
+      printf("%-*s", LS, classi[i].numStudenti >= j ? classi[i].studenti[j].nome : "");
 
-    printf("\n");
+    putchar('\n');
   }
 }
 
-int menuClasse() {
+int menuClasse(classe classe) {
   printf("\n");
-  printf("   Menu Classe      \n");
+  printf("   Menu di \"%s\"\n", classe.nome);
   printf("1) Aggiungi studente\n");
   printf("2) Cerca studente   \n");
   printf("3) Rimuovi studente \n");
@@ -221,6 +247,11 @@ int menuClasse() {
 }
 
 void aggiungiStudente(classe *classe) {
+  if (classe->numStudenti >= NS) {
+    printf("Massimo numero di studenti raggiunto.\n");
+    return;
+  }
+
   studente *s = &classe->studenti[classe->numStudenti];
   char nl;
 
@@ -231,11 +262,22 @@ void aggiungiStudente(classe *classe) {
     printf("Inserire il sesso (0: Maschio, 1:Femmina) dello studente: ");
     scanf("%d", &s->sesso); // TODO: input migliorato.
     scanf("%c", &nl);
+
+    if (s->sesso < 0 || s->sesso > 1) {
+      printf("Input non valido.\n");
+    }
   } while (s->sesso < 0 || s->sesso > 1);
 
-  printf("Inserire la data di nascita (Formato: YYYY.MM.DD) dello studente: ");
-  scanf("%d.%d.%d", &s->data.anno, &s->data.mese, &s->data.giorno); // TODO: input migliorato.
-  scanf("%c", &nl);
+  do {
+    printf("Inserire la data di nascita (Formato: YYYY.MM.DD) dello studente: ");
+    scanf("%d.%d.%d", &s->data.anno, &s->data.mese, &s->data.giorno);
+    scanf("%c", &nl);
+
+    if (s->data.mese < 0 || s->data.mese > 12 || s->data.giorno < 0 || s->data.giorno > 31) {
+      printf("Data inserita non valida.\n");
+    }
+  } while (s->data.mese < 0 || s->data.mese > 12 || s->data.giorno < 0 || s->data.giorno > 31); // 31 Febbraio. GG.
+
 
   printf("Inserire la citta di nascita dello studente: ");
   gets(s->luogo);
@@ -256,6 +298,11 @@ int cercaStudente(classe classe) {
 }
 
 void rimuoviStudente(classe *classe) {
+  if (classe->numStudenti <= 0) {
+    printf("Non esistono studenti.\n");
+    return;
+  }
+
   int studente = cercaStudente(*classe);
 
   if (studente == -1) {
@@ -271,17 +318,25 @@ void rimuoviStudente(classe *classe) {
 }
 
 void stampaStudenti(classe classe) {
-  printf("%*s\n", LS, classe.nome);
-  printf("%*s%*s%*s%*s\n", LS, "Nome", LS, "Sesso", LS, "Data di nascita", LS, "Citta di nascita");
+  if (classe.numStudenti <= 0) {
+    printf("Non ci sono studenti.\n");
+    return;
+  }
+
+  printf("Classe: %-*s\n", LS, classe.nome);
+  printf("%-*s%-*s%-*s%-*s\n", LS, "Nome", LS / 2, "Sesso", LS, "Data di nascita", LS, "Citta di nascita");
 
   for (int i = 0; i < classe.numStudenti; i++) {
-    printf("%*s", LS, classe.studenti[i].nome);
-    printf("%*s", LS, classe.studenti[i].sesso ? "M" : "F");
-    char buffer[LS];
-    sprintf(buffer, "%4d.%02d.%02d", classe.studenti[i].data.anno, classe.studenti[i].data.mese, classe.studenti[i].data.giorno);
-    printf("%*s", LS, buffer);
-    printf("%*s", LS, classe.studenti[i].luogo);
-
-    printf("\n");
+    stampaStudente(classe.studenti[i]);
   }
+}
+
+void stampaStudente(studente s) {
+  printf("%-*s", LS, s.nome);
+  printf("%-*s", LS / 2, s.sesso ? "Maschio" : "Femmina");
+  char buffer[LS];
+  sprintf(buffer, "%02d.%02d.%d", s.data.giorno, s.data.mese, s.data.anno);
+  printf("%-*s", LS, buffer);
+  printf("%-*s", LS, s.luogo);
+  printf("\n");
 }
