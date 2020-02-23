@@ -106,30 +106,42 @@ int main() {
     printf("La somma di una diagonale e' %d\n", sum);
   }
 
-  /*
-     for (int j = 1; j < N; j++) {
-     sum = 0;
-
-     for (int k = 0; k < M && j + k < N; k++)
-      sum += matrice[j + k][k];
-
-     printf("La somma di una diagonale e' %d\n", sum);
-     }
-   */
-  printf("La somma di una diagonale e' %d\n", matrice[N - 1][0]);
-
-  putchar('\n');
-
-  for (int j = 0; j < M; j++) {
+  for (int j = N - 1; j >= 1; j--) {
     sum = 0;
 
-    for (int k = 0; k < N && j - k >= 0; k++)
-      sum += matrice[k][j - k];
+    for (int k = 0; k < M && j + k < N; k++)
+      sum += matrice[j + k][k];
 
     printf("La somma di una diagonale e' %d\n", sum);
   }
 
-  printf("La somma di una diagonale e' %d\n", matrice[N - 1][M - 1]);
+  putchar('\n');
+
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N / 2; j++) {
+      t = matrice[i][N - 1 - j];
+      matrice[i][N - 1 - j] = matrice[i][j];
+      matrice[i][j] = t;
+    }
+  }
+
+  for (int j = 0; j < M; j++) {
+    sum = 0;
+
+    for (int k = 0; k < N && j + k < M; k++)
+      sum += matrice[k][j + k];
+
+    printf("La somma di una diagonale e' %d\n", sum);
+  }
+
+  for (int j = N - 1; j >= 1; j--) {
+    sum = 0;
+
+    for (int k = 0; k < M && j + k < N; k++)
+      sum += matrice[j + k][k];
+
+    printf("La somma di una diagonale e' %d\n", sum);
+  }
 
   // getchar();
   // system("pause");
