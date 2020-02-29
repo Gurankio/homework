@@ -1,9 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #000 GG.MM.YYYY
+ * #103 29.02.2020
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * Primo esercizio sui file.
  */
 
 #include <stdlib.h>
