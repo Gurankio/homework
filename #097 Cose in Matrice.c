@@ -1,9 +1,6 @@
 /*
  * Jacopo Del Granchio
  * #097 19.02.2020
- *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
  */
 
 #include <stdlib.h>
