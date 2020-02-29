@@ -200,26 +200,31 @@ void campione(char V[][30], char S[], int P[], char s, int n ){
 	// ricerca tra le squadre della serie richiesta quella con punteggio massimo
 	// senza creare nessun vettore di appoggio (SENZA NESSUNA COPIA, ne dei nomi delle squadre ne dei punteggi)
 
-  int camp = 0, campI = 0;
+  int camp = 0, campI[n], campConta = 0;
   int i;
 
   for (i=0; i<n; i++) {
     if (S[i] == s) {
       camp = P[i];
-      campI = i;
+      campI[0] = i;
     }
   }
 
   for (; i<n; i++) {
     if (S[i] == s) {
       if (P[i] > camp) {
+        campConta = 0;
         camp = P[i];
-        campI = i;
+        campI[campConta++] = i;
+      } else if (P[i] == camp) {
+        campI[campConta++] = i;
       }
     }
   }
 
-  printf("Il Campione e' %s\n", V[campI]);
+  for (int i=0; i<campConta; i++) {
+    printf("Il Campione e' %s\n", V[campI[i]]);
+  }
 }
 
 void inizializzaSquadre(char V[6][30], char S[], int P[], int N){
@@ -240,7 +245,7 @@ void inizializzaSquadre(char V[6][30], char S[], int P[], int N){
 
 	P[0]=12;
 	P[1]=2;
-	P[2]=3;
+	P[2]=12;
 	P[3]=4;
 	P[4]=31;
 	P[5]=3;
