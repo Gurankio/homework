@@ -2,8 +2,10 @@
  * Jacopo Del Granchio
  * #096 19.02.2020
  *
- * Lorem ipsum dolor sit amet, consectetur adipisicing elit,
- * sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+ * 0 -> Acqua.
+ * 1 -> Sommergibile.
+ * 2 -> Acqua colpita.
+ * 3 -> Sommergibile affondato.
  */
 
 #include <stdlib.h>
@@ -55,8 +57,19 @@ int main() {
     if ((ris = vinto(griglia)) == 1) break;
   }
 
+  putchar('\n');
+
   if (ris) printf("Hai vinto.\n");
   else printf("Hai perso.\n");
+
+  putchar('\n');
+
+  for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 3; j++)
+      printf("%d  ", griglia[i][j]);
+
+    putchar('\n');
+  }
 
   // getchar();
   // system("pause");
