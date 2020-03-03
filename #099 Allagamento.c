@@ -19,8 +19,8 @@
   scanf(format, __VA_ARGS__);
 
 // Costanti
-#define N 4
-#define M 4
+#define N 10
+#define M 10
 
 // Prototipi
 void espandi(int [N][M], int x, int y);
@@ -58,8 +58,19 @@ int main() {
     }
     putchar('\n');
   }
-  printf("Fonte -> Verde\n");
-  printf("Espansione -> Blu\n");
+
+  putchar('\n');
+
+  vts_foregroundGreen();
+  printf("Fonte");
+
+  vts_foregroundDefault();
+  printf(", ");
+
+  vts_foregroundCyan();
+  printf("Espansione\n");
+
+  vts_foregroundDefault();
 
   // getchar();
   // system("pause");
