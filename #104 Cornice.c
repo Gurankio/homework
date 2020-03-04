@@ -1,8 +1,8 @@
 /*
  * Jacopo Del Granchio
- * #102 29.02.2020
+ * #104 04.03.2020
  *
- * Matrice con pattern a spirale. Ricorsivo.
+ * Matrice con pattern a cornice. Ricorsivo.
  */
 
 #include <stdlib.h>
