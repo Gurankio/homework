@@ -9,7 +9,7 @@
 // Prototype
 void cp_sleep(int);
 
-#ifdef WIN32
+#ifdef _WIN32
 
 #include <windows.h>
 

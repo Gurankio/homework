@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <termios.h>
 #include <stdio.h>
 
@@ -59,55 +58,21 @@ void * myThreadFun(void *vargp) {
         case 68:
           printf("Input LEFT\n");
           last = 4;
-=======
-#include <conio.h>
-#include <stdio.h>
-
-#ifdef _WIN32
-
-int main() {
-  unsigned char ch;
-
-  // Avoid for ESC and CTRL+C
-  while ((ch = getch()) != 27 && ch != 03) {
-    if (ch == 224) {
-      ch = getch();
-      switch (ch) {
-        case 72:
-          printf("Arrow Up\n");
-          break;
-
-        case 75:
-          printf("Arrow Left\n");
-          break;
-
-        case 77:
-          printf("Arrow Right\n");
-          break;
-
-        case 80:
-          printf("Arrow Down\n");
->>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
           break;
       }
     }
 
-<<<<<<< HEAD
     if (esc && ch == 91) command = 1;
     else command = 0;
 
     if (ch == 27) esc = 1;
     else esc = 0;
-=======
-    // printf("%02d", ch);
->>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
   }
 
   resetTermios();
   return NULL;
 }
 
-<<<<<<< HEAD
 int main() {
   pthread_t thread_id;
 
@@ -140,36 +105,3 @@ int main() {
   printf("After Thread\n");
   exit(0);
 }
-
-// #include <stdio.h>
-// #include <time.h>
-//
-// long timediff(clock_t t1, clock_t t2) {
-//   long elapsed;
-//
-//   elapsed = ((double)t2 - t1) / CLOCKS_PER_SEC * 1000;
-//   return elapsed;
-// }
-//
-// int main(void) {
-//   clock_t t1, t2;
-//   int i;
-//   float x = 2.7182;
-//   long elapsed;
-//
-//   t1 = clock();
-//
-//   for (i = 0; i < 100000000; i++)
-//     x = x * 3.1415;
-//
-//   t2 = clock();
-//
-//   elapsed = timediff(t1, t2);
-//   printf("elapsed: %ld ms\n", elapsed);
-//   return 0;
-// }
-
-// https://gist.github.com/erichschroeter/8199129
-=======
-#endif /* ifdef _WIN32 */
->>>>>>> 0ba38706f7061a960935b0d6bc56b4f45edc4052
