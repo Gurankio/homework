@@ -1,0 +1,7 @@
+Nome=QWerty1111
+Localita=Asdf
+Coperti=234
+Stelle=-123
+0, 123.449997, Ciaone2ass
+1, 1.450000, Ciaone
+1, 12.000000, asdf
