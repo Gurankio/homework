@@ -1,63 +1,131 @@
-#include <termios.h>
 #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+#include "sleep.c"
+
+// Output
+int lastArrow = -1;
+
+// Static Settings
+static pthread_t ID;
+static int INPUT_ECHO = 0;
+static int INPUT_STATE = 0;
+
+// Prototypes
+void * inputThread(void *);
+void startInputThread(int echo);
+void resumeInputThread();
+void stopInputThread();
+void killInputThread();
+
+// Platform dependant functions
+#ifdef _WIN32
+
+#include <conio.h>
+
+void * inputThread(void *vargp) {
+  char ch;
+
+  int command = 0;
+
+  while (INPUT_STATE) {
+    if (INPUT_STATE == -1) {
+      // cp_sleep(100);
+      continue;
+    }
+
+    if (INPUT_ECHO) ch = getche();
+    else ch = getch();
+
+    if (command) {
+      switch (ch) {
+        case 72:
+          // printf("Input UP\n");
+          lastArrow = 1;
+          break;
+
+        case 80:
+          // printf("Input DOWN\n");
+          lastArrow = 2;
+          break;
+
+        case 77:
+          // printf("Input RIGHT\n");
+          lastArrow = 3;
+          break;
+
+        case 75:
+          // printf("Input LEFT\n");
+          lastArrow = 4;
+          break;
+      }
+    }
+
+    if (ch == -32) command = 1;
+    else command = 0;
+  }
+
+  return NULL;
+}
+
+#else
+
+#include <termios.h>
 
 static struct termios old, current;
 
-/* Initialize new terminal i/o settings */
 void initTermios(int echo) {
-  tcgetattr(0, &old); /* grab old terminal i/o settings */
-  current = old; /* make new settings same as old settings */
-  current.c_lflag &= ~ICANON; /* disable buffered i/o */
+  tcgetattr(0, &old);
+  current = old;
+  current.c_lflag &= ~ICANON;
 
-  if (echo) current.c_lflag |= ECHO;  /* set echo mode */
-  else current.c_lflag &= ~ECHO;      /* set no echo mode */
+  if (echo) current.c_lflag |= ECHO;
+  else current.c_lflag &= ~ECHO;
 
-  tcsetattr(0, TCSANOW, &current); /* use these new terminal i/o settings now */
+  tcsetattr(0, TCSANOW, &current);
 }
 
-/* Restore old terminal i/o settings */
 void resetTermios(void) {
   tcsetattr(0, TCSANOW, &old);
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>  //Header file for sleep(). man 3 sleep for details.
-#include <pthread.h>
-#include <time.h>
-
-int last = 0;
-
-void * myThreadFun(void *vargp) {
-  initTermios(0);
+void * inputThread(void *vargp) {
+  initTermios(INPUT_ECHO);
   char ch;
 
   int esc = 0;
   int command = 0;
 
-  while ((ch = getchar()) != 0) {
-    // printf("%02d\n", ch);
+  while (INPUT_STATE) {
+    if (INPUT_STATE == -1) {
+      // cp_sleep(100);
+      continue;
+    }
+
+    ch = getchar();
 
     if (command) {
       switch (ch) {
         case 65:
-          printf("Input UP\n");
-          last = 1;
+          // printf("Input UP\n");
+          lastArrow = 1;
           break;
 
         case 66:
-          printf("Input DOWN\n");
-          last = 2;
+          // printf("Input DOWN\n");
+          lastArrow = 2;
           break;
 
         case 67:
-          printf("Input RIGHT\n");
-          last = 3;
+          // printf("Input RIGHT\n");
+          lastArrow = 3;
           break;
 
         case 68:
-          printf("Input LEFT\n");
-          last = 4;
+          // printf("Input LEFT\n");
+          lastArrow = 4;
           break;
       }
     }
@@ -73,35 +141,22 @@ void * myThreadFun(void *vargp) {
   return NULL;
 }
 
-int main() {
-  pthread_t thread_id;
+#endif
 
-  printf("Before Thread\n");
-  pthread_create(&thread_id, NULL, myThreadFun, NULL);
+void startInputThread(int echo) {
+  pthread_create(&ID, NULL, inputThread, NULL);
+  resumeInputThread();
+}
 
-  while (1) {
-    sleep(1);
-    printf("%ld\t", time(NULL));
-    switch (last) {
-      case 1:
-        printf("Main UP\n");
-        break;
+void resumeInputThread() {
+  INPUT_STATE = 1;
+}
 
-      case 2:
-        printf("Main DOWN\n");
-        break;
+void stopInputThread() {
+  INPUT_STATE = -1;
+}
 
-      case 3:
-        printf("Main RIGHT\n");
-        break;
-
-      case 4:
-        printf("Main LEFT\n");
-        break;
-    }
-  }
-
-  pthread_join(thread_id, NULL);
-  printf("After Thread\n");
-  exit(0);
+void killInputThread() {
+  INPUT_STATE = 0;
+  pthread_join(ID, NULL);
 }

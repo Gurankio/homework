@@ -1,9 +1,9 @@
 /*
- * menuCollection ad Albero da file.
+ * Menu ad Albero da file.
  */
 
-#ifndef ATR
-#define ATR
+#ifndef MENU
+#define MENU
 
 #include <stdlib.h>
 #include <stdarg.h>
@@ -69,8 +69,8 @@ const int MAX_LENGHT = 128;
   9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 
 void nullHandler(void *params[]);
-void _bindFunction(choice *choice, void (*handler)(void *[]), int paramCount, ...);
-#define bindFunction(choice, handler, ...)            _bindFunction(choice, handler, PP_NARG(__VA_ARGS__), __VA_ARGS__)
+static void _bindFunction(choice *choice, void (*handler)(void *[]), int paramCount, ...);
+#define bindFunction(choice, handler, ...) _bindFunction(choice, handler, PP_NARG(__VA_ARGS__), __VA_ARGS__)
 int loadMenu(char *path, menuCollection *menuCollection);
 void freeMenu(menuCollection *menuCollection);
 void render(menu *menu);
@@ -209,13 +209,18 @@ void render(menu *menu) {
 }
 
 menu * getMenu(menuCollection *menuCollection, int menuAddress) {
-  if (menuAddress < 0 || menuAddress > menuCollection->menuCount) menuAddress = 0;
-
+  if (menuAddress < 0 || menuAddress >= menuCollection->menuCount) {
+    fprintf(stderr, "Invalid menu address: (%d)\n", menuAddress);
+    menuAddress = 0;
+  }
   return &menuCollection->menus[menuAddress];
 }
 
 choice * getChoice(menuCollection *menuCollection, int menuAddress, int choiceAddress) {
-  if (choiceAddress < 0 || choiceAddress > getMenu(menuCollection, menuAddress)->choiceCount) choiceAddress = 0;
+  if (choiceAddress < 0 || choiceAddress >= getMenu(menuCollection, menuAddress)->choiceCount) {
+    fprintf(stderr, "Invalid choice address: (%d)\n", choiceAddress);
+    choiceAddress = 0;
+  }
 
   return &getMenu(menuCollection, menuAddress)->choices[choiceAddress];
 }

@@ -106,7 +106,6 @@ void atr_layerSetFormat(atr_layer *layer, int x, int y, char pattern[], ...) {
 
 //
 
-// TODO: BITWISE
 static void atr_typeRender(int type) {
   vts_asciiSet();
   vts_foregroundDefault();
