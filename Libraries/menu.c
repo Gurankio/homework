@@ -180,6 +180,7 @@ void freeMenu(menuCollection *menuCollection) {
 
 void render(menu *menu) {
   int s;
+  char buffer[32];
 
   while (1) {
     for (int i = 0; i < menu->titleCount; i++)
@@ -191,7 +192,8 @@ void render(menu *menu) {
     printf("0) Exit\n");
 
     printf("Input: ");
-    scanf("%d", &s);
+    fgets(buffer, 32, stdin);
+    s = atoi(buffer);
     putchar('\n'); // Spacing
 
     if (s < 0 || s > menu->choiceCount) {
