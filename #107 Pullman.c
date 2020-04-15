@@ -1,6 +1,6 @@
 /*
  * Jacopo Del Granchio
- * #107 ??.03.2020
+ * #107 24.03.2020
  */
 
 #include <stdlib.h>
@@ -15,10 +15,6 @@
 #include "libraries/menu.c"
 
 // Macro
-#define chiedi(msg, format, ...) \
-  printf(msg); \
-  scanf(format, __VA_ARGS__);
-
 #define INPUT_PATH  "./data/#107/input.txt"
 #define OUTPUT_PATH "./data/#107/output.txt"
 
@@ -45,27 +41,28 @@ void salva(itinerario[NI], int);
 int main() {
   setlocale(LC_ALL, "");
 
-  int n = 0;
+  int *n = malloc(sizeof(int));
   itinerario dati[NI];
-  carica(dati, &n);
+  carica(dati, n);
 
   menuCollection menuCollection;
 
   if (!loadMenu("./data/#107/menu.md", &menuCollection)) return 0;
 
-  bindFunction(getChoice(&menuCollection, 0, 0), aggiungiItinerario, dati, &n);
+  bindFunction(getChoice(&menuCollection, 0, 0), aggiungiItinerario, dati, n);
   bindFunction(getChoice(&menuCollection, 0, 1), modificaItenerario, dati, n);
-  bindFunction(getChoice(&menuCollection, 0, 2), rimuoviItinerario, dati, &n);
+  bindFunction(getChoice(&menuCollection, 0, 2), rimuoviItinerario, dati, n);
   bindFunction(getChoice(&menuCollection, 0, 3), filtraItinerari, dati, n);
   bindFunction(getChoice(&menuCollection, 0, 4), stampaDati, dati, n);
   render(getMenu(&menuCollection, 0));
   freeMenu(&menuCollection);
+  free(n);
   return 0;
 }
 
 void aggiungiItinerario(void *params[]) {
   itinerario *dati = params[0];
-  int *n = (int *)params[1];
+  int *n = params[1];
   char buffer[LS];
 
   printf("Inserire destinazione: ");
@@ -73,7 +70,7 @@ void aggiungiItinerario(void *params[]) {
   fgets(buffer, LS, stdin);
 
   for (int i = 0; i < strlen(buffer); i++)
-    if (buffer[i] == '\n') buffer[i] = '\0';
+    if (buffer[i] == '\n' || buffer[i] == ' ') buffer[i] = '\0';
 
   buffer[0] = toupper(buffer[0]);
 
@@ -89,6 +86,8 @@ void aggiungiItinerario(void *params[]) {
   while (index < *n && strcasecmp(buffer, dati[index].destinazione) > 0) index++;
 
   while (index < *n && strcasecmp(buffer, dati[index].destinazione) == 0 && partenza > dati[index].partenza) index++;
+
+  while (index < *n && strcasecmp(buffer, dati[index].destinazione) == 0 && partenza == dati[index].partenza && arrivo > dati[index].arrivo) index++;
 
   if (index == NI) {
     fprintf(stderr, "Spazio esaurito.\n");
@@ -115,7 +114,7 @@ int cercaItinerario(itinerario dati[NI], int n) {
   fgets(buffer, LS, stdin);
 
   for (int i = 0; i < strlen(buffer); i++)
-    if (buffer[i] == '\n') buffer[i] = '\0';
+    if (buffer[i] == '\n' || buffer[i] == ' ') buffer[i] = '\0';
 
   buffer[0] = toupper(buffer[0]);
 
@@ -147,7 +146,7 @@ int cercaItinerario(itinerario dati[NI], int n) {
 
 void modificaItenerario(void *params[]) {
   itinerario *dati = params[0];
-  int n = (long int)params[1];
+  int n = *(int *)params[1];
 
   int index = cercaItinerario(dati, n);
 
@@ -162,7 +161,7 @@ void modificaItenerario(void *params[]) {
   fgets(buffer, LS, stdin);
 
   for (int i = 0; i < strlen(buffer); i++)
-    if (buffer[i] == '\n') buffer[i] = '\0';
+    if (buffer[i] == '\n' || buffer[i] == ' ') buffer[i] = '\0';
 
   buffer[0] = toupper(buffer[0]);
 
@@ -209,7 +208,7 @@ void rimuoviItinerario(void *params[]) {
 
 void filtraItinerari(void *params[]) {
   itinerario *dati = params[0];
-  int n = (long int)params[1];
+  int n = *(int *)params[1];
   char buffer[LS];
 
   printf("Inserire destinazione: ");
@@ -217,7 +216,7 @@ void filtraItinerari(void *params[]) {
   fgets(buffer, LS, stdin);
 
   for (int i = 0; i < strlen(buffer); i++)
-    if (buffer[i] == '\n') buffer[i] = '\0';
+    if (buffer[i] == '\n' || buffer[i] == ' ') buffer[i] = '\0';
 
   buffer[0] = toupper(buffer[0]);
 
@@ -247,7 +246,7 @@ void filtraItinerari(void *params[]) {
 
 void stampaDati(void *params[]) {
   itinerario *dati = params[0];
-  int n = (long int)params[1];
+  int n = *(int *)params[1];
 
   printf("%-*s Partenza -> Arrivo\n", LS - 6, "Destinazione");
 
