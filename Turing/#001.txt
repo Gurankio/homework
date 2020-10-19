@@ -1,0 +1,36 @@
+### 4 -> 64
+
+(0, A, END, -, >)
+
+(END, A, END, A, >)
+(END, B, END, B, >)
+(END, -, END2, -, >)
+
+(END2, A, END2, A, >)
+(END2, B, END2, B, >)
+(END2, -, END3, A, >)
+
+(END3, -, START, B, <)
+
+(START, A, START, A, <)
+(START, B, START, B, <)
+(START, -, START2, -, <)
+
+(START2, A, START2, A, <)
+(START2, B, START2, B, <)
+(START2, -, 0, -, >)
+
+
+
+### 4 -> 20
+
+(0, A, 1, A, >)
+
+(1, A, END, B, >)
+(1, -B, 0, B, -)
+
+(END, AB, END, AB, >)
+(END, -, START, A, <)
+
+(START, A, START, A, <)
+(START, B, 0, B, >)

@@ -1,0 +1,30 @@
+(0, [ACGT], s[ACGT], -, >)
+(0, X, add, X, >)
+
+(s[ACGT], ^X, s[ACGT], ^X, >)
+(s[ACGT], X, c[ACGT], X, >)
+
+(c[ACGT], ^ACGT, c[ACGT], ^ACGT, >)
+(cA, [ACGT], back, [0111], <)
+(cC, [ACGT], back, [1011], <)
+(cG, [ACGT], back, [1101], <)
+(cT, [ACGT], back, [1110], <)
+
+(back, ^-, back, ^-, <)
+(back, -, 0, -, >)
+
+(add, 0, add, X, >)
+(add, 1, addS, X, <)
+(add, -, clean, -, <)
+
+(addS, X, addS, X, <)
+(addS, -0..8, addE, 11..9, >)
+(addS, 9, addS, 0, <)
+
+(addE, ^X, addE, ^X, >)
+(addE, X, addE1, X, >)
+(addE1, X, addE1, X, >)
+(addE1, ^X, add, ^X, -)
+
+(clean, X, clean, -, <)
+(clean, -, -, 0, -)
