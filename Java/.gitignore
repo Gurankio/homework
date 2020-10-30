@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Eclipse
+/.metadata/
+
+# IntelliJ
+/.idea/
