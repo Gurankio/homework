@@ -5,7 +5,7 @@ public class Angolo {
     private int secondi;
 
     public Angolo(int gradi, int primi, int secondi) {
-        this.secondi = (gradi * 60 + primi) * 60 + secondi;
+        setSecondi(((gradi * 60 + primi) * 60 + secondi));
     }
 
     public Angolo(Angolo a) {
@@ -19,27 +19,29 @@ public class Angolo {
 
     // secondiAngolo()
     public void setSecondi(int secondi) {
-        this.secondi = secondi;
+        this.secondi = secondi % (360 * 60 * 60);
+        if (this.secondi < 0) this.secondi += (360 * 60 * 60);
     }
 
     public void aggiungiGradi(int gradi) {
-        this.secondi += gradi * 3600;
+        setSecondi(getSecondi() + gradi * 60 * 60);
     }
 
     public void aggiungiPrimi(int primi) {
-        this.secondi += primi * 60;
+        setSecondi(getSecondi() + primi * 60);
     }
 
     public void aggiungiSecondi(int secondi) {
-        this.secondi += secondi;
+        setSecondi(getSecondi() + secondi);
     }
 
     public int differenzaSecondi(Angolo a) {
-        return secondi - a.getSecondi();
+        int result = secondi - a.getSecondi();
+        return result + result < 0 ? (360 * 60 * 60) : 0;
     }
 
     public void sommaAngolo(Angolo a) {
-        secondi += a.getSecondi();
+        setSecondi(getSecondi() + a.getSecondi());
     }
 
     // visualizzaAngolo()

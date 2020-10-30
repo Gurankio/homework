@@ -3,14 +3,14 @@ package gurankio;
 public class Main {
 
 	public static void main(String[] args) {
-		Angolo a1 = new Angolo(100, 12, 12);
+		Angolo a1 = new Angolo(-100, 0, 0);
 		Angolo a2 = new Angolo(55, 123, 232);
 		System.out.println(a1);
 
 		a1.aggiungiGradi(1);
 		System.out.println(a1);
 
-		a1.aggiungiPrimi(12);
+		a1.aggiungiPrimi(-32482312);
 		System.out.println(a1);
 
 		a1.aggiungiSecondi(12);
