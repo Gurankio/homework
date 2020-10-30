@@ -7,4 +7,5 @@
 .project
 
 # IntelliJ
+*.iml
 /.idea/
