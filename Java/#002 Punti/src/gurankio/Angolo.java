@@ -9,44 +9,47 @@ public class Angolo {
     }
 
     public Angolo(Angolo a) {
-        this.secondi = a.angoloSecondi();
+        this.secondi = a.getSecondi();
     }
 
-    public void visualizzaAngolo() {
-        int primi = secondi / 60;
-        int gradi = primi / 60;
-        System.out.printf("%dª%d'%d\"%n", gradi % 360, primi % 60, secondi % 60);
-    }
-
-    public void aggiungiGradi(int n) {
-        secondi += n * 60 * 60;
-    }
-
-    public void aggiungiPrimi(int n) {
-        secondi += n * 60;
-    }
-
-    public void aggiungiSecondi(int n) {
-        secondi += n;
-    }
-
-    public int angoloSecondi() {
+    // angoloSecondi()
+    public int getSecondi() {
         return secondi;
     }
 
-    public void secondiAngolo(int n) {
-        secondi = n;
+    // secondiAngolo()
+    public void setSecondi(int secondi) {
+        this.secondi = secondi;
+    }
+
+    public void aggiungiGradi(int gradi) {
+        this.secondi += gradi * 3600;
+    }
+
+    public void aggiungiPrimi(int primi) {
+        this.secondi += primi * 60;
+    }
+
+    public void aggiungiSecondi(int secondi) {
+        this.secondi += secondi;
     }
 
     public int differenzaSecondi(Angolo a) {
-        return secondi - a.angoloSecondi();
+        return secondi - a.getSecondi();
     }
 
     public void sommaAngolo(Angolo a) {
-        secondi += a.angoloSecondi();
+        secondi += a.getSecondi();
     }
 
-
-
+    // visualizzaAngolo()
+    @Override
+    public String toString() {
+        return "%dª%d'%d\"".formatted(
+                (secondi / 3600) % 360,
+                (secondi / 60) % 60,
+                secondi % 60
+        );
+    }
 
 }
