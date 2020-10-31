@@ -10,10 +10,6 @@ public class Punto {
 		this.y = y;
 	}
 
-	public Punto(double x) {
-		this.x = x;
-	}
-
 	public double getX() {
 		return x;
 	}
@@ -28,6 +24,10 @@ public class Punto {
 
 	public void setY(double y) {
 		this.y = y;
+	}
+
+	public double distanza(Punto p) {
+		return Math.sqrt(Math.pow(getX() - p.getX(), 2) + Math.pow(getY() - p.getY(), 2));
 	}
 
 	@Override
