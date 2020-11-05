@@ -1,8 +1,13 @@
-# macOS
+# macOS 
 .DS_Store
 
 # Eclipse
-/.metadata/
+/bin/
+/.settings/
+.classpath
+.project
 
 # IntelliJ
+/out/
 /.idea/
+*.iml
