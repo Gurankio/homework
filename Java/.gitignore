@@ -2,12 +2,4 @@
 .DS_Store
 
 # Eclipse
-/bin/
-/.settings/
-.classpath
-.project
-
-# IntelliJ
-/out/
-/.idea/
-*.iml
+/.metadata/
