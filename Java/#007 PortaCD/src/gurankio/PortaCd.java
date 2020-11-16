@@ -1,6 +1,7 @@
 package gurankio;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class PortaCd {
@@ -40,7 +41,11 @@ public class PortaCd {
     }
 
     public int confrontaCollezione(PortaCd portaCd) {
-        // return (int) Stream.of(cds).filter((x) -> Arrays.asList(portaCd.cds).contains(x)).count();
+        return (int) Stream.of(cds)
+                .filter(Objects::nonNull)
+                .filter((x) -> Arrays.asList(portaCd.cds).contains(x))
+                .count();
+        /*
         int uguali = 0;
         for (int i=0; i<N; i++) {
             if (cds[i] == null) continue;
@@ -53,6 +58,7 @@ public class PortaCd {
             }
         }
         return uguali;
+        */
     }
 
     @Override
