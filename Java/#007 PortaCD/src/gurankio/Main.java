@@ -1,9 +1,27 @@
 package gurankio;
 
+import gurankio.input.ConsoleInput;
+import gurankio.input.ConsoleMenu;
+
 public class Main {
 
+	public PortaCd portaCdA;
+	public PortaCd portaCdB;
+
+	public static void test() {
+		System.out.println("asdasd");
+	}
+
 	public static void main(String[] args) {
-		Cd h = new Cd("Hello,", "World!", 1, 1);
+		new ConsoleMenu<>(Main.class).start();
+
+		/*
+		Cd h = new Cd(
+				ConsoleInput.readString("Titolo: "),
+				ConsoleInput.readString("Autore: "),
+				ConsoleInput.readInt("Numero Brani: "),
+				ConsoleInput.readInt("Durata: ")
+		);
 		Cd a = new Cd("A", "T", 645, 163);
 		Cd b = new Cd("A", "T", 645, 163);
 		Cd c = new Cd("C", "T", 124, 575);
@@ -25,7 +43,9 @@ public class Main {
 		System.out.println(portaCdB);
 
 		System.out.println(portaCdA.getCd(0));
-		System.out.println(portaCdA.getCd(portaCdA.cercaCdPerTitolo("Hello,")));
+		System.out.println(portaCdA.getCd(portaCdA.cercaCdPerTitolo("C")));
 		System.out.println(portaCdA.confrontaCollezione(portaCdB));
+
+		 */
 	}
 }
