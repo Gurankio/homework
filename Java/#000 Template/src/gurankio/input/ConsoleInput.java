@@ -3,26 +3,15 @@ package gurankio.input;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
 
 /**
  *  Classe per l'aquisizione di numeri da stdin.
  */
 public class ConsoleInput {
 
-    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-    /**
-     * Legge un intero da una riga di stdin.
-     * @return Valore intero digitato.
-     */
-    public static int readInt() {
-        try {
-            return Integer.parseInt(reader.readLine());
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
-            return readInt();
-        }
-    }
+    private static final String ERROR_MESSAGE = "Valore non valido. Reinseriscilo!";
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
 
     /**
      * Legge un intero da una riga di stdin.
@@ -32,24 +21,19 @@ public class ConsoleInput {
     public static int readInt(String prompt) {
         System.out.print(prompt);
         try {
-            return Integer.parseInt(reader.readLine());
+            return Integer.parseInt(READER.readLine());
         } catch (IOException | NumberFormatException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
+            System.out.println(ERROR_MESSAGE);
             return readInt(prompt);
         }
     }
 
     /**
-     * Legge un double da una riga di stdin.
-     * @return Valore decimale digitato.
+     * Legge un intero da una riga di stdin.
+     * @return Valore intero digitato.
      */
-    public static double readDouble() {
-        try {
-            return Double.parseDouble(reader.readLine());
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
-            return readDouble();
-        }
+    public static int readInt() {
+        return readInt("");
     }
 
     /**
@@ -60,25 +44,19 @@ public class ConsoleInput {
     public static double readDouble(String prompt) {
         System.out.print(prompt);
         try {
-            return Double.parseDouble(reader.readLine());
+            return Double.parseDouble(READER.readLine());
         } catch (IOException | NumberFormatException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
+            System.out.println(ERROR_MESSAGE);
             return readDouble(prompt);
         }
     }
 
-
     /**
-     * Legge una stringa da una riga di stdin.
-     * @return Riga digitata.
+     * Legge un double da una riga di stdin.
+     * @return Valore decimale digitato.
      */
-    public static String readLine() {
-        try {
-            return reader.readLine();
-        } catch (IOException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
-            return readLine();
-        }
+    public static double readDouble() {
+        return readDouble("");
     }
 
     /**
@@ -86,13 +64,24 @@ public class ConsoleInput {
      * @param prompt Messaggio da stampare all'utente.
      * @return Riga digitata.
      */
-    public static String readLine(String prompt) {
+    public static String readString(String prompt) {
         System.out.print(prompt);
         try {
-            return reader.readLine();
+            String s = READER.readLine();
+            if (!s.equals("")) return s;
+            System.out.println(ERROR_MESSAGE);
+            return readString(prompt);
         } catch (IOException e) {
-            System.out.println("Valore non valido. Reinseriscilo!");
-            return readLine(prompt);
+            System.out.println(ERROR_MESSAGE);
+            return readString(prompt);
         }
+    }
+
+    /**
+     * Legge una stringa da una riga di stdin.
+     * @return Riga digitata.
+     */
+    public static String readString() {
+        return readString("");
     }
 }
