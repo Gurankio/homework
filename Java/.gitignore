@@ -3,3 +3,6 @@
 
 # Eclipse
 /.metadata/
+
+# Libraries
+/Libraries/
