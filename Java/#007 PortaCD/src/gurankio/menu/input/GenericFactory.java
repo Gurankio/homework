@@ -1,0 +1,83 @@
+package gurankio.menu.input;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class GenericFactory {
+
+    // TODO: better i/o.
+    public static Object create(Class<?> aClass){
+        // Array
+        if (aClass.isArray()) {
+            Class<?> type = aClass.componentType();
+            System.out.print(aClass.getSimpleName() + " Size -> ");
+            Integer size = (Integer) create(Integer.class);
+            return array(type, size);
+        }
+
+        // Primitives
+        if (aClass.isPrimitive()) {
+            return create(wrapper(aClass));
+        }
+
+        // String: doesn't have a String valueOf(String) only valueOf(char[])
+        if (aClass.equals(String.class)) return ConsoleInput.readString("String: ");
+
+        // valueOf method, handles Wrapper classes + Enums.
+        /* if (aClass.isEnum()) {
+            System.out.println(aClass);
+        } */
+
+        try {
+            return aClass
+                    .getMethod("valueOf", String.class)
+                    .invoke(aClass, ConsoleInput.readString(aClass.getSimpleName() + ": "));
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignored) {
+        }
+
+        // Recursive constructor calls for everything else.
+        Constructor<?>[] constructors = aClass.getConstructors();
+        if (constructors.length == 0) throw new IllegalArgumentException("Non generate-able class. (" + aClass + ")");
+
+        Constructor<?> chosen = constructors[0]; // TODO: Ask the user which one.
+        System.out.println(chosen); // TODO: better string rep.
+        List<?> parameters = Stream.of(chosen.getParameters())
+                .map(x -> create(x.getType()))
+                .collect(Collectors.toList());
+        try {
+            return chosen.newInstance(parameters.toArray());
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException ignored) {
+        }
+
+        // Some strange case?
+        throw new IllegalArgumentException("Non generate-able class. (" + aClass + ")");
+    }
+
+    // Veramente malvagio.
+    @SuppressWarnings("unchecked")
+    private static <X> X[]array(Class <X> aClass, int size) {
+        if (aClass.isPrimitive()) throw new IllegalArgumentException("Non generate-able class. (" + aClass + ")");
+        X[] array = (X[]) Array.newInstance(aClass, size);
+        for (int i = 0; i < size; i++) array[i] = (X) create(aClass);
+        return array;
+    }
+
+    // Malvagio.
+    private static Class<?> wrapper(Class <?> aClass) {
+        return switch (aClass.getName()) {
+            case "boolean" -> Boolean.class;
+            case "byte" -> Byte.class;
+            case "char" -> Character.class;
+            case "short" -> Short.class;
+            case "int" -> Integer.class;
+            case "long" -> Long.class;
+            case "float" -> Float.class;
+            case "double" -> Double.class;
+            default -> null;
+        };
+    }
+}

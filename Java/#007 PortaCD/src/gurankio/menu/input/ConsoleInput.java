@@ -1,4 +1,4 @@
-package gurankio.input;
+package gurankio.menu.input;
 
 import java.io.BufferedReader;
 import java.io.IOException;
