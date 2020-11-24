@@ -14,7 +14,7 @@ public class GenericFactory {
         // Array
         if (aClass.isArray()) {
             Class<?> type = aClass.componentType();
-            System.out.print(aClass.getSimpleName() + " Size -> ");
+            ConsoleOutput.println("Creating a" + aClass.getComponentType() + " array. Insert size.");
             Integer size = (Integer) create(Integer.class);
             return array(type, size);
         }
@@ -29,7 +29,7 @@ public class GenericFactory {
 
         // valueOf method, handles Wrapper classes + Enums.
         /* if (aClass.isEnum()) {
-            System.out.println(aClass);
+            ConsoleOutput.print(aClass);
         } */
 
         try {
@@ -43,8 +43,20 @@ public class GenericFactory {
         Constructor<?>[] constructors = aClass.getConstructors();
         if (constructors.length == 0) throw new IllegalArgumentException("Non generate-able class. (" + aClass + ")");
 
-        Constructor<?> chosen = constructors[0]; // TODO: Ask the user which one.
-        System.out.println(chosen); // TODO: better string rep.
+        ConsoleOutput.println("Found " + constructors.length + " constructor" + (constructors.length == 1 ? "." : "s."));
+        int choice = 1;
+        if (constructors.length != 1) {
+            for (int i=0; i<constructors.length; i++) {
+                ConsoleOutput.println(" %c> (%02d) %s".formatted(i == constructors.length-1 ? '└' : '├', i + 1, constructors[i].toGenericString()));
+            }
+            do {
+                choice = ConsoleInput.readInt("Input:");
+                if (choice < 1 || choice >= constructors.length) ConsoleOutput.println("Invalid input.");
+            } while (choice < 1 || choice >= constructors.length);
+        } else {
+            ConsoleOutput.println(constructors[choice-1].toGenericString());
+        }
+        Constructor<?> chosen = constructors[choice-1];
         List<?> parameters = Stream.of(chosen.getParameters())
                 .map(x -> create(x.getType()))
                 .collect(Collectors.toList());

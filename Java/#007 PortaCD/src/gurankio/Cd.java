@@ -49,8 +49,8 @@ public class Cd {
     }
 
     public int compareDurata(Cd cd) {
-        if (getDurata() == cd.getDurata()) return 0;
-        return getDurata() > cd.getDurata() ? 1 : -1;
+        if (cd == null) return 1; // Maggiore di null?
+        return getDurata() - cd.getDurata();
     }
 
     @Override
@@ -58,10 +58,7 @@ public class Cd {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cd cd = (Cd) o;
-        return numeroBrani == cd.numeroBrani &&
-                durata == cd.durata &&
-                Objects.equals(titolo, cd.titolo) &&
-                Objects.equals(autore, cd.autore);
+        return titolo.equalsIgnoreCase(cd.titolo) && titolo.equalsIgnoreCase(cd.autore);
     }
 
 

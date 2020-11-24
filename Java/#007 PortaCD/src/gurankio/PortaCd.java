@@ -41,24 +41,11 @@ public class PortaCd {
     }
 
     public int confrontaCollezione(PortaCd portaCd) {
+        if (portaCd == null) return 0;
         return (int) Stream.of(cds)
                 .filter(Objects::nonNull)
                 .filter((x) -> Arrays.asList(portaCd.cds).contains(x))
                 .count();
-        /*
-        int uguali = 0;
-        for (int i=0; i<N; i++) {
-            if (cds[i] == null) continue;
-            for (int j=0; j<portaCd.N; j++) {
-                if (portaCd.cds[j] == null) continue;
-                if (cds[i].equals(portaCd.cds[j])) {
-                    uguali++;
-                    break;
-                }
-            }
-        }
-        return uguali;
-        */
     }
 
     @Override

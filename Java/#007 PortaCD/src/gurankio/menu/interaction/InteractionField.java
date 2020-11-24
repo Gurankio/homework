@@ -1,9 +1,10 @@
 package gurankio.menu.interaction;
 
+import gurankio.menu.input.ConsoleOutput;
 import gurankio.menu.input.GenericFactory;
-import gurankio.menu.window.Window;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 public class InteractionField implements Interactable {
 
@@ -13,20 +14,18 @@ public class InteractionField implements Interactable {
         this.field = field;
     }
 
-    public Field getField() {
-        return field;
-    }
-
     @Override
     public Object call(Object instance) {
         try {
+            ConsoleOutput.println("Entering '" + field.getName() + (field.getClass().isArray() ? "[]" : "") + "'");
             Object o = field.get(instance);
             if (o == null) {
-                System.out.println("Field is null. Creating...");
+                ConsoleOutput.println("Field is null. Creating...");
                 o = GenericFactory.create(field.getType());
                 field.set(instance, o);
             }
-            System.out.println(o);
+            if (o.getClass().isArray()) ConsoleOutput.println("─> ", Arrays.toString((Object[])o));
+            else ConsoleOutput.println("─> ", o);
             return o;
         } catch (IllegalAccessException e) {
             e.printStackTrace();

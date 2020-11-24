@@ -1,5 +1,6 @@
 package gurankio.menu.interaction;
 
+import gurankio.menu.input.ConsoleOutput;
 import gurankio.menu.input.GenericFactory;
 
 import java.lang.reflect.InvocationTargetException;
@@ -14,12 +15,9 @@ public class InteractionMethod implements Interactable {
         this.method = method;
     }
 
-    public Method getMethod() {
-        return method;
-    }
-
     @Override
     public Object call(Object instance) {
+        ConsoleOutput.println("Calling '" + method.getName() + "'");
         try {
             Object o = method.invoke(
                     instance,
@@ -30,8 +28,7 @@ public class InteractionMethod implements Interactable {
             );
             if (o != null) {
                 // TODO: do not force to open...
-                // TODO: better i/o. newline + tab
-                System.out.println(o);
+                ConsoleOutput.println("─> ", o);
                 return o;
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
