@@ -26,7 +26,7 @@ public class Menu {
         classList.parallelStream()
                 .forEach(x -> {
                     menuWindowsMap.put(x, WindowFactory.create(x));
-                    ConsoleOutput.println("Built: %s".formatted(x.getSimpleName()));
+                    ConsoleOutput.println(String.format("Built: %s", x.getSimpleName()));
                 });
         ConsoleOutput.decrementIndentation();
         ConsoleOutput.println("Done!");

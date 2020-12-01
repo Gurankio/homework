@@ -13,7 +13,7 @@ public class GenericFactory {
     public static Object create(Class<?> aClass){
         // Array
         if (aClass.isArray()) {
-            Class<?> type = aClass.componentType();
+            Class<?> type = aClass.getComponentType();
             ConsoleOutput.println("Creating a" + aClass.getComponentType() + " array. Insert size.");
             Integer size = (Integer) create(Integer.class);
             return array(type, size);
@@ -47,7 +47,7 @@ public class GenericFactory {
         int choice = 1;
         if (constructors.length != 1) {
             for (int i=0; i<constructors.length; i++) {
-                ConsoleOutput.println(" %c> (%02d) %s".formatted(i == constructors.length-1 ? '└' : '├', i + 1, constructors[i].toGenericString()));
+                ConsoleOutput.println(String.format(" %c> (%02d) %s", (i == constructors.length-1 ? '└' : '├'), i + 1, constructors[i].toGenericString()));
             }
             do {
                 choice = ConsoleInput.readInt("Input:");
@@ -80,16 +80,25 @@ public class GenericFactory {
 
     // Malvagio.
     private static Class<?> wrapper(Class <?> aClass) {
-        return switch (aClass.getName()) {
-            case "boolean" -> Boolean.class;
-            case "byte" -> Byte.class;
-            case "char" -> Character.class;
-            case "short" -> Short.class;
-            case "int" -> Integer.class;
-            case "long" -> Long.class;
-            case "float" -> Float.class;
-            case "double" -> Double.class;
-            default -> null;
-        };
+        switch (aClass.getName()) {
+            case "boolean":
+                return Boolean.class;
+            case "byte":
+                return Byte.class;
+            case "char":
+                return Character.class;
+            case "short":
+                return Short.class;
+            case "int":
+                return Integer.class;
+            case "long":
+                return Long.class;
+            case "float":
+                return Float.class;
+            case "double":
+                return Double.class;
+            default:
+                throw new IllegalArgumentException("Class passed to wrapper is not primitive.");
+        }
     }
 }

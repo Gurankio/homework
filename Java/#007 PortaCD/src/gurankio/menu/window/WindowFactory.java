@@ -30,7 +30,7 @@ public class WindowFactory {
             Class<?> pClass = classStack.pop();
             result.add(pClass);
             if (pClass.isArray()) {
-                classStack.push(pClass.componentType());
+                classStack.push(pClass.getComponentType());
                 continue;
             }
             Stream<Class<?>> fields = Arrays.stream(pClass.getFields())
@@ -76,7 +76,7 @@ public class WindowFactory {
                 } while (i < 0 || i >= array.length);
                 if (array[i] == null) {
                     ConsoleOutput.println("Value is null. Creating...");
-                    array[i] = GenericFactory.create(aClass.componentType());
+                    array[i] = GenericFactory.create(aClass.getComponentType());
                 }
                 return array[i];
             });
@@ -89,7 +89,7 @@ public class WindowFactory {
                     i = ConsoleInput.readInt("Index: ");
                     if (i < 0 || i >= array.length) ConsoleOutput.println("Index out of bounds.");
                 } while (i < 0 || i >= array.length);
-                array[i] = GenericFactory.create(aClass.componentType());
+                array[i] = GenericFactory.create(aClass.getComponentType());
                 return array[i];
             });
         } else {
