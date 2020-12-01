@@ -99,7 +99,6 @@ public class WindowFactory {
                     .collect(Collectors.toList());
             if (fields.size() != 0) menu.append("Fields: \n");
             for (int i = 0; i < fields.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == fields.size() - 1 ? '└' : '├', actions.size() + 1, fields.get(i).getName()));
                 menu.append(String.format("%c> (%02d) %s%n", i == fields.size() - 1 ? 'j' : 'j', actions.size() + 1, fields.get(i).getName()));
                 actions.put(actions.size() + 1, new InteractionField(fields.get(i)));
             }
