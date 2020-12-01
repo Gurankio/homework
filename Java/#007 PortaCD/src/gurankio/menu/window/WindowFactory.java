@@ -113,7 +113,6 @@ public class WindowFactory {
                     .collect(Collectors.toList());
             if (getters.size() != 0) menu.append("Getters: \n");
             for (int i = 0; i < getters.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == getters.size() - 1 ? '└' : '├', actions.size() + 1, getters.get(i).getName()));
                 menu.append(String.format("%c> (%02d) %s%n", i == getters.size() - 1 ? 'j' : 'j', actions.size() + 1, getters.get(i).getName()));
                 actions.put(actions.size() + 1, new InteractionMethod(getters.get(i)));
             }
@@ -127,7 +126,6 @@ public class WindowFactory {
                     .collect(Collectors.toList());
             if (setters.size() != 0) menu.append("Setters: \n");
             for (int i = 0; i < setters.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == setters.size() - 1 ? '└' : '├', actions.size() + 1, setters.get(i).getName()));
                 menu.append(String.format("%c> (%02d) %s%n", i == setters.size() - 1 ? 'j' : 'h', actions.size() + 1, setters.get(i).getName()));
                 actions.put(actions.size() + 1, new InteractionMethod(setters.get(i)));
             }
@@ -141,7 +139,6 @@ public class WindowFactory {
                     .collect(Collectors.toList());
             if (others.size() != 0) menu.append("Others: \n");
             for (int i = 0; i < others.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == others.size() - 1 ? '└' : '├', actions.size() + 1, others.get(i).getName()));
                 menu.append(String.format("%c> (%02d) %s%n", i == others.size() - 1 ? 'j' : 'j', actions.size() + 1, others.get(i).getName()));
                 actions.put(actions.size() + 1, new InteractionMethod(others.get(i)));
             }
