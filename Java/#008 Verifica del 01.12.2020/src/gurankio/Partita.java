@@ -12,7 +12,7 @@ public class Partita {
 	private int numeroPersonaggi;
 	private int risultato;
 	
-	// Mi aspetto un mazzo con valori contigui e completamente pieno, con più di 4 carte.
+	// Mi aspetto un mazzo con valori contigui e completamente pieno, con piï¿½ di 4 carte.
 	public Partita(Giocatore giocatoreA, Giocatore giocatoreB, Personaggio[] mazzo) {
 		this.giocatoreA = giocatoreA;
 		this.giocatoreB = giocatoreB;
@@ -88,7 +88,7 @@ public class Partita {
 				System.out.println("Personaggio non valido. Inserire un numero tra 0 e " + (giocatoreB.getNumeroPersonaggi()-1));
 			}
 		} while (indexB < 0 || indexB >= giocatoreB.getNumeroPersonaggi());
-		Personaggio personaggioB = giocatoreB.rimuoviPersonaggio(indexA);
+		Personaggio personaggioB = giocatoreB.rimuoviPersonaggio(indexB);
 		System.out.println("");
 
 		System.out.println(personaggioA.getNome() + " vs " + personaggioB.getNome());
