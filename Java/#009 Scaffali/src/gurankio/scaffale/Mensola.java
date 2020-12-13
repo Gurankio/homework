@@ -17,17 +17,20 @@ public class Mensola {
     }
 
     public int setVolume(Libro libro, int posizione) {
+        if (posizione < 0 || posizione >= NUM_MAX_VOLUMI) return -1;
         volumi.set(posizione, libro);
-        return 1; // TODO: Cosa dovrebbe ritornare?
+        return 0;
     }
 
     public Libro getVolume(int posizione) {
+        if (posizione < 0 || posizione >= NUM_MAX_VOLUMI) return null;
         return volumi.get(posizione);
     }
 
     public int rimuoviVolume(int posizione) {
+        if (posizione < 0 || posizione >= NUM_MAX_VOLUMI) return -1;
         volumi.set(posizione, null);
-        return 1; // TODO: Cosa dovrebbe ritornare?
+        return 0;
     }
 
     public static int getNumMaxVolumi() {

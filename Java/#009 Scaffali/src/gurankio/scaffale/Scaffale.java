@@ -16,17 +16,18 @@ public class Scaffale {
     }
 
     public int setLibro(Libro libro, int ripiano, int posizione) {
-        ripiani.get(ripiano).setVolume(libro, posizione);
-        return 1; // TODO: Cosa dovrebbe ritornare?
+        if (ripiano < 0 || ripiano >= NUM_RIPIANI) return -1;
+        return ripiani.get(ripiano).setVolume(libro, posizione);
     }
 
     public Libro getLibro(int ripiano, int posizione) {
+        if (ripiano < 0 || ripiano >= NUM_RIPIANI) return null;
         return ripiani.get(ripiano).getVolume(posizione);
     }
 
     public int rimuoviLibro(int ripiano, int posizione) {
-        ripiani.get(ripiano).rimuoviVolume(posizione);
-        return 1; // TODO: Cosa dovrebbe ritornare?
+        if (ripiano < 0 || ripiano >= NUM_RIPIANI) return -1;
+        return ripiani.get(ripiano).rimuoviVolume(posizione);
     }
 
     public static int getNumRipiani() {
@@ -42,10 +43,6 @@ public class Scaffale {
                 .map(Mensola::getNumVolumi)
                 .reduce(Long::sum)
                 .orElse(0L);
-    }
-
-    public List<Mensola> getRipiani() {
-        return ripiani;
     }
 
     public long getNumLibri(int ripiano) {

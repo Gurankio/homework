@@ -1,84 +1,81 @@
 package gurankio.menu.io;
 
-import java.util.List;
-import java.util.Stack;
-import java.util.concurrent.atomic.AtomicInteger;
+import gurankio.Main;
+import gurankio.menu.io.util.CharPacks;
+import gurankio.menu.io.util.StringPrettify;
 
-// TODO: String has an indent utility. Too bad.
 public class ConsoleOutput {
 
-    private static final int WIDTH = 3;
-    private static AtomicInteger indentation = new AtomicInteger(0);
-    private static final Stack<Integer> indentationStack = new Stack<>();
+    private static int indentation = 1;
 
     public static void incrementIndentation() {
-        indentation.incrementAndGet();
+        indentation++;
     }
 
     public static void decrementIndentation() {
-        if (indentation.decrementAndGet() < 0) indentation.set(0);
-    }
-
-    public static void pushIndentation() {
-        indentationStack.push(indentation.get());
-    }
-
-    public static void popIndentation() {
-        indentation.set(indentationStack.pop());
+        indentation--;
+        if (indentation < 1) indentation = 1;
     }
 
     // Basic print
-
-    public static void print(String prefix, String s) {
-        s.lines().forEach(l -> {
-            if (indentation.get() != 0) System.out.print(" ".repeat(WIDTH).repeat(indentation.get()-1));
-            System.out.print(prefix);
-            System.out.print(l);
-        });
+    public static void arrow(String s) {
+        System.out.print(CharPacks.selected.getSpacer((indentation - 1) * CharPacks.WIDTH) + CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + s);
     }
 
-    public static void print(String prefix, Object o) {
-        print(prefix, o.toString());
+    public static void arrow(Object o) {
+        arrow(StringPrettify.toPrettyString(o));
     }
 
     public static void print(String s) {
         s.lines().forEach(l -> {
-            System.out.print(" ".repeat(WIDTH).repeat(indentation.get()));
+            System.out.print(CharPacks.selected.getSpacer(indentation * CharPacks.WIDTH));
             System.out.print(l);
         });
     }
 
     public static void print(Object o) {
-        print(o.toString());
+        print(StringPrettify.toPrettyString(o));
     }
 
     // Print + new line
-
-    public static void println(String prefix, String s) {
-        s.lines().forEach(l -> {
-            if (indentation.get() != 0) System.out.print(" ".repeat(WIDTH).repeat(indentation.get()-1));
-            System.out.print(prefix);
-            System.out.println(l);
-        });
+    public static void arrowln(String s) {
+        System.out.println(CharPacks.selected.getSpacer((indentation - 1) * CharPacks.WIDTH) + CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + s);
     }
 
-    public static void println(String prefix, Object o) {
-        println(prefix, o.toString());
+    public static void arrowln(Object o) {
+        arrowln(StringPrettify.toPrettyString(o));
     }
 
     public static void println(String s) {
         s.lines().forEach(l -> {
-            System.out.print(" ".repeat(WIDTH).repeat(indentation.get()));
+            System.out.print(CharPacks.selected.getSpacer(indentation * CharPacks.WIDTH));
             System.out.println(l);
         });
     }
 
     public static void println(Object o) {
-        println(o.toString());
+        print(StringPrettify.toPrettyString(o));
     }
 
-    public static void println() {
-        System.out.println();
+    public static void println() { println(" "); }
+
+    // Debug
+    public static void debug(String s) {
+        if (Main.DEBUG) print(s);
     }
+
+    public static void debug(Object o) {
+        debug(StringPrettify.toPrettyString(o));
+    }
+
+    public static void debugln(String s) {
+        if (Main.DEBUG) println(s);
+    }
+
+    public static void debugln(Object o) {
+        debugln(StringPrettify.toPrettyString(o));
+    }
+
+    public static void debugln() { debugln(" "); }
 
 }

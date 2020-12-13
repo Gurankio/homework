@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class WindowFactory {
 
     protected static final String excludedJavaPacket = "java.lang";
-    protected static final List<String> excludedMethods = Arrays.asList("main", "toString", "equals");
+    protected static final List<String> excludedMethods = Arrays.asList("main", "equals");
 
     public static Map<Class<?>, Window> createAll(Class<?> entrypoint) {
         Map<Class<?>, Window> windows = new ConcurrentHashMap<>();

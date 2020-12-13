@@ -2,104 +2,68 @@ package gurankio.menu;
 
 import gurankio.menu.io.ConsoleInput;
 import gurankio.menu.io.ConsoleOutput;
-import gurankio.menu.interaction.Interactable;
-import gurankio.menu.io.StringRepresentation;
-import gurankio.menu.window.ClassSearcher;
+import gurankio.menu.io.util.StringPrettify;
+import gurankio.menu.io.util.TreeBuilder;
 import gurankio.menu.window.Window;
 import gurankio.menu.window.WindowFactory;
+import gurankio.menu.window.interactive.Interactive;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.function.Supplier;
 
 public class Menu {
 
-    // Built on constructor call. Maps all classes to their window.
-    private final Class<?> entrypoint;
-    private final Map<Class<?>, Window> menuWindowsMap;
+    private final Map<Class<?>, Window> windows;
+    private final Stack<Object> stack;
 
-    public Menu(Class<?> entrypoint) {
-        ConsoleOutput.println("dyMenu - Alpha");
-        ConsoleOutput.println("Compile with '-parameters' for parameter names.");
+    public Menu(Supplier<?> supplier) {
+        ConsoleOutput.debugln("dyMenu - Alpha MK2");
 
-        this.entrypoint = entrypoint;
-        menuWindowsMap = new ConcurrentHashMap<>(); // Build windows.
-        List<Class<?>> classList = ClassSearcher.run(entrypoint);
-        ConsoleOutput.println("Building menus...");
-        ConsoleOutput.incrementIndentation();
-        classList.parallelStream()
-                .forEach(x -> {
-                    menuWindowsMap.put(x, WindowFactory.create(x));
-                    ConsoleOutput.println(String.format("Built: %s", x.getSimpleName()));
-                });
-        ConsoleOutput.decrementIndentation();
-        ConsoleOutput.println("Done!");
+        Object entrypoint = supplier.get();
+        this.windows = WindowFactory.createAll(entrypoint.getClass());
+        this.stack = new Stack<>();
+        this.stack.push(entrypoint);
+    }
+
+    private TreeBuilder getPath() {
+        TreeBuilder builder = new TreeBuilder();
+        for (Object o : stack) {
+            Class<?> target = o instanceof Class<?> ? (Class<?>) o : o.getClass();
+            builder.start(StringPrettify.toPrettyString(target));
+        }
+        return builder;
     }
 
     public void console() {
-        Stack<Object> stack = new Stack<>();
-        stack.push(entrypoint);
-
         while (!stack.isEmpty()) {
-            ConsoleOutput.println();
-
-            // Display path
-            List<String> strings = new ArrayList<>();
-            for (int i=0; i<stack.size(); i++) {
-                Class<?> c;
-                if (stack.get(i) instanceof Class<?>) c = (Class<?>) stack.get(i);
-                else c = stack.get(i).getClass();
-                if (i == stack.size()-1) {
-                    if (c.isArray()) {
-                        strings.add(c.getSimpleName()
-                                .replace("[", "")
-                                .replace("]", "") + "[" + ((Object[])stack.get(i)).length + "]");
-                    } else {
-                        try {
-                            if (!c.getMethod("toString").getDeclaringClass().getName().startsWith("java")) strings.add(stack.get(i).toString());
-                            else strings.add(c.getSimpleName());
-                        } catch (NoSuchMethodException e) {
-                            strings.add(c.getSimpleName());
-                        }
-                    }
-                } else strings.add(c.getSimpleName());
-            }
-            StringRepresentation.path(strings);
-
-            // Display window
             Object instance = stack.peek();
             Window window;
-            if (instance instanceof Class<?>) {
-                // Static context
-                window = menuWindowsMap.get(instance);
-            } else {
-                // Object context
-                window = menuWindowsMap.get(instance.getClass());
+            if (instance instanceof Window) {
+                window = (Window) instance;
+                instance = stack.get(stack.size()-2);
             }
-            Interactable interactable = window.loop();
+            else if (instance instanceof Class<?>) window = windows.get(instance);
+            else window = windows.get(instance.getClass());
 
+            Interactive interactive = window.loop(this::getPath, instance);
             ConsoleOutput.println();
-            ConsoleOutput.incrementIndentation();
+            Object next = interactive.call(instance);
 
-            Object next = interactable.call(instance);
+            if (next instanceof Window) {
+                StringPrettify.instanceOverride.put(next, interactive.getNames().get(0));
+                stack.push(next);
+            } else {
+                if (next != null) {
+                    // TODO: do not force to open, check clipboard...
+                    ConsoleInput.read("Press ENTER to continue...", false);
 
-            // TODO: do not force to open...
-            if (next != null) {
-                ConsoleOutput.print("Press ENTER to continue...");
-                ConsoleInput.readString();
-
-                if (next != stack.peek()) {
-                    if (!(next instanceof Class<?>)) {
-                        // Object context
-                        next = next.getClass();
+                    if (next != stack.peek()) {
+                        if ((next instanceof Class<?> && windows.containsKey(next)) || windows.containsKey(next.getClass())) stack.push(next);
+                        else ConsoleOutput.println("Dropping \"" + StringPrettify.toPrettyString(next) + "\" as it doesn't have a menu.");
                     }
-                    if (menuWindowsMap.containsKey(next)) stack.push(next);
-                    else if (menuWindowsMap.keySet().stream().filter(x -> next. x)) {
-
-                    } else ConsoleOutput.println("Dropping \"" + ((Class<?>) next).getSimpleName() + "\" as it doesn't have a menu.");
-                }
-            } else stack.pop();
-
-            ConsoleOutput.decrementIndentation();
+                } else stack.pop();
+            }
         }
     }
 }

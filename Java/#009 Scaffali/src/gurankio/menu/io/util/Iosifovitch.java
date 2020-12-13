@@ -1,24 +1,22 @@
-package gurankio.menu.io;
+package gurankio.menu.io.util;
 
-import java.util.ArrayList;
-
-// https://bitbucket.org/clearer/iosifovitch/src/master/
+// Source: https://bitbucket.org/clearer/iosifovitch/src/master/
 public class Iosifovitch {
 
     public static Integer levenshtein(String a, String b) {
         if (a.equalsIgnoreCase(b)) return 0;
-        if (a.length() > b.length()) {
+        if (a.length() < b.length()) {
             String t = a;
             a = b;
             b = t;
         }
 
         // reduce(a, b)
-        int prefix = 0;
+        int prefix;
         for (prefix=0; prefix<b.length(); prefix++) if (a.charAt(prefix) != b.charAt(prefix)) break;
         a = a.substring(prefix);
         b = b.substring(prefix);
-        int suffix = 0;
+        int suffix;
         for (suffix=0; suffix<b.length(); suffix++) if (a.charAt(a.length() - 1 - suffix) != b.charAt(b.length() - 1 - suffix)) break;
         a = a.substring(0, a.length() - suffix);
         b = b.substring(0, b.length() - suffix);
