@@ -44,6 +44,10 @@ public class Scaffale {
                 .orElse(0L);
     }
 
+    public List<Mensola> getRipiani() {
+        return ripiani;
+    }
+
     public long getNumLibri(int ripiano) {
         return ripiani.get(ripiano).getNumVolumi();
     }

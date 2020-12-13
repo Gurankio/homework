@@ -1,56 +1,74 @@
 package gurankio.menu.window;
 
-import gurankio.menu.input.ConsoleInput;
-import gurankio.menu.input.ConsoleOutput;
-import gurankio.menu.input.GenericFactory;
-import gurankio.menu.interaction.Interactable;
-import gurankio.menu.interaction.InteractionField;
-import gurankio.menu.interaction.InteractionMethod;
+import gurankio.menu.MenuOptions;
+import gurankio.menu.io.ConsoleInput;
+import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.util.StringPrettify;
+import gurankio.menu.window.interactive.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// TODO: hide + shortcut + menu order
 public class WindowFactory {
 
-    private static final List<String> excludedMethods = Arrays.asList("main", "toString", "equals");
+    protected static final String excludedJavaPacket = "java.lang";
+    protected static final List<String> excludedMethods = Arrays.asList("main", "toString", "equals");
 
-    public static List<Class<?>> searchClasses(Class<?> aClass) {
+    public static Map<Class<?>, Window> createAll(Class<?> entrypoint) {
+        Map<Class<?>, Window> windows = new ConcurrentHashMap<>();
+        ConsoleOutput.debugln("Building menus...");
+        ConsoleOutput.incrementIndentation();
+        search(entrypoint).parallelStream()
+                .forEach(x -> {
+                    windows.put(x, create(x));
+                    ConsoleOutput.debugln(String.format("Built: %s", x.getSimpleName()));
+                });
+        ConsoleOutput.decrementIndentation();
+        ConsoleOutput.debugln("Done!");
+        return windows;
+    }
+
+    private static List<Class<?>> search(Class<?> entrypoint) {
         List<Class<?>> result = new ArrayList<>();
         Stack<Class<?>> classStack = new Stack<>();
-        classStack.push(aClass);
+        classStack.push(entrypoint);
 
         while (!classStack.isEmpty()) {
-            Class<?> pClass = classStack.pop();
-            result.add(pClass);
-            if (pClass.isArray()) {
-                classStack.push(pClass.getComponentType());
+            Class<?> target = classStack.pop();
+            result.add(target);
+            if (target.isArray()) {
+                classStack.push(target.getComponentType());
                 continue;
             }
-            Stream<Class<?>> fields = Arrays.stream(pClass.getFields())
+            Stream<Class<?>> fields = Arrays.stream(target.getFields())
                     .filter(x -> Modifier.isPublic(x.getModifiers()))
+                    .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
                     .map(Field::getType);
-            Stream<Class<?>> parameters = Arrays.stream(pClass.getMethods())
+            Stream<Class<?>> parameters = Arrays.stream(target.getMethods())
                     .filter(x -> Modifier.isPublic(x.getModifiers()))
+                    .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
                     .filter(x -> !excludedMethods.contains(x.getName()))
                     .map(Method::getParameters)
                     .flatMap(Arrays::stream)
                     .map(Parameter::getType);
-            Stream<Class<?>> returns = Arrays.stream(pClass.getMethods())
+            Stream<Class<?>> returns = Arrays.stream(target.getMethods())
                     .filter(x -> Modifier.isPublic(x.getModifiers()))
+                    .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
                     .filter(x -> !excludedMethods.contains(x.getName()))
                     .map(Method::getReturnType);
             Stream.of(fields, parameters, returns)
                     .flatMap(Function.identity())
                     .distinct()
                     .filter(x -> !x.isPrimitive())
-                    .filter(x -> !x.getName().startsWith("java"))
+                    .filter(x -> !x.getName().startsWith(excludedJavaPacket))
                     .filter(x -> !classStack.contains(x))
                     .filter(x -> !result.contains(x))
                     .forEach(classStack::push);
@@ -59,94 +77,106 @@ public class WindowFactory {
         return result;
     }
 
-    public static Window create(Class<?> aClass) {
-        StringBuilder menu = new StringBuilder();
-        Map<Integer, Interactable> actions = new HashMap<>();
+    public static Window create(Class<?> target) {
+        List<Interactive> interactives = new ArrayList<>();
 
-        if (aClass.isArray()) {
-            menu.append("Utilities:\n");
-            menu.append(String.format("├> (%02d) %s%n", actions.size() + 1, "get"));
-            actions.put(actions.size() + 1, instance -> {
-                Object[] array = (Object[]) instance;
-                ConsoleOutput.println("Getting by index. Array size is " + array.length);
-                int i;
-                do {
-                    i = ConsoleInput.readInt("Index: ");
-                    if (i < 0 || i >= array.length) ConsoleOutput.println("Index out of bounds.");
-                } while (i < 0 || i >= array.length);
-                if (array[i] == null) {
-                    ConsoleOutput.println("Value is null. Creating...");
-                    array[i] = GenericFactory.create(aClass.getComponentType());
+        if (target.isArray()) {
+          interactives.add(new Interactive() {
+              @Override
+              public void render(Consumer<String> consumer, Object instance) {
+                  consumer.accept("get(index)");
+              }
+
+              @Override
+              public List<String> getNames() {
+                  return Arrays.asList("get");
+              }
+
+              @Override
+              public Object call(Object instance) {
+                  render((s) -> ConsoleOutput.println("Calling '" + s + "'"), instance);
+                  int index = (int) ConsoleInput.read("Index", Integer.class);
+                  Object r = ((Object[]) instance)[index];
+                  if (r == null) {
+                      String confirmInput = ConsoleInput.read("Did you mean to call "+"set(index, "+ StringPrettify.toPrettyString(target.getComponentType()) +")? Y/N");
+                      if (confirmInput.matches("[yY].*")) {
+                          Object object = ConsoleInput.read("Value", target.getComponentType());
+                          ((Object[]) instance)[index] = object;
+                          return instance;
+                      }
+                  }
+                  return r;
+              }
+          });
+            interactives.add(new Interactive() {
+                @Override
+                public void render(Consumer<String> consumer, Object instance) {
+                    consumer.accept("set(index, "+ StringPrettify.toPrettyString(target.getComponentType()) +")");
                 }
-                return array[i];
+
+                @Override
+                public List<String> getNames() {
+                    return Arrays.asList("set");
+                }
+
+                @Override
+                public Object call(Object instance) {
+                    render((s) -> ConsoleOutput.println("Calling '" + s + "'"), instance);
+                    int index = (int) ConsoleInput.read("Index", Integer.class);
+                    Object object = ConsoleInput.read("Value", target.getComponentType());
+                    ((Object[]) instance)[index] = object;
+                    return instance;
+                }
             });
-            menu.append(String.format("└> (%02d) %s%n", actions.size() + 1, "set"));
-            actions.put(actions.size() + 1, instance -> {
-                Object[] array = (Object[]) instance;
-                ConsoleOutput.println("Setting by index. Array size is " + array.length);
-                int i;
-                do {
-                    i = ConsoleInput.readInt("Index: ");
-                    if (i < 0 || i >= array.length) ConsoleOutput.println("Index out of bounds.");
-                } while (i < 0 || i >= array.length);
-                array[i] = GenericFactory.create(aClass.getComponentType());
-                return array[i];
-            });
-        } else {
-            List<Field> fields = Arrays.stream(aClass.getFields())
-                    .filter(x -> Modifier.isPublic(x.getModifiers()))
-                    .sorted(Comparator.comparing(Field::getName))
-                    .collect(Collectors.toList());
-            if (fields.size() != 0) menu.append("Fields: \n");
-            for (int i = 0; i < fields.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == fields.size() - 1 ? '└' : '├', actions.size() + 1, fields.get(i).getName()));
-                actions.put(actions.size() + 1, new InteractionField(fields.get(i)));
-            }
-
-            List<Method> getters = Arrays.stream(aClass.getMethods())
-                    .filter(x -> !x.getDeclaringClass().getName().startsWith("java"))
-                    .filter(x -> Modifier.isPublic(x.getModifiers()))
-                    .filter(x -> !excludedMethods.contains(x.getName()))
-                    .filter(x -> x.getName().matches("get.*"))
-                    .sorted(Comparator.comparing(Method::getName))
-                    .collect(Collectors.toList());
-            if (getters.size() != 0) menu.append("Getters: \n");
-            for (int i = 0; i < getters.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == getters.size() - 1 ? '└' : '├', actions.size() + 1, getters.get(i).getName()));
-                actions.put(actions.size() + 1, new InteractionMethod(getters.get(i)));
-            }
-
-            List<Method> setters = Arrays.stream(aClass.getMethods())
-                    .filter(x -> !x.getDeclaringClass().getName().startsWith("java"))
-                    .filter(x -> Modifier.isPublic(x.getModifiers()))
-                    .filter(x -> !excludedMethods.contains(x.getName()))
-                    .filter(x -> x.getName().matches("set.*"))
-                    .sorted(Comparator.comparing(Method::getName))
-                    .collect(Collectors.toList());
-            if (setters.size() != 0) menu.append("Setters: \n");
-            for (int i = 0; i < setters.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == setters.size() - 1 ? '└' : '├', actions.size() + 1, setters.get(i).getName()));
-                actions.put(actions.size() + 1, new InteractionMethod(setters.get(i)));
-            }
-
-            List<Method> others = Arrays.stream(aClass.getMethods())
-                    .filter(x -> !x.getDeclaringClass().getName().startsWith("java"))
-                    .filter(x -> Modifier.isPublic(x.getModifiers()))
-                    .filter(x -> !excludedMethods.contains(x.getName()))
-                    .filter(x -> !x.getName().matches("get.*|set.*"))
-                    .sorted(Comparator.comparing(Method::getName))
-                    .collect(Collectors.toList());
-            if (others.size() != 0) menu.append("Others: \n");
-            for (int i = 0; i < others.size(); i++) {
-                menu.append(String.format("%c> (%02d) %s%n", i == others.size() - 1 ? '└' : '├', actions.size() + 1, others.get(i).getName()));
-                actions.put(actions.size() + 1, new InteractionMethod(others.get(i)));
-            }
         }
 
-        menu.append(String.format("<─%02d %s%n", 0, "Exit"));
-        actions.put(0, instance -> null);
+        List<Interactive> fields = Arrays.stream(target.getFields())
+                .filter(f -> Modifier.isPublic(f.getModifiers()))
+                .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
+                .sorted(Comparator.comparing(Field::getName))
+                .map(InteractiveField::new)
+                .collect(Collectors.toList());
+        fields.add(new InteractiveExit());
+        interactives.add(new InteractiveWindow("fields", new Window(fields)));
 
-        return new Window(menu.toString(), actions);
+        List<Interactive> getters = Arrays.stream(target.getMethods())
+                .filter(m -> !m.getDeclaringClass().getName().startsWith(excludedJavaPacket))
+                .filter(m -> Modifier.isPublic(m.getModifiers()))
+                .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
+                .filter(m -> !excludedMethods.contains(m.getName()))
+                .filter(m -> m.getName().matches("get.*"))
+                .sorted(Comparator.comparing(Method::getName))
+                .map(InteractiveGetter::new)
+                .collect(Collectors.toList());
+        getters.add(new InteractiveExit());
+        interactives.add(new InteractiveWindow("getters", new Window(getters)));
+
+        List<Interactive> setters = Arrays.stream(target.getMethods())
+                .filter(m -> !m.getDeclaringClass().getName().startsWith(excludedJavaPacket))
+                .filter(m -> Modifier.isPublic(m.getModifiers()))
+                .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
+                .filter(m -> !excludedMethods.contains(m.getName()))
+                .filter(m -> m.getName().matches("set.*"))
+                .sorted(Comparator.comparing(Method::getName))
+                .map(InteractiveSetter::new)
+                .collect(Collectors.toList());
+        setters.add(new InteractiveExit());
+        interactives.add(new InteractiveWindow("setters", new Window(setters)));
+
+        List<Interactive> methods = Arrays.stream(target.getMethods())
+                .filter(m -> !m.getDeclaringClass().getName().startsWith(excludedJavaPacket))
+                .filter(m -> Modifier.isPublic(m.getModifiers()))
+                .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
+                .filter(m -> !excludedMethods.contains(m.getName()))
+                .filter(m -> !m.getName().matches("get.*|set.*"))
+                .sorted(Comparator.comparing(Method::getName))
+                .map(InteractiveMethod::new)
+                .collect(Collectors.toList());
+        methods.add(new InteractiveExit());
+        interactives.add(new InteractiveWindow("methods", new Window(methods)));
+
+        interactives.add(new InteractiveExit());
+        return new Window(interactives);
     }
 
 }

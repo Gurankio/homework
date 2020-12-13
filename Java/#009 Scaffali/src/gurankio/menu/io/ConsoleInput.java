@@ -1,9 +1,11 @@
-package gurankio.menu.input;
+package gurankio.menu.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// TODO: dynamic input
+// TODO: https://bitbucket.org/clearer/iosifovitch/src/master/src/levenshtein.cpp
 public class ConsoleInput {
 
     public static final String ERROR_MESSAGE = "Invalid input.";

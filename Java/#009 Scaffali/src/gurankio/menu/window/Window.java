@@ -1,7 +1,7 @@
 package gurankio.menu.window;
 
-import gurankio.menu.input.ConsoleInput;
-import gurankio.menu.input.ConsoleOutput;
+import gurankio.menu.io.ConsoleInput;
+import gurankio.menu.io.ConsoleOutput;
 import gurankio.menu.interaction.Interactable;
 
 import java.util.Map;

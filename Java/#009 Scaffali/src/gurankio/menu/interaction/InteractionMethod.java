@@ -1,11 +1,13 @@
 package gurankio.menu.interaction;
 
-import gurankio.menu.input.ConsoleOutput;
-import gurankio.menu.input.GenericFactory;
+import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.GenericFactory;
+import gurankio.menu.io.StringRepresentation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class InteractionMethod implements Interactable {
 
@@ -17,20 +19,19 @@ public class InteractionMethod implements Interactable {
 
     @Override
     public Object call(Object instance) {
-        ConsoleOutput.println("Calling '" + method.toGenericString() + "'");
+        ConsoleOutput.println("Calling '" + StringRepresentation.toPrettyString(method) + "'");
         try {
             Object o = method.invoke(
                     instance,
-                    // TODO: clipboard, probably inside GenericFactory as a static field.
                     Arrays.stream(method.getParameters())
-                            .map(x -> GenericFactory.create(x.getType()))
+                            .map(x -> GenericFactory.create((x.isNamePresent() ? x.getName() : x.getType().getSimpleName()), x.getType()))
                             .toArray()
             );
             if (o != null) {
-                // TODO: do not force to open...
                 ConsoleOutput.println("─> ", o);
                 return o;
             }
+
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

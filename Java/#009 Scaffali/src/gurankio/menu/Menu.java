@@ -1,8 +1,10 @@
 package gurankio.menu;
 
-import gurankio.menu.input.ConsoleInput;
-import gurankio.menu.input.ConsoleOutput;
+import gurankio.menu.io.ConsoleInput;
+import gurankio.menu.io.ConsoleOutput;
 import gurankio.menu.interaction.Interactable;
+import gurankio.menu.io.StringRepresentation;
+import gurankio.menu.window.ClassSearcher;
 import gurankio.menu.window.Window;
 import gurankio.menu.window.WindowFactory;
 
@@ -17,10 +19,11 @@ public class Menu {
 
     public Menu(Class<?> entrypoint) {
         ConsoleOutput.println("dyMenu - Alpha");
+        ConsoleOutput.println("Compile with '-parameters' for parameter names.");
 
         this.entrypoint = entrypoint;
         menuWindowsMap = new ConcurrentHashMap<>(); // Build windows.
-        List<Class<?>> classList = WindowFactory.searchClasses(entrypoint);
+        List<Class<?>> classList = ClassSearcher.run(entrypoint);
         ConsoleOutput.println("Building menus...");
         ConsoleOutput.incrementIndentation();
         classList.parallelStream()
@@ -60,7 +63,7 @@ public class Menu {
                     }
                 } else strings.add(c.getSimpleName());
             }
-            ConsoleOutput.path(strings);
+            StringRepresentation.path(strings);
 
             // Display window
             Object instance = stack.peek();
@@ -79,20 +82,20 @@ public class Menu {
 
             Object next = interactable.call(instance);
 
+            // TODO: do not force to open...
             if (next != null) {
                 ConsoleOutput.print("Press ENTER to continue...");
                 ConsoleInput.readString();
 
                 if (next != stack.peek()) {
-                    if (next instanceof Class<?>) {
-                        // Static context
-                        if (menuWindowsMap.containsKey(next)) stack.push(next);
-                        else ConsoleOutput.println("Dropping \"" + ((Class<?>) next).getSimpleName() + "\" as it doesn't have a menu.");
-                    } else {
+                    if (!(next instanceof Class<?>)) {
                         // Object context
-                        if (menuWindowsMap.containsKey(next.getClass())) stack.push(next);
-                        else ConsoleOutput.println("Dropping \"" + next.getClass().getSimpleName() + "\" as it doesn't have a menu.");
+                        next = next.getClass();
                     }
+                    if (menuWindowsMap.containsKey(next)) stack.push(next);
+                    else if (menuWindowsMap.keySet().stream().filter(x -> next. x)) {
+
+                    } else ConsoleOutput.println("Dropping \"" + ((Class<?>) next).getSimpleName() + "\" as it doesn't have a menu.");
                 }
             } else stack.pop();
 
