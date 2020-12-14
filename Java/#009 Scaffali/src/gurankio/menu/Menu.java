@@ -19,6 +19,7 @@ public class Menu {
 
     public Menu(Supplier<?> supplier) {
         ConsoleOutput.debugln("dyMenu - Alpha MK2");
+        if (!Menu.class.getConstructors()[0].getParameters()[0].isNamePresent()) ConsoleOutput.println("Compilare con '-parameters' per i nomi dei parametri.");
 
         Object entrypoint = supplier.get();
         this.windows = WindowFactory.createAll(entrypoint.getClass());
