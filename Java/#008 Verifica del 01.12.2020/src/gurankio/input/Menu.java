@@ -4,9 +4,12 @@ import gurankio.Giocatore;
 import gurankio.Partita;
 import gurankio.Personaggio;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Menu {
 	
-	private static final Personaggio[] mazzo = {
+	private static final List<Personaggio> mazzo = Arrays.asList(
 			new Personaggio("Brodo",      4,  5),
 			new Personaggio("Bulbo",      4,  8),
 			new Personaggio("Fandalf",   10, 10),
@@ -17,7 +20,7 @@ public class Menu {
 			new Personaggio("Gargalbero", 7, 10),
 			new Personaggio("Gerry",      5,  6),
 			new Personaggio("Tipino",     5,  5)
-	}; 
+	);
 	
 	private static Giocatore giocatoreA;
 	private static Giocatore giocatoreB;
@@ -25,7 +28,7 @@ public class Menu {
 	public static void start() {
 		giocatoreA = new Giocatore(ConsoleInput.readString("Inserire il nome del primo giocatore: ")); 
 		giocatoreB = new Giocatore(ConsoleInput.readString("Inserire il nome del secondo giocatore: ")); 
-		System.out.println("");
+		System.out.println();
 
 		// Loop
 		int scelta;
@@ -36,13 +39,13 @@ public class Menu {
 				if (scelta < 0 || scelta > 4) System.out.println("Scelta non valida.");
 			} while (scelta < 0 || scelta > 4);
 			
-			System.out.println("");
+			System.out.println();
 			esegui(scelta);
 		} while (scelta != 0);
 	}
 	
 	private static void stampa() {
-		System.out.println("");
+		System.out.println();
 		System.out.println("01) Nuova Partita");
 		System.out.println("02) Modifica Nome Giocatori");
 		System.out.println("03) Stampa Mazzo");
@@ -89,16 +92,16 @@ public class Menu {
 				break;
 				
 			case 3:
-				for (int i=0; i<mazzo.length; i++) System.out.println(mazzo[i]);
+				mazzo.forEach(System.out::println);
 				break;
 				
 			case 4:
-				for (int i=0; i<mazzo.length; i++) System.out.println(mazzo[i]);
+				mazzo.forEach(System.out::println);
 				do {
 					s = ConsoleInput.readInt("Chi vuoi modificare? ");
-					if (s < 0 || s > mazzo.length) System.out.println("Inserire un numero tra 0 e " + mazzo.length);
-				} while (s < 0 || s > mazzo.length);
-				Personaggio p = mazzo[s];
+					if (s < 0 || s > mazzo.size()) System.out.println("Inserire un numero tra 0 e " + mazzo.size());
+				} while (s < 0 || s > mazzo.size());
+				Personaggio p = mazzo.get(s);
 				
 				do {
 					s = ConsoleInput.readInt("Cosa vuoi modificare? Nome (0), Forza (1) o Esperianza (2) ? ");

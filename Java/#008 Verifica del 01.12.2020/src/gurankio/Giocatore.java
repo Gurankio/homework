@@ -1,19 +1,20 @@
 package gurankio;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Giocatore {
 	
 	private String nome;
 	private int punteggio;
-	private Personaggio[] personaggi;
-	private int numeroPersonaggi;
-	
+	private List<Personaggio> personaggi;
+
 	public Giocatore(String nome) {
 		this.nome = nome;
 		this.punteggio = 0;
-		this.personaggi = new Personaggio[10];
-		this.numeroPersonaggi = 0;
+		this.personaggi = new ArrayList<>();
 	}
-	
 
 	public String getNome() {
 		return nome;
@@ -36,35 +37,26 @@ public class Giocatore {
 	}
 
 	public Personaggio getPersonaggio(int index) {
-		if (index < 0 || index > numeroPersonaggi) return null;
-		return personaggi[index];
+		return personaggi.get(index);
 	}
 
 	public void aggiungiPersonaggio(Personaggio personaggio) {
-		personaggi[numeroPersonaggi] = personaggio;
-		numeroPersonaggi++;
+		personaggi.add(personaggio);
 	}
 	
 	public Personaggio rimuoviPersonaggio(int index) {
-		Personaggio p = getPersonaggio(index);
-		if (p != null) {
-			for (int i=index; i<numeroPersonaggi-1; i++) personaggi[i] = personaggi[i+1];
-			numeroPersonaggi--;
-		}
-		return p;
+		return personaggi.remove(index);
 	}
 
 	public int getNumeroPersonaggi() {
-		return numeroPersonaggi;
+		return personaggi.size();
 	}
 
 	@Override
 	public String toString() {
-		String string = nome + " il tuo mazzo è: \n";
-		for (int i=0; i<numeroPersonaggi; i++) {
-			string += personaggi[i] + (i != numeroPersonaggi-1 ? "\n" : "");
-		}
-		return string;
+		return personaggi.stream()
+				.map(Personaggio::toString)
+				.collect(Collectors.joining("\n"));
 	}
 	
 }
