@@ -1,6 +1,7 @@
 package gurankio.scaffale;
 
 import gurankio.Libro;
+import gurankio.menu.io.util.TreeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +52,8 @@ public class Scaffale {
 
     @Override
     public String toString() {
-        return "Scaffale{" +
-                "ripiani=" + ripiani +
-                '}';
+        TreeBuilder builder = new TreeBuilder("Scaffale");
+        ripiani.forEach(r -> builder.arrow(r.toString()));
+        return builder.end().toString();
     }
 }

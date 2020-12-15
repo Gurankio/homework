@@ -2,6 +2,7 @@ package gurankio.menu.window.interactive;
 
 import gurankio.menu.io.ConsoleInput;
 import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.util.CharPacks;
 import gurankio.menu.io.util.StringPrettify;
 
 import java.lang.reflect.InvocationTargetException;
@@ -9,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class InteractiveMethod implements Interactive {
 
@@ -27,7 +29,12 @@ public class InteractiveMethod implements Interactive {
         if (method.getParameters().length != 0) consumer.accept(StringPrettify.toPrettyString(method));
         else {
             try {
-                consumer.accept(StringPrettify.toPrettyString(method) + " = " + StringPrettify.toPrettyString(method.invoke(instance)));
+                String name = StringPrettify.toPrettyString(method);
+                String value = StringPrettify.toPrettyString(method.invoke(instance)).lines()
+                        .map(line -> CharPacks.selected.getSpacer(name.length() + 3) + line)
+                        .collect(Collectors.joining("\n"))
+                        .stripLeading();
+                consumer.accept(name + " = " + value);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 consumer.accept(StringPrettify.toPrettyString(method));
                 // e.printStackTrace();
