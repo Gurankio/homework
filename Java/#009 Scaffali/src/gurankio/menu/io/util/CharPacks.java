@@ -6,7 +6,7 @@ public enum CharPacks {
     ADVANCED('│', '├', '└', '─', '>', '<', ' ');
 
     // TODO: should be changeable, waiting for files...
-    public static final CharPacks selected = SIMPLE;
+    public static final CharPacks selected = ADVANCED;
     public static final Integer WIDTH = 4;
 
     private final Character lineVertical;

@@ -1,10 +1,12 @@
 package gurankio.scaffale;
 
 import gurankio.Libro;
+import gurankio.menu.io.util.CharPacks;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Mensola {
 
@@ -43,8 +45,10 @@ public class Mensola {
 
     @Override
     public String toString() {
-        return "Mensola{" +
-                "volumi=" + volumi +
-                '}';
+        return "Mensola\n"
+                + CharPacks.selected.buildArrow(CharPacks.selected.getLineCorner())
+                + volumi.stream()
+                .map(l -> l == null ? "*" : l.toString())
+                .collect(Collectors.joining(" | "));
     }
 }

@@ -51,7 +51,7 @@ public class Window {
 
     private Interactive getNestedInteractive(String input) {
         Interactive interactive = interactiveMap.get(input);
-        if (interactive instanceof InteractiveWindow) {
+        if (interactive instanceof InteractiveWindow && !interactive.getNames().get(0).equals(input)) {
             interactive = ((InteractiveWindow) interactive).getWindow().getInteractivesMap().get(input);
         }
         return interactive;
