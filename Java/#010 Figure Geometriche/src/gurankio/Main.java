@@ -36,7 +36,7 @@ public class Main {
 		System.out.println("Piane...");
 		figure.stream()
 				.filter(f -> f instanceof FiguraPiana)
-				.forEach(f -> System.out.printf("%20s | Area: %7.2f | Perimetro: %7.2f%n", f.getClass().getSimpleName(), f.area(), ((FiguraPiana) f).perimetro()));
+				.forEach(f -> System.out.printf("%-20s | Area: %7.2f | Perimetro: %7.2f%n", f.getClass().getSimpleName(), f.area(), ((FiguraPiana) f).perimetro()));
 		System.out.println("Solide...");
 		figure.stream()
 				.filter(f -> f instanceof FiguraSolida)
