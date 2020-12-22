@@ -36,7 +36,7 @@ public class TreeBuilder {
 
     public TreeBuilder arrow(String string) {
         if (string == null || string.equalsIgnoreCase("")) return this;
-        List<String> lines = Arrays.asList(string.split("\n"));
+        List<String> lines = Arrays.asList(string.stripTrailing().split("\n"));
         for (int i=0; i<lines.size(); i++) {
             if (indentation > 1) {
                 for (int j=0; j<indentation-1; j++) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
@@ -46,7 +46,7 @@ public class TreeBuilder {
             } else {
                 if (indentation > 0) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
             }
-            builder.append(lines.get(i).strip());
+            builder.append(lines.get(i));
             builder.append("\n");
         }
         return this;
@@ -54,17 +54,17 @@ public class TreeBuilder {
 
     public TreeBuilder arrowCounted(String string) {
         if (string == null || string.equalsIgnoreCase("")) return this;
-        List<String> lines = Arrays.asList(string.split("\n"));
+        List<String> lines = Arrays.asList(string.stripTrailing().split("\n"));
         for (int i=0; i<lines.size(); i++) {
             if (indentation > 1) {
                 for (int j=0; j<indentation-1; j++) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
             }
             if (i == 0) {
                 if (indentation > 0) builder.append(pack.buildArrow(pack.getLineT()));
-                builder.append(String.format("%-20s <%02d>", lines.get(i).strip(), arrowCount++));
+                builder.append(String.format("%-20s <%02d>", lines.get(i), arrowCount++));
             } else {
                 if (indentation > 0) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
-                builder.append(lines.get(i).strip());
+                builder.append(lines.get(i));
             }
             builder.append("\n");
         }
@@ -73,7 +73,7 @@ public class TreeBuilder {
 
     public TreeBuilder arrowReverse(String string) {
         if (string == null || string.equalsIgnoreCase("")) return this;
-        List<String> lines = Arrays.asList(string.split("\n"));
+        List<String> lines = Arrays.asList(string.stripTrailing().split("\n"));
         for (int i=0; i<lines.size(); i++) {
             if (indentation > 1) {
                 for (int j=0; j<indentation-1; j++) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
@@ -83,7 +83,7 @@ public class TreeBuilder {
             } else {
                 if (indentation > 0) builder.append(pack.getLineVertical()).append(pack.getSpacer(CharPacks.WIDTH - 1));
             }
-            builder.append(lines.get(i).strip());
+            builder.append(lines.get(i));
             builder.append("\n");
         }
         return this;

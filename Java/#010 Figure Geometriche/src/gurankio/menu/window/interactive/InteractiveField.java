@@ -2,12 +2,14 @@ package gurankio.menu.window.interactive;
 
 import gurankio.menu.io.ConsoleInput;
 import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.util.CharPacks;
 import gurankio.menu.io.util.StringPrettify;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class InteractiveField implements Interactive {
 
@@ -20,7 +22,12 @@ public class InteractiveField implements Interactive {
     @Override
     public void render(Consumer<String> consumer, Object instance) {
         try {
-            consumer.accept(StringPrettify.toPrettyString(field) + " = " + StringPrettify.toPrettyString(field.get(instance)));
+            String name = StringPrettify.toPrettyString(field);
+            String value = StringPrettify.toPrettyString(field.get(instance)).lines()
+                    .map(line -> CharPacks.selected.getSpacer(name.length() + 3) + line)
+                    .collect(Collectors.joining("\n"))
+                    .stripLeading();
+            consumer.accept(name + " = " + value);
         } catch (IllegalAccessException e) {
             consumer.accept(StringPrettify.toPrettyString(field));
             // e.printStackTrace();

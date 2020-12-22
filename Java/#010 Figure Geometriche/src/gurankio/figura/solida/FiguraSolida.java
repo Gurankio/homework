@@ -1,4 +1,6 @@
-package gurankio;
+package gurankio.figura.solida;
+
+import gurankio.figura.FiguraGeometrica;
 
 public abstract class FiguraSolida extends FiguraGeometrica {
 

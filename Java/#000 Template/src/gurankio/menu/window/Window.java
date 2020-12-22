@@ -51,7 +51,7 @@ public class Window {
 
     private Interactive getNestedInteractive(String input) {
         Interactive interactive = interactiveMap.get(input);
-        if (interactive instanceof InteractiveWindow) {
+        if (interactive instanceof InteractiveWindow && !interactive.getNames().get(0).equals(input)) {
             interactive = ((InteractiveWindow) interactive).getWindow().getInteractivesMap().get(input);
         }
         return interactive;
@@ -66,6 +66,7 @@ public class Window {
         String input = temp.replace("\t", "");;
 
         // Regex
+        /*
         Matcher matcher = Pattern.compile("/(.*)/").matcher(input);
         if (matcher.matches()) {
             try {
@@ -97,6 +98,7 @@ public class Window {
                 return loop(builderSupplier, instance);
             }
         }
+        */
 
         // Exact match
         if (interactiveMap.containsKey(input)) return getNestedInteractive(input);

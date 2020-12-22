@@ -24,7 +24,7 @@ public class InteractiveWindow implements Interactive {
     @Override
     public void render(Consumer<String> consumer, Object instance) {
         if (window.getInteractives().size() <= 1) return;
-        if (window.getInteractives().size() > 5) {
+        if (window.getInteractives().size() > 10) {
             consumer.accept(name + "...");
         } else {
             TreeBuilder builder = new TreeBuilder(name);

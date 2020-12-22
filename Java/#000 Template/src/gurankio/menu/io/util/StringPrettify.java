@@ -9,13 +9,13 @@ public class StringPrettify {
 
     public static Map<Object, String> instanceOverride = new HashMap<>();
     public static Map<Class<?>, Function<Object, String>> classOverride = Map.ofEntries(
-            // TODO: Rewrite so that it can be generalized with List.class
-            new AbstractMap.SimpleEntry<>(ArrayList.class, list -> list.toString().length() > 50 ? "[.." + ((List<?>) list).size() + "..]" : list.toString()),
+            // Rewrite so that it can be generalized with List.class
+            new AbstractMap.SimpleEntry<>(ArrayList.class, list -> list.toString().length() > 100 ? "[" + ((List<?>) list).size() + "]" : list.toString()),
             new AbstractMap.SimpleEntry<>(Class.class, o -> ((Class<?>) o).getSimpleName()),
             new AbstractMap.SimpleEntry<>(Field.class, field -> ((Field) field).getName() + (field.getClass().isArray() ? "[]" : "")),
             new AbstractMap.SimpleEntry<>(Parameter.class, parameter -> ((Parameter) parameter).isNamePresent() ? ((Parameter) parameter).getName() : "parameter"),
-            new AbstractMap.SimpleEntry<>(Method.class, method ->  ((Method) method).getName() + "(" + Arrays.stream(((Method) method).getParameters()).map(gurankio.menu.io.util.StringPrettify::toPrettyString).collect(Collectors.joining(", ")) + ")"),
-            new AbstractMap.SimpleEntry<>(Constructor.class, constructor -> ((Constructor<?>) constructor).getDeclaringClass().getSimpleName() + "(" + Arrays.stream(((Constructor<?>) constructor).getParameters()).map(gurankio.menu.io.util.StringPrettify::toPrettyString).collect(Collectors.joining(", ")) + ")")
+            new AbstractMap.SimpleEntry<>(Method.class, method ->  ((Method) method).getName() + "(" + Arrays.stream(((Method) method).getParameters()).map(StringPrettify::toPrettyString).collect(Collectors.joining(", ")) + ")"),
+            new AbstractMap.SimpleEntry<>(Constructor.class, constructor -> ((Constructor<?>) constructor).getDeclaringClass().getSimpleName() + "(" + Arrays.stream(((Constructor<?>) constructor).getParameters()).map(StringPrettify::toPrettyString).collect(Collectors.joining(", ")) + ")")
     );
 
     public static String toPrettyString(Object object) {

@@ -1,4 +1,4 @@
-package gurankio;
+package gurankio.figura.piana;
 
 public class Rettangolo extends FiguraPiana {
 
@@ -6,10 +6,10 @@ public class Rettangolo extends FiguraPiana {
     private double altezza;
 
     public Rettangolo(double base, double altezza) {
-        this.nLati = 4;
-        this.nVertici = 4;
         this.base = base;
         this.altezza = altezza;
+        this.nLati = 4;
+        this.nVertici = 4;
     }
 
     public double getBase() {

@@ -1,8 +1,6 @@
 package gurankio.menu.io.util;
 
-import java.util.ArrayList;
-
-// https://bitbucket.org/clearer/iosifovitch/src/master/
+// Source: https://bitbucket.org/clearer/iosifovitch/src/master/
 public class Iosifovitch {
 
     public static Integer levenshtein(String a, String b) {

@@ -1,4 +1,4 @@
-package gurankio;
+package gurankio.figura;
 
 public abstract class FiguraGeometrica {
 
