@@ -34,4 +34,8 @@ public class Main {
 		return scuola;
 	}
 
+	public static TipiDiScuola modificaTipoDiScuola(TipiDiScuola tipo) {
+ 		return tipo;
+	}
+
 }

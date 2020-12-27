@@ -130,14 +130,16 @@ public class WindowFactory {
             });
         }
 
-        List<Interactive> fields = Arrays.stream(target.getFields())
-                .filter(f -> Modifier.isPublic(f.getModifiers()))
-                .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
-                .sorted(Comparator.comparing(Field::getName))
-                .map(InteractiveField::new)
-                .collect(Collectors.toList());
-        fields.add(new InteractiveExit());
-        interactives.add(new InteractiveWindow("fields", new Window(fields)));
+        if (!target.isEnum())  {
+            List<Interactive> fields = Arrays.stream(target.getFields())
+                    .filter(f -> Modifier.isPublic(f.getModifiers()))
+                    .filter(x -> x.getAnnotation(MenuOptions.Hide.class) == null)
+                    .sorted(Comparator.comparing(Field::getName))
+                    .map(InteractiveField::new)
+                    .collect(Collectors.toList());
+            fields.add(new InteractiveExit());
+            interactives.add(new InteractiveWindow("fields", new Window(fields)));
+        }
 
         List<Interactive> getters = Arrays.stream(target.getMethods())
                 .filter(m -> !m.getDeclaringClass().getName().startsWith(excludedJavaPacket))
