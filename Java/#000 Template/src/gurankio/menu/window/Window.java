@@ -8,10 +8,7 @@ import gurankio.menu.window.interactive.Interactive;
 import gurankio.menu.window.interactive.InteractiveExit;
 import gurankio.menu.window.interactive.InteractiveWindow;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,12 +31,14 @@ public class Window {
     }
 
     public List<Interactive> getInteractives() {
+        List<String> order = Arrays.asList("fields", "getters", "setters", "methods");
         return interactiveMap.values()
                 .stream()
                 .distinct()
                 .sorted((o1, o2) -> {
                     if (o1 instanceof InteractiveExit) return 1;
                     if (o2 instanceof InteractiveExit) return -1;
+                    if (order.contains(o1.getNames().get(0)) && order.contains(o2.getNames().get(0))) return order.indexOf(o1.getNames().get(0)) - order.indexOf(o2.getNames().get(0));
                     return o1.getNames().get(0).compareTo(o2.getNames().get(0)); // improve so that order is field > getters > setters > methods.
                 })
                 .collect(Collectors.toUnmodifiableList());

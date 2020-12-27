@@ -22,20 +22,6 @@ public class WindowFactory {
     protected static final String excludedJavaPacket = "java.lang";
     protected static final List<String> excludedMethods = Arrays.asList("main", "equals");
 
-    public static Map<Class<?>, Window> createAll(Class<?> entrypoint) {
-        Map<Class<?>, Window> windows = new ConcurrentHashMap<>();
-        ConsoleOutput.debugln("Building menus...");
-        ConsoleOutput.incrementIndentation();
-        search(entrypoint).parallelStream()
-                .forEach(x -> {
-                    windows.put(x, create(x));
-                    ConsoleOutput.debugln(String.format("Built: %s", x.getSimpleName()));
-                });
-        ConsoleOutput.decrementIndentation();
-        ConsoleOutput.debugln("Done!");
-        return windows;
-    }
-
     private static List<Class<?>> search(Class<?> entrypoint) {
         List<Class<?>> result = new ArrayList<>();
         Stack<Class<?>> classStack = new Stack<>();
@@ -75,6 +61,20 @@ public class WindowFactory {
         }
 
         return result;
+    }
+
+    public static Map<Class<?>, Window> createAll(Class<?> entrypoint) {
+        Map<Class<?>, Window> windows = new ConcurrentHashMap<>();
+        ConsoleOutput.debugln("Building menus...");
+        ConsoleOutput.incrementIndentation();
+        search(entrypoint).parallelStream()
+                .forEach(x -> {
+                    windows.put(x, create(x));
+                    ConsoleOutput.debugln(String.format("Built: %s", x.getSimpleName()));
+                });
+        ConsoleOutput.decrementIndentation();
+        ConsoleOutput.debugln("Done!");
+        return windows;
     }
 
     public static Window create(Class<?> target) {

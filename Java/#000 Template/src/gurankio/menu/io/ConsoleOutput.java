@@ -4,6 +4,9 @@ import gurankio.Main;
 import gurankio.menu.io.util.CharPacks;
 import gurankio.menu.io.util.StringPrettify;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ConsoleOutput {
 
     private static int indentation = 1;
@@ -18,14 +21,6 @@ public class ConsoleOutput {
     }
 
     // Basic print
-    public static void arrow(String s) {
-        System.out.print(CharPacks.selected.getSpacer((indentation - 1) * CharPacks.WIDTH) + CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + s);
-    }
-
-    public static void arrow(Object o) {
-        arrow(StringPrettify.toPrettyString(o));
-    }
-
     public static void print(String s) {
         s.lines().forEach(l -> {
             System.out.print(CharPacks.selected.getSpacer(indentation * CharPacks.WIDTH));
@@ -37,15 +32,22 @@ public class ConsoleOutput {
         print(StringPrettify.toPrettyString(o));
     }
 
+    public static void arrow(String s) {
+        List<String> lines = s.lines().collect(Collectors.toList());
+        for (int i=0; i<lines.size(); i++) {
+            if (i == 0) {
+                indentation--;
+                print(CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + lines.get(i));
+                indentation++;
+            } else print(lines.get(i));
+        }
+    }
+
+    public static void arrow(Object o) {
+        arrow(StringPrettify.toPrettyString(o));
+    }
+
     // Print + new line
-    public static void arrowln(String s) {
-        System.out.println(CharPacks.selected.getSpacer((indentation - 1) * CharPacks.WIDTH) + CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + s);
-    }
-
-    public static void arrowln(Object o) {
-        arrowln(StringPrettify.toPrettyString(o));
-    }
-
     public static void println(String s) {
         s.lines().forEach(l -> {
             System.out.print(CharPacks.selected.getSpacer(indentation * CharPacks.WIDTH));
@@ -54,10 +56,25 @@ public class ConsoleOutput {
     }
 
     public static void println(Object o) {
-        print(StringPrettify.toPrettyString(o));
+        println(StringPrettify.toPrettyString(o));
     }
 
     public static void println() { println(" "); }
+
+    public static void arrowln(String s) {
+        List<String> lines = s.lines().collect(Collectors.toList());
+        for (int i=0; i<lines.size(); i++) {
+            if (i == 0) {
+                indentation--;
+                println(CharPacks.selected.buildArrow(CharPacks.selected.getSpacer()) + lines.get(i));
+                indentation++;
+            } else println(lines.get(i));
+        }
+    }
+
+    public static void arrowln(Object o) {
+        arrowln(StringPrettify.toPrettyString(o));
+    }
 
     // Debug
     public static void debug(String s) {

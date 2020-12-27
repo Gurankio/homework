@@ -2,6 +2,7 @@ package gurankio.menu.io;
 
 import gurankio.menu.io.util.StringPrettify;
 import gurankio.menu.io.util.TreeBuilder;
+import gurankio.scuola.TipiDiScuola;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,6 +67,12 @@ public class ConsoleInput {
         }
 
         if (valueOf != null) {
+            if (target.isEnum()) {
+                try {
+                    ConsoleOutput.println("May be one of " + Arrays.toString((Object[]) target.getMethod("values").invoke(target)).replace("[", "").replace("]", ""));
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ignored) {
+                }
+            }
             do {
                 try {
                     r = valueOf.invoke(target, read(StringPrettify.toPrettyString(target) + " " + prompt));
@@ -81,9 +88,13 @@ public class ConsoleInput {
         ConsoleOutput.println("Creating " + StringPrettify.toPrettyString(target) + " " + prompt + "...");
 
         // Recursive constructor calls for everything else.
+        if (Modifier.isAbstract(target.getModifiers())) {
+            throw new IllegalArgumentException(target + " can not be crated with user input. Provide a 'valueOf(String)' method.");
+        }
+
         List<Constructor<?>> constructors = Arrays.stream(target.getConstructors())
-                .sorted(Comparator.comparing(Constructor::getParameterCount))
-                .collect(Collectors.toList());
+                    .sorted(Comparator.comparing(Constructor::getParameterCount))
+                    .collect(Collectors.toList());
 
         if (constructors.size() != 0) {
             TreeBuilder builder = new TreeBuilder("Found " + constructors.size() + " constructor" + (constructors.size() == 1 ? ":" : "s:"));

@@ -8,6 +8,7 @@ import gurankio.menu.window.Window;
 import gurankio.menu.window.WindowFactory;
 import gurankio.menu.window.interactive.Interactive;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.function.Supplier;
@@ -30,8 +31,12 @@ public class Menu {
     private TreeBuilder getPath() {
         TreeBuilder builder = new TreeBuilder();
         for (Object o : stack) {
-            Class<?> target = o instanceof Class<?> ? (Class<?>) o : o.getClass();
-            builder.start(StringPrettify.toPrettyString(target));
+            if (o instanceof Window) {
+                builder.start(StringPrettify.toPrettyString(o));
+            } else {
+                Class<?> target = o instanceof Class<?> ? (Class<?>) o : o.getClass();
+                builder.start(StringPrettify.toPrettyString(target));
+            }
         }
         return builder;
     }
@@ -60,8 +65,12 @@ public class Menu {
                     ConsoleInput.read("Press ENTER to continue...", false);
 
                     if (next != stack.peek()) {
-                        if ((next instanceof Class<?> && windows.containsKey(next)) || windows.containsKey(next.getClass())) stack.push(next);
-                        else ConsoleOutput.println("Dropping \"" + StringPrettify.toPrettyString(next) + "\" as it doesn't have a menu.");
+                        if (!((next instanceof Class<?> && windows.containsKey(next)) || windows.containsKey(next.getClass()))) {
+                            ConsoleOutput.debugln(String.format("Building %s", next.getClass().getSimpleName()));
+                            Map<Class<?>, Window> temp = WindowFactory.createAll(next.getClass());
+                            temp.keySet().stream().filter(k -> !windows.containsKey(k)).forEach(k -> windows.put(k, temp.get(k)));
+                        }
+                        stack.push(next);
                     }
                 } else stack.pop();
             }
