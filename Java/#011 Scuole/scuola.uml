@@ -8,29 +8,15 @@
     <node x="557.5" y="243.0">gurankio.scuola.Scuola</node>
   </nodes>
   <notes />
-  <edges>
-    <edge source="gurankio.scuola.Scuola" target="gurankio.scuola.NumeroConContributi">
-      <point x="0.0" y="-314.0" />
-      <point x="0.0" y="94.0" />
-    </edge>
-    <edge source="gurankio.scuola.TipiDiScuola" target="gurankio.scuola.NumeroConContributi">
-      <point x="0.0" y="-248.0" />
-      <point x="200.0" y="80.0" />
-      <point x="-170.0" y="0.0" />
-    </edge>
-    <edge source="gurankio.scuola.TipiDiScuola" target="gurankio.scuola.Scuola">
-      <point x="203.5" y="0.0" />
-      <point x="-394.5" y="0.0" />
-    </edge>
-  </edges>
-  <settings layout="Orthogonal" zoom="1.0" x="658.0" y="458.0" />
+  <edges />
+  <settings layout="Orthogonal" zoom="1.0" x="671.5" y="428.5" />
   <SelectedNodes>
     <node>gurankio.scuola.Scuola</node>
   </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
-    <Category>Methods</Category>
     <Category>Constructors</Category>
+    <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

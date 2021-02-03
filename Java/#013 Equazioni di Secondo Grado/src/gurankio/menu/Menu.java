@@ -8,12 +8,15 @@ import gurankio.menu.window.Window;
 import gurankio.menu.window.WindowFactory;
 import gurankio.menu.window.interactive.Interactive;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.function.Supplier;
 
 public class Menu {
+
+    public final static ArrayList<Class<?>> hide = new ArrayList<>();
 
     private final Map<Class<?>, Window> windows;
     private final Stack<Object> stack;
@@ -73,6 +76,12 @@ public class Menu {
                         stack.push(next);
                     }
                 } else stack.pop();
+            }
+
+            for (Class<?> target : hide) {
+                if (target.isInstance(stack.peek())) {
+                    stack.pop();
+                }
             }
         }
     }

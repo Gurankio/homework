@@ -2,7 +2,6 @@ package gurankio.menu.io;
 
 import gurankio.menu.io.util.StringPrettify;
 import gurankio.menu.io.util.TreeBuilder;
-import gurankio.scuola.TipiDiScuola;
 
 import java.io.BufferedReader;
 import java.io.IOException;
