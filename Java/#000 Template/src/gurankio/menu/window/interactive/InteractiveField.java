@@ -1,9 +1,8 @@
 package gurankio.menu.window.interactive;
 
-import gurankio.menu.io.ConsoleInput;
-import gurankio.menu.io.ConsoleOutput;
-import gurankio.menu.io.util.CharPacks;
-import gurankio.menu.io.util.StringPrettify;
+import gurankio.io.text.TextSerializer;
+import gurankio.menu.Menu;
+import gurankio.util.CharPacks;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -22,14 +21,14 @@ public class InteractiveField implements Interactive {
     @Override
     public void render(Consumer<String> consumer, Object instance) {
         try {
-            String name = StringPrettify.toPrettyString(field);
-            String value = StringPrettify.toPrettyString(field.get(instance)).lines()
+            String name = TextSerializer.serialize(field);
+            String value = TextSerializer.serialize(field.get(instance)).lines()
                     .map(line -> CharPacks.selected.getSpacer(name.length() + 3) + line)
                     .collect(Collectors.joining("\n"))
                     .stripLeading();
             consumer.accept(name + " = " + value);
         } catch (IllegalAccessException e) {
-            consumer.accept(StringPrettify.toPrettyString(field));
+            consumer.accept(TextSerializer.serialize(field));
             // e.printStackTrace();
         }
     }
@@ -42,14 +41,14 @@ public class InteractiveField implements Interactive {
     @Override
     public Object call(Object instance) {
         try {
-            ConsoleOutput.println("Entering '" + StringPrettify.toPrettyString(field) + "'");
+            Menu.console.println("Entering '" + TextSerializer.serialize(field) + "'");
             Object o = field.get(instance);
             if (o == null) {
-                ConsoleOutput.println("Field is null.");
-                o = ConsoleInput.read(field);
+                Menu.console.println("Field is null.");
+                o = Menu.console.read(field);
                 field.set(instance, o);
             }
-            ConsoleOutput.arrowln(o);
+            Menu.console.arrowln(o);
             return o;
         } catch (IllegalAccessException e) {
             e.printStackTrace();

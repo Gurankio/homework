@@ -1,21 +1,16 @@
 package gurankio.menu.window;
 
-import gurankio.menu.io.ConsoleInput;
-import gurankio.menu.io.ConsoleOutput;
-import gurankio.menu.io.util.Iosifovitch;
-import gurankio.menu.io.util.TreeBuilder;
+import gurankio.menu.Menu;
 import gurankio.menu.window.interactive.Interactive;
 import gurankio.menu.window.interactive.InteractiveExit;
 import gurankio.menu.window.interactive.InteractiveWindow;
+import gurankio.util.Iosifovitch;
+import gurankio.util.TreeBuilder;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-import java.util.stream.Collectors;
 
-import static gurankio.menu.io.ConsoleInput.ERROR_MESSAGE;
+import java.util.stream.Collectors;
 
 public class Window {
 
@@ -57,10 +52,9 @@ public class Window {
     }
 
     public Interactive loop(Supplier<TreeBuilder> builderSupplier, Object instance) {
-        ConsoleOutput.println();
         display(builderSupplier, instance);
 
-        String temp = ConsoleInput.read("Choice");
+        String temp = Menu.console.read("Choice: ");
         boolean confirm = temp.contains("\t");
         String input = temp.replace("\t", "");;
 
@@ -79,21 +73,21 @@ public class Window {
                 TreeBuilder builder = builderSupplier.get();
 
                 if (filtered.size() == 0) {
-                    ConsoleOutput.arrowln("No match.");
+                    ConsoleMenu.console.arrowln("No match.");
                     return loop(builderSupplier, instance);
                 }
 
                 filtered.forEach(i -> i.render(builder::arrowCounted, instance));
-                ConsoleOutput.println(builder.endAll().toString());
+                ConsoleMenu.console.println(builder.endAll().toString());
 
                 int index;
                 do {
-                    index = (int) ConsoleInput.read("Choice", Integer.class);
-                    if (index < 1 || index > filtered.size()) ConsoleOutput.println("Insert a number between 1 and " + filtered.size() + ".");
+                    index = ConsoleMenu.console.read("Choice", Integer.class);
+                    if (index < 1 || index > filtered.size()) ConsoleMenu.console.println("Insert a number between 1 and " + filtered.size() + ".");
                 } while (index < 1 || index > filtered.size());
                 return filtered.get(index - 1);
             } catch (PatternSyntaxException e) {
-                ConsoleOutput.println(ERROR_MESSAGE + " " + e.getMessage());
+                ConsoleMenu.console.println(ERROR_MESSAGE + " " + e.getMessage());
                 return loop(builderSupplier, instance);
             }
         }
@@ -112,22 +106,24 @@ public class Window {
 
         if (suggestion != null) {
             if (!confirm) {
-                String confirmInput = ConsoleInput.read("Did you mean " + suggestion + "? Y/N");
+                Menu.console.incrementIndentation();
+                String confirmInput = Menu.console.read("Did you mean " + suggestion + "? Y/N");
+                Menu.console.decrementIndentation();
                 confirm = confirmInput.matches("[yY].*");
             }
             if (confirm) return getNestedInteractive(suggestion);
         } else {
-            ConsoleOutput.println(ERROR_MESSAGE);
+            Menu.console.println("Invalid input.");
         }
 
-        ConsoleOutput.println();
+        Menu.console.println();
         return loop(builderSupplier, instance);
     }
 
     private void display(Supplier<TreeBuilder> builderSupplier, Object instance) {
         TreeBuilder builder = builderSupplier.get();
         getInteractives().forEach(i -> i.render(i instanceof InteractiveExit ? builder::arrowReverse : builder::arrow, instance));
-        ConsoleOutput.println(builder.endAll().toString());
+        Menu.console.println(builder.endAll().toString());
     }
 
 }
