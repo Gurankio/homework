@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>gurankio.scuola</OriginalElement>
+  <nodes>
+    <node x="-3.5" y="312.0">gurankio.scuola.TipiDiScuola</node>
+    <node x="710.0" y="-14.0">gurankio.scuola.NumeroConContributi</node>
+    <node x="557.5" y="243.0">gurankio.scuola.Scuola</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Orthogonal" zoom="1.0" x="671.5" y="428.5" />
+  <SelectedNodes>
+    <node>gurankio.scuola.Scuola</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

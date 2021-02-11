@@ -1,8 +1,9 @@
 package gurankio.menu.window.interactive;
 
-import gurankio.io.text.TextSerializer;
-import gurankio.menu.Menu;
-import gurankio.util.CharPacks;
+import gurankio.menu.io.ConsoleInput;
+import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.util.CharPacks;
+import gurankio.menu.io.util.StringPrettify;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,17 +26,17 @@ public class InteractiveMethod implements Interactive {
 
     @Override
     public void render(Consumer<String> consumer, Object instance) {
-        if (method.getReturnType() == void.class || method.getParameters().length != 0) consumer.accept(TextSerializer.serialize(method));
+        if (method.getReturnType() == void.class || method.getParameters().length != 0) consumer.accept(StringPrettify.toPrettyString(method));
         else {
             try {
-                String name = TextSerializer.serialize(method);
-                String value = TextSerializer.serialize(method.invoke(instance)).lines()
+                String name = StringPrettify.toPrettyString(method);
+                String value = StringPrettify.toPrettyString(method.invoke(instance)).lines()
                         .map(line -> CharPacks.selected.getSpacer(name.length() + 3) + line)
                         .collect(Collectors.joining("\n"))
                         .stripLeading();
                 consumer.accept(name + " = " + value);
             } catch (IllegalAccessException | InvocationTargetException e) {
-                consumer.accept(TextSerializer.serialize(method));
+                consumer.accept(StringPrettify.toPrettyString(method));
                 // e.printStackTrace();
             }
         }
@@ -48,18 +49,16 @@ public class InteractiveMethod implements Interactive {
 
     @Override
     public Object call(Object instance) {
-        Menu.console.println("Calling '" + TextSerializer.serialize(method) + "'");
+        ConsoleOutput.println("Calling '" + StringPrettify.toPrettyString(method) + "'");
         try {
-            Menu.console.incrementIndentation();
             Object o = method.invoke(
                     instance,
                     Arrays.stream(method.getParameters())
-                            .map(Menu.console::read)
+                            .map(ConsoleInput::read)
                             .toArray()
             );
-            Menu.console.decrementIndentation();
             if (o != null) {
-                Menu.console.arrowln(o);
+                ConsoleOutput.arrowln(o);
                 return o;
             }
 

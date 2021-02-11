@@ -1,8 +1,9 @@
 package gurankio.menu.window;
 
-import gurankio.io.text.TextSerializer;
-import gurankio.menu.Menu;
 import gurankio.menu.MenuOptions;
+import gurankio.menu.io.ConsoleInput;
+import gurankio.menu.io.ConsoleOutput;
+import gurankio.menu.io.util.StringPrettify;
 import gurankio.menu.window.interactive.*;
 
 import java.lang.reflect.Field;
@@ -64,15 +65,15 @@ public class WindowFactory {
 
     public static Map<Class<?>, Window> createAll(Class<?> entrypoint) {
         Map<Class<?>, Window> windows = new ConcurrentHashMap<>();
-        // ConsoleMenu.console.debugln("Building menus...");
-        Menu.console.incrementIndentation();
+        ConsoleOutput.debugln("Building menus...");
+        ConsoleOutput.incrementIndentation();
         search(entrypoint).parallelStream()
                 .forEach(x -> {
                     windows.put(x, create(x));
-                    // ConsoleMenu.console.debugln(String.format("Built: %s", x.getSimpleName()));
+                    ConsoleOutput.debugln(String.format("Built: %s", x.getSimpleName()));
                 });
-        Menu.console.decrementIndentation();
-        // ConsoleMenu.console.debugln("Done!");
+        ConsoleOutput.decrementIndentation();
+        ConsoleOutput.debugln("Done!");
         return windows;
     }
 
@@ -93,15 +94,13 @@ public class WindowFactory {
 
               @Override
               public Object call(Object instance) {
-                  render((s) -> Menu.console.println("Calling '" + s + "'"), instance);
-                  Menu.console.incrementIndentation();
-                  int index = Menu.console.read("Index: ", Integer.class);
-                  Menu.console.decrementIndentation();
+                  render((s) -> ConsoleOutput.println("Calling '" + s + "'"), instance);
+                  int index = (int) ConsoleInput.read("Index", Integer.class);
                   Object r = ((Object[]) instance)[index];
                   if (r == null) {
-                      String confirmInput = Menu.console.read("Did you mean to call "+"set(index, "+ TextSerializer.serialize(target.getComponentType()) +")? [y/N]");
+                      String confirmInput = ConsoleInput.read("Did you mean to call "+"set(index, "+ StringPrettify.toPrettyString(target.getComponentType()) +")? Y/N");
                       if (confirmInput.matches("[yY].*")) {
-                          Object object = Menu.console.read("Value: ", target.getComponentType());
+                          Object object = ConsoleInput.read("Value", target.getComponentType());
                           ((Object[]) instance)[index] = object;
                           return instance;
                       }
@@ -112,7 +111,7 @@ public class WindowFactory {
             interactives.add(new Interactive() {
                 @Override
                 public void render(Consumer<String> consumer, Object instance) {
-                    consumer.accept("set(index, "+ TextSerializer.serialize(target.getComponentType()) +")");
+                    consumer.accept("set(index, "+ StringPrettify.toPrettyString(target.getComponentType()) +")");
                 }
 
                 @Override
@@ -122,9 +121,9 @@ public class WindowFactory {
 
                 @Override
                 public Object call(Object instance) {
-                    render((s) -> Menu.console.println("Calling '" + s + "'"), instance);
-                    int index = Menu.console.read("Index: ", Integer.class);
-                    Object object = Menu.console.read("Value: ", target.getComponentType());
+                    render((s) -> ConsoleOutput.println("Calling '" + s + "'"), instance);
+                    int index = (int) ConsoleInput.read("Index", Integer.class);
+                    Object object = ConsoleInput.read("Value", target.getComponentType());
                     ((Object[]) instance)[index] = object;
                     return instance;
                 }

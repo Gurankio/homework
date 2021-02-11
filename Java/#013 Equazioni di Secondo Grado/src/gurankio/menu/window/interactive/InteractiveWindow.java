@@ -1,7 +1,7 @@
 package gurankio.menu.window.interactive;
 
+import gurankio.menu.io.util.TreeBuilder;
 import gurankio.menu.window.Window;
-import gurankio.util.TreeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
