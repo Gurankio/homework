@@ -1,20 +1,33 @@
 package gurankio;
 
-import gurankio.menu.Menu;
-import gurankio.menu.MenuOptions;
-import gurankio.menu.io.ConsoleOutput;
+import java.util.Arrays;
+import java.util.Scanner;
 
 import static java.lang.Math.sqrt;
 
 public class Main {
 
-	@MenuOptions.Hide
-	public static boolean DEBUG = false;
+	private static Scanner scanner = new Scanner(System.in);
+
+	private static Double readDouble(String prompt) {
+		Double r = null;
+		do {
+			try {
+				System.out.print(prompt);
+				r = scanner.nextDouble();
+			} catch (Exception e) {
+				System.out.println("Errore.");
+			}
+		} while (r == null);
+		return r;
+	}
 
 	public static void main(String[] args) {
-		Menu.hide.add(Double.class);
-		Menu.hide.add(Double[].class);
-		new Menu(Main::new).console();
+		System.out.println("Equazione di secondo grado con eccezioni.");
+		Double a = readDouble("Inserire a: ");
+		Double b = readDouble("Inserire b: ");
+		Double c = readDouble("Inserire c: ");
+		System.out.println(Arrays.toString(equazioneGestita(a, b, c)));
 	}
 
 	public static Double[] equazioneGestita(double a, double b, double c) {
@@ -24,16 +37,15 @@ public class Main {
 			try {
 				return new Double[] { equazioneDiPrimoGrado(b, c) };
 			} catch (UnknownSolutionException | NoSolutionException exception) {
-				ConsoleOutput.println(exception.getMessage());
+				System.out.println(exception.getMessage());
 				return new Double[0];
 			}
 		} catch (NoSolutionException | IllegalDeltaException exception) {
-			ConsoleOutput.println(exception.getMessage());
+			System.out.println(exception.getMessage());
 			return new Double[0];
 		}
 	}
 
-	@MenuOptions.Hide
 	public static Double[] equazioneDiSecondoGrado(double a, double b, double c) throws IllegalDegreeException, NoSolutionException, IllegalDeltaException{
 		if (a == 0) {
 			throw new IllegalDegreeException();
@@ -55,7 +67,6 @@ public class Main {
 		throw new IllegalDeltaException();
 	}
 
-	@MenuOptions.Hide
 	public static Double equazioneDiPrimoGrado(double b, double c) throws UnknownSolutionException, NoSolutionException {
 		if (b == 0) {
 			if (c == 0) throw new UnknownSolutionException();
