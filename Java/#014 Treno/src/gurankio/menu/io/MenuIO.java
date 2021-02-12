@@ -1,6 +1,7 @@
 package gurankio.menu.io;
 
 import gurankio.io.exception.InvalidInputException;
+import gurankio.io.exception.MissingSupplierException;
 import gurankio.io.text.TextParser;
 import gurankio.io.text.TextSerializer;
 import gurankio.util.CharPacks;
@@ -88,7 +89,7 @@ public abstract class MenuIO {
         }
         boolean hasConstructor = !(target.isInterface() || Modifier.isAbstract(target.getModifiers())) && target.getConstructors().length > 0;
         if (hasConstructor) return fromConstructor(prompt, target);
-        throw new RuntimeException("?");
+        throw new MissingSupplierException(target);
     }
 
     private String choose(String prompt, List<String> options) {
@@ -134,7 +135,7 @@ public abstract class MenuIO {
                 .orElseThrow();
 
         Object[] parameters = Stream.of(constructor.getParameters())
-                .map(p -> read(p.getName(), p.getType()))
+                .map(p -> read(TextSerializer.serialize(p) + ": ", p.getType()))
                 .toArray();
 
         try {
