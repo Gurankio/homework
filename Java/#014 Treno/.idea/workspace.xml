@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="38b8eb4e-56a6-4bc2-a8b5-da636ea4354f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/BinaryFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/menu/io/MissingOverrideException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/exception/InvalidExtensionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/InvalidExtensionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/exception/InvalidInputException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/exception/MissingSupplierException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/text/MissingSupplierException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/exception/SupplierTypeMismatchException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/FileInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/FileInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/JsonFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/JsonFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/XmlFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/file/XmlFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/text/TextParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/text/TextParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#000 Template/src/gurankio/menu/io/MenuIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/menu/io/MenuIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/JacopoDelGranchio.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Aereoporto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Charter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Linea.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Main$TipiDiVoli.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/Volo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/Menu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/MenuOptions$Hide.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/MenuOptions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/ConsoleInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/ConsoleOutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/util/CharPacks.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/util/Iosifovitch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/util/StringPrettify.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/io/util/TreeBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/Window.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/WindowFactory$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/WindowFactory$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/WindowFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/Interactive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveExit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveSetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/#012 Compito/gurankio/menu/window/interactive/InteractiveWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Aereoporto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Charter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Linea.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Main$TipiDiVoli.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/Volo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/Menu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/MenuOptions$Hide.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/MenuOptions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/ConsoleInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/ConsoleOutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/util/CharPacks.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/util/Iosifovitch.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/util/StringPrettify.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/io/util/TreeBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/Window.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/WindowFactory$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/WindowFactory$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/WindowFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/Interactive.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveExit.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveField.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveGetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveSetter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/out/production/JacopoDelGranchio/gurankio/menu/window/interactive/InteractiveWindow.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/Aereoporto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/Charter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/Linea.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/Volo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/MenuOptions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/ConsoleInput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/ConsoleOutput.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/util/CharPacks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/util/Iosifovitch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/util/StringPrettify.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/io/util/TreeBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/Window.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/WindowFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/Interactive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveExit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveGetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveSetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../#013 Verifica del 22.01.2021/JacopoDelGranchio/src/gurankio/menu/window/interactive/InteractiveWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/Merci.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/Passeggeri.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/Treno.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/Vagone.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/exception/InvalidExtensionException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/exception/InvalidInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/text/InvalidInputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/exception/MissingSupplierException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/exception/SupplierTypeMismatchException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../#000 Template/src/gurankio/io/text/SupplierTypeMismatchException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/file/BinaryFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/file/FileInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/file/JsonFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/file/XmlFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/text/TextParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/io/text/TextSerializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/MenuOptions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/io/ConsoleIO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/io/MenuIO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/Window.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/WindowFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/Interactive.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveExit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveGetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveMethod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveSetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/menu/window/interactive/InteractiveWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/util/CharPacks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/util/Iosifovitch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/util/JShellEvalWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gurankio/util/TreeBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/treno.bin" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1oeyqAEULTkHiLKlCDon0hLJQCI" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38b8eb4e-56a6-4bc2-a8b5-da636ea4354f" name="Default Changelist" comment="" />
+      <created>1613661543583</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613661543583</updated>
+      <workItem from="1613661548439" duration="7000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
