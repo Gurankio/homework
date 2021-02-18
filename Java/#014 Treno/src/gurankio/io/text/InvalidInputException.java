@@ -1,4 +1,4 @@
-package gurankio.io.exception;
+package gurankio.io.text;
 
 public class InvalidInputException extends RuntimeException {
 

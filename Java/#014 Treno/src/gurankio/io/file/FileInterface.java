@@ -1,7 +1,5 @@
 package gurankio.io.file;
 
-import gurankio.io.exception.InvalidExtensionException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 

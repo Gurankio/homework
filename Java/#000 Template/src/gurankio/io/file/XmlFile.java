@@ -1,7 +1,5 @@
 package gurankio.io.file;
 
-import gurankio.io.exception.InvalidExtensionException;
-
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;

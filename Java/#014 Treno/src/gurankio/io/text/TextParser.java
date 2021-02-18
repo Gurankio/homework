@@ -1,8 +1,5 @@
 package gurankio.io.text;
 
-import gurankio.io.exception.InvalidInputException;
-import gurankio.io.exception.MissingSupplierException;
-import gurankio.io.exception.SupplierTypeMismatchException;
 import gurankio.util.JShellEvalWrapper;
 
 import java.util.HashMap;

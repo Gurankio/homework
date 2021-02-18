@@ -1,23 +1,32 @@
 package gurankio.menu.io;
 
-import gurankio.io.exception.InvalidInputException;
-import gurankio.io.exception.MissingSupplierException;
+import gurankio.io.text.InvalidInputException;
 import gurankio.io.text.TextParser;
 import gurankio.io.text.TextSerializer;
 import gurankio.util.CharPacks;
 import gurankio.util.TreeBuilder;
 
 import java.lang.reflect.*;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class MenuIO {
 
     private Integer indentation;
+    private static final HashMap<Class<?>, Function<MenuIO, ?>> overrides = new HashMap<>();
+
+    /**
+     * Makes sure to add only matching keys and function.
+     *
+     * @param target   The class to register.
+     * @param function The associated supplier.
+     * @param <T>      The registered type.
+     */
+    public static <T> void registerOverride(Class<T> target, Function<MenuIO, T> function) {
+        overrides.put(target, function);
+    }
 
     public MenuIO() {
         indentation = 1;
@@ -26,37 +35,30 @@ public abstract class MenuIO {
     public Integer getIndentation() {
         return indentation;
     }
-
     public void incrementIndentation() {
         indentation++;
     }
-
     public void decrementIndentation() {
         indentation--;
     }
 
+    public abstract void print(String data);
     public abstract String read(String prompt);
 
     public void print(Object o) {
         print(TextSerializer.serialize(o));
     }
-
-    public abstract void print(String data);
-
     public void println() {
         println(" ");
     }
-
     public void println(Object o) {
         println(TextSerializer.serialize(o));
     }
-
     public abstract void println(String data);
 
     public void arrowln(Object o) {
         arrowln(TextSerializer.serialize(o));
     }
-
     public void arrowln(String data) {
         List<String> lines = data.lines().collect(Collectors.toList());
         for (int i=0; i<lines.size(); i++) {
@@ -71,12 +73,13 @@ public abstract class MenuIO {
     public Object read(Field field) {
         return read(TextSerializer.serialize(field) + ": ", field.getType());
     }
-
     public Object read(Parameter parameter) {
         return read(TextSerializer.serialize(parameter) + ": ", parameter.getType());
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T read(String prompt, Class<T> target) {
+        if (overrides.containsKey(target)) return (T) overrides.get(target).apply(this);
         if (target.isEnum()) return fromEnum(prompt, target);
         if (TextParser.hasSupplier(target)) {
             do {
@@ -89,7 +92,7 @@ public abstract class MenuIO {
         }
         boolean hasConstructor = !(target.isInterface() || Modifier.isAbstract(target.getModifiers())) && target.getConstructors().length > 0;
         if (hasConstructor) return fromConstructor(prompt, target);
-        throw new MissingSupplierException(target);
+        throw new MissingOverrideException(target);
     }
 
     private String choose(String prompt, List<String> options) {
@@ -135,7 +138,7 @@ public abstract class MenuIO {
                 .orElseThrow();
 
         Object[] parameters = Stream.of(constructor.getParameters())
-                .map(p -> read(TextSerializer.serialize(p) + ": ", p.getType()))
+                .map(p -> read(p.getName(), p.getType()))
                 .toArray();
 
         try {

@@ -1,6 +1,8 @@
 package gurankio.io.file;
+
+/*
 import com.google.gson.*;
-import gurankio.io.exception.InvalidExtensionException;
+import gurankio.io.file.InvalidExtensionException;
 
 import java.io.*;
 
@@ -29,5 +31,5 @@ public class JsonFile implements FileInterface{
             return null;
         }
     }
-
 }
+*/

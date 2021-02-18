@@ -1,6 +1,5 @@
 package gurankio.menu;
 
-import gurankio.io.file.FileInterface;
 import gurankio.io.text.TextParser;
 import gurankio.io.text.TextSerializer;
 import gurankio.menu.io.ConsoleIO;
@@ -13,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Menu {
@@ -49,7 +46,6 @@ public class Menu {
 
     private final Map<Class<?>, Window> windows;
     private final Stack<Object> stack;
-    private Function<Object, Object> onClose;
 
     public Menu(Supplier<?> supplier) {
         // console.debugln("dyMenu - Alpha MK2");
@@ -59,7 +55,6 @@ public class Menu {
         this.windows = WindowFactory.createAll(entrypoint.getClass());
         this.stack = new Stack<>();
         this.stack.push(entrypoint);
-        this.onClose = null;
     }
 
     private TreeBuilder getPath() {
@@ -73,11 +68,6 @@ public class Menu {
             }
         }
         return builder;
-    }
-
-    public Menu onClose(Function<Object, Object> onClose) {
-        this.onClose = this.onClose == null ? onClose : this.onClose.compose(onClose);
-        return this;
     }
 
     public void run() {
@@ -112,14 +102,10 @@ public class Menu {
                         }
                         stack.push(next);
                     }
-                } else {
-                    if (stack.size() == 1) onClose.apply(stack.peek());
-                    stack.pop();
-                }
+                } else stack.pop();
             }
 
             if (stack.size() > 0 && ignored.stream().anyMatch(c -> c.isInstance(stack.peek()))) {
-                if (stack.size() == 1) onClose.apply(stack.peek());
                 stack.pop();
             }
         }

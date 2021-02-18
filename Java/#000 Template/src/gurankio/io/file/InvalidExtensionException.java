@@ -1,4 +1,4 @@
-package gurankio.io.exception;
+package gurankio.io.file;
 
 import java.io.File;
 
