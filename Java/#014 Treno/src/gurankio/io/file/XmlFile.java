@@ -19,8 +19,8 @@ public class XmlFile implements FileInterface {
     @Override
     public void save(Object object, File file) throws InvalidExtensionException {
         if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
-        try (XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)))) {
-            e.writeObject(object);
+        try (XMLEncoder writer = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)))) {
+            writer.writeObject(object);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,8 +38,8 @@ public class XmlFile implements FileInterface {
     @Override
     public <T> T load(File file, Class<T> target) throws InvalidExtensionException, FileNotFoundException {
         if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
-        try (XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
-            Object o = d.readObject();
+        try (XMLDecoder reader = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
+            Object o = reader.readObject();
             if (target.isInstance(o)) return (T) o;
             return null;
         }

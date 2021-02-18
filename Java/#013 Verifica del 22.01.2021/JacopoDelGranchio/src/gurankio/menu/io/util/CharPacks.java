@@ -1,12 +1,12 @@
-package gurankio.util;
+package gurankio.menu.io.util;
 
 public enum CharPacks {
 
-    SIMPLE('\'', '\'', '\\', '-', '>', '<', ' '),
-    ADVANCED('|', '+', '\\', '-', '>', '<', ' ');
-
+    SIMPLE('\'', '\\', '\'', '-', '>', '<', ' '),
+    ADVANCED('│', '├', '└', '─', '>', '<', ' ');
+	
     // TODO: should be changeable, waiting for files...
-    public static final CharPacks selected = ADVANCED;
+    public static final CharPacks selected = SIMPLE;
     public static final Integer WIDTH = 4;
 
     private final Character lineVertical;

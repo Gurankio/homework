@@ -3,7 +3,7 @@ package gurankio.util;
 public enum CharPacks {
 
     SIMPLE('\'', '\'', '\\', '-', '>', '<', ' '),
-    ADVANCED('|', '+', '\\', '-', '>', '<', ' ');
+    ADVANCED('|', '+', '\'', '-', '>', '<', ' ');
 
     // TODO: should be changeable, waiting for files...
     public static final CharPacks selected = ADVANCED;
