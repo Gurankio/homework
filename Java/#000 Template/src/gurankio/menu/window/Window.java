@@ -107,7 +107,7 @@ public class Window {
         if (suggestion != null) {
             if (!confirm) {
                 Menu.console.incrementIndentation();
-                String confirmInput = Menu.console.read("Did you mean " + suggestion + "? Y/N");
+                String confirmInput = Menu.console.read("Did you mean " + suggestion + "? [y/N] ");
                 Menu.console.decrementIndentation();
                 confirm = confirmInput.matches("[yY].*");
             }

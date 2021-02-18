@@ -99,7 +99,7 @@ public class WindowFactory {
                   Menu.console.decrementIndentation();
                   Object r = ((Object[]) instance)[index];
                   if (r == null) {
-                      String confirmInput = Menu.console.read("Did you mean to call "+"set(index, "+ TextSerializer.serialize(target.getComponentType()) +")? [y/N]");
+                      String confirmInput = Menu.console.read("Did you mean to call "+"set(index, "+ TextSerializer.serialize(target.getComponentType()) +")? [y/N] ");
                       if (confirmInput.matches("[yY].*")) {
                           Object object = Menu.console.read("Value: ", target.getComponentType());
                           ((Object[]) instance)[index] = object;

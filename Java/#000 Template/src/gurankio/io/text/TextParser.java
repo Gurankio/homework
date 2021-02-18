@@ -53,12 +53,13 @@ public class TextParser {
      * @param data   The string to parse.
      * @param <T>    The type of the class to build.
      * @return An instance of type T built with user input.
+     * @throws InvalidInputException         Occurs when thr data given is not a representation og the requested class.
      * @throws MissingSupplierException      Occurs when a class its trying to be created but there are no suitable suppliers.
      * @throws SupplierTypeMismatchException Occurs when the suppliers map has a mismatch between key and return type.
      *                                       As long as the suppliers key and return type match, there is going to be no exception.
      */
     @SuppressWarnings("unchecked")
-    public static <T> T parse(Class<T> target, String data) throws MissingSupplierException, SupplierTypeMismatchException {
+    public static <T> T parse(Class<T> target, String data) throws InvalidInputException, MissingSupplierException, SupplierTypeMismatchException {
         if (target.isArray()) {
             return (T) Stream.of(data.replaceAll("\\[(?=\\[)|](?!.*?])", "").split(","))
                     .map(String::strip)

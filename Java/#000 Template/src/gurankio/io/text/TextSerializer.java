@@ -62,8 +62,9 @@ public class TextSerializer {
     private static String fromArrayList(ArrayList<?> array) {
         int length = array.stream().map(e -> serialize(e).length()).reduce(Integer::sum).orElse(0);
         StringBuilder builder = new StringBuilder();
-        if (length > 100) builder.append("[..").append(array.size()).append("..]");
-        else builder.append(array.stream().map(TextSerializer::serialize).collect(Collectors.joining(", ")));
+        builder.append("[\n");
+        builder.append(array.stream().map(TextSerializer::serialize).collect(Collectors.joining(",\n")));
+        builder.append("\n]");
         return builder.toString();
     }
 

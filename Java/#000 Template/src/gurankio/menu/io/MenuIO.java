@@ -95,7 +95,7 @@ public abstract class MenuIO {
         throw new MissingOverrideException(target);
     }
 
-    private String choose(String prompt, List<String> options) {
+    public String choose(String prompt, List<String> options) {
         if (options.size() == 0) return "";
         if (options.size() == 1) return options.get(0);
 
@@ -105,11 +105,16 @@ public abstract class MenuIO {
         options.forEach(builder::arrowCounted);
         println(builder.end().toString());
 
-        // TODO: cool thing with typo and closest match.
+        // TODO: cool thing with typo and closest match. just has perfect match for now.
 
         Integer choice;
         do {
-            choice = read("Choice: ", Integer.class);
+            String data = read("Choice: ", String.class);
+            try {
+                choice = options.contains(data) ? options.indexOf(data) + 1 : TextParser.parse(Integer.class, data);
+            } catch (InvalidInputException ignored) {
+                choice = -1;
+            }
             if (choice < 1 || choice > options.size()) println("Invalid input. Provide a number between 1 and " + options.size());
         } while (choice < 1 || choice > options.size());
         return options.get(choice-1);
@@ -138,7 +143,7 @@ public abstract class MenuIO {
                 .orElseThrow();
 
         Object[] parameters = Stream.of(constructor.getParameters())
-                .map(p -> read(p.getName(), p.getType()))
+                .map(this::read)
                 .toArray();
 
         try {

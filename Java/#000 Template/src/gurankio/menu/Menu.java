@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class Menu {
@@ -42,6 +43,13 @@ public class Menu {
 
     public static void ignore(Class<?> target) {
         ignored.add(target);
+    }
+
+    private Function<Object, Object> onClose;
+
+    public Menu onClose(Function<Object, Object> onClose) {
+        this.onClose = this.onClose == null ? onClose : this.onClose.compose(onClose);
+        return this;
     }
 
     private final Map<Class<?>, Window> windows;
@@ -102,10 +110,14 @@ public class Menu {
                         }
                         stack.push(next);
                     }
-                } else stack.pop();
+                } else {
+                    if (stack.size() == 1) onClose.apply(stack.peek());
+                    stack.pop();
+                }
             }
 
             if (stack.size() > 0 && ignored.stream().anyMatch(c -> c.isInstance(stack.peek()))) {
+                if (stack.size() == 1) onClose.apply(stack.peek());
                 stack.pop();
             }
         }

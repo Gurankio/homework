@@ -19,7 +19,7 @@ public class InteractiveGetter extends InteractiveMethod {
             Menu.console.arrowln(null);
             try {
                 InteractiveSetter setter = new InteractiveSetter(instance.getClass().getDeclaredMethod(getMethod().getName().replace("get", "set"), getMethod().getReturnType()));
-                String confirmInput = Menu.console.read("Did you mean to call " + getMethod().getName().replace("get", "set") + "? Y/N");
+                String confirmInput = Menu.console.read("Did you mean to call " + getMethod().getName().replace("get", "set") + "? [y/N] ");
                 if (confirmInput.matches("[yY].*")) {
                     return setter.call(instance);
                 }
