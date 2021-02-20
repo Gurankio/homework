@@ -45,10 +45,10 @@ public class Menu {
         ignored.add(target);
     }
 
-    private Function<Object, Object> onClose;
+    private Function<Object, Object> onClose = (obj) -> obj;
 
     public Menu onClose(Function<Object, Object> onClose) {
-        this.onClose = this.onClose == null ? onClose : this.onClose.compose(onClose);
+        this.onClose = this.onClose.compose(onClose);
         return this;
     }
 

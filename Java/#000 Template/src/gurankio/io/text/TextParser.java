@@ -2,6 +2,8 @@ package gurankio.io.text;
 
 import gurankio.util.JShellEvalWrapper;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -61,10 +63,12 @@ public class TextParser {
     @SuppressWarnings("unchecked")
     public static <T> T parse(Class<T> target, String data) throws InvalidInputException, MissingSupplierException, SupplierTypeMismatchException {
         if (target.isArray()) {
-            return (T) Stream.of(data.replaceAll("\\[(?=\\[)|](?!.*?])", "").split(","))
-                    .map(String::strip)
-                    .map(c -> parse(target.getComponentType(), c))
-                    .toArray();
+            String[] tokens = data.replaceFirst("\\[", "").replaceFirst("](?!.*?])", "").split(", ");
+            Object array = Array.newInstance(target.getComponentType(), tokens.length);
+            for (int i = 0; i < tokens.length; i++) {
+                Array.set(array, i, parse(target.getComponentType(), tokens[i]));
+            }
+            return (T) array;
         }
 
         if (target.isEnum()) {
@@ -140,7 +144,7 @@ public class TextParser {
     }
 
     private static String getString(String data) {
-        return data;
+        return data.replaceFirst("\"", "").replaceFirst("\"(?!.*?\")", "");
     }
 
 }

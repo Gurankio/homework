@@ -2,6 +2,11 @@ package gurankio.io.file;
 
 import java.io.*;
 
+/**
+ * IO su file binari tramite ObjectInputStream ed ObjectOutputStream.
+ *
+ * @author Jacopo Del Granchio
+ */
 public class BinaryFile implements FileInterface {
 
     private static final String EXTENSION = ".bin";
