@@ -1,10 +1,16 @@
 package gurankio;
 
-public class Triangolo {
+import java.io.Serializable;
+
+public class Triangolo implements Serializable {
 
     private Punto p1;
     private Punto p2;
     private Punto p3;
+
+    public Triangolo() {
+        this(new Punto(), new Punto(), new Punto());
+    }
 
     public Triangolo(Punto p1, Punto p2, Punto p3) {
         this.p1 = p1;

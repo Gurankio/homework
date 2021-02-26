@@ -1,29 +1,39 @@
 package gurankio;
 
+import gurankio.io.file.XmlFile;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Triangolo t = new Triangolo(new Punto(-1.87, 0), new Punto(5, 1.5), new Punto(1.54, 5));
+		XmlFile xml = new XmlFile();
+
+		File file = new File("triangolo.xml");
+		Triangolo t = new Triangolo(
+				new Punto(-1.87, 0),
+				new Punto(5, 1.5),
+				new Punto(1.54, 5)
+		);
+
+		System.out.println("Prima di salvare: ");
 		System.out.println(t);
-		System.out.flush();
-
 		try {
-			Triangolo et = new Triangolo(new Punto(0, 0), new Punto(5, 0), new Punto(10, 0));
-			System.out.println(et);
-		} catch (IllegalArgumentException e) {
+			xml.save(t, file);
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		Cerchio c = new Cerchio(new Punto(0, 0), 4);
-		System.out.println(c);
-		System.out.flush();
-
+		Triangolo caricato = null;
 		try {
-			Cerchio ec = new Cerchio(new Punto(0, 0), -5.4);
-			System.out.println(ec);
-		} catch (IllegalArgumentException e) {
+			caricato = xml.load(file, Triangolo.class);
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Caricato da file: ");
+		System.out.println(caricato);
+
 	}
 
 }

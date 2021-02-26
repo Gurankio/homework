@@ -26,7 +26,7 @@ public class XmlFile implements FileInterface {
         }
     }
 
-    // L'IDE ci avverte che il cast del oggetto a tipo T potrebbew generare un'eccezione. Possiamo Ignorarla dato che la catturiamo nel catch.
+    // L'IDE ci avverte che il cast del oggetto a tipo T potrebbe generare un'eccezione. Possiamo Ignorarla dato che la catturiamo nel catch.
     @SuppressWarnings("unchecked")
     @Override
     public <T> T load(File file, Class<T> target) throws FileNotFoundException, InvalidExtensionException {

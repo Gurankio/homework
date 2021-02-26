@@ -1,6 +1,8 @@
 package gurankio;
 
-public class Punto {
+import java.io.Serializable;
+
+public class Punto implements Serializable {
 	
 	private double x;
 	private double y;
@@ -8,6 +10,10 @@ public class Punto {
 	public Punto(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	public Punto() {
+		this(0, 0);
 	}
 
 	public double getX() {

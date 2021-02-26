@@ -5,108 +5,70 @@ import gurankio.io.file.TextFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
+import java.util.Iterator;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class Main {
 
-	public static class Qwerty {
-		private transient int a;
-		private Double b;
-		private String[] cs;
-
-		public Qwerty() {
-		}
-
-		public Qwerty(int a, Double b, String[] cs) {
-			this.a = a;
-			this.b = b;
-			this.cs = cs;
-		}
-
-		@Override
-		public String toString() {
-			return "Qwerty{" +
-					"a=" + a +
-					", b=" + b +
-					", cs=" + Arrays.toString(cs) +
-					'}';
-		}
-	}
-
-	public static class Asdf {
-		private transient int a;
-		private Double b;
-		private Qwerty[] cs;
-
-		public Asdf() {
-		}
-
-		public Asdf(int a, Double b, Qwerty[] cs) {
-			this.a = a;
-			this.b = b;
-			this.cs = cs;
-		}
-
-		@Override
-		public String toString() {
-			return "Asdf{" +
-					"a=" + a +
-					", b=" + b +
-					", cs=" + Arrays.toString(cs) +
-					'}';
-		}
-	}
-
-	public static class Test {
-		private int a;
-		private double b;
-		private String c;
-		private double[] ds;
-		private Asdf[] es;
-
-		public Test() {
-		}
-
-		public Test(int a, double b, String c, double[] ds, Asdf[] es) {
-			this.a = a;
-			this.b = b;
-			this.c = c;
-			this.ds = ds;
-			this.es = es;
-		}
-
-		@Override
-		public String toString() {
-			return "Test{" +
-					"a=" + a +
-					", b=" + b +
-					", c='" + c + '\'' +
-					", ds=" + Arrays.toString(ds) +
-					", es=" + Arrays.toString(es) +
-					'}';
-		}
-	}
-
 	public static void main(String[] args) throws FileNotFoundException {
-		File file = new File("test.txt");
-		if (file.exists()) file.delete();
-		FileInterface fileInterface = new TextFile();
-		fileInterface.save(new Test(1, 12.34, "sasso", new double[]{4.1, 23.5, 34.53, 765425.2}, new Asdf[]{
-				new Asdf(1, 2.3, new Qwerty[]{
-						new Qwerty(4, 4.5, new String[]{"a", "b", "c", "d"}),
-						new Qwerty(54, 4.5, new String[]{"a", "b", "c", "d"})
-				}),
-				new Asdf(2, 4363.3, new Qwerty[]{
-						new Qwerty(4, 4.5, new String[]{"e", "f", "g", "h"}),
-						new Qwerty(54, 4.5, new String[]{"a", "b", "c", "d"})
-				}),
-				new Asdf(3, 0.00000000024, new Qwerty[]{
-						new Qwerty(4, 4.5, new String[]{"i", "l", "m", "n"}),
-						new Qwerty(54, 4.5, new String[]{"a", "b", "c", "d"})
-				})
-		}), file);
-		Test test = fileInterface.load(file, Test.class);
-		System.out.println(test);
+
+	}
+
+	private static class Pila<T> implements Iterable<T> {
+
+		private static class Nodo<T> {
+
+			T data;
+			Nodo<T> next;
+
+			public Nodo(T data) {
+				this.data = data;
+			}
+
+		}
+
+		private Nodo<T> testa;
+
+		public Pila(T data) {
+			this.testa = new Nodo<>(data);
+		}
+
+		public T pop() {
+			T data = testa.data;
+			testa = testa.next;
+			return data;
+		}
+
+		public void push(T data) {
+			testa.next = new Nodo<>(data);
+			testa = testa.next;
+		}
+
+		@Override
+		public Iterator<T> iterator() {
+			return new Iterator<>() {
+
+				private Nodo<T> current = testa;
+
+				@Override
+				public boolean hasNext() {
+					return current.next != null;
+				}
+
+				@Override
+				public T next() {
+					T data = current.data;
+					current = current.next;
+					return data;
+				}
+			};
+		}
+
+		public Stream<T> stream() {
+			return StreamSupport.stream(this::spliterator, 0, false);
+		}
+
 	}
 
 }
