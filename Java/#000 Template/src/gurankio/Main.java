@@ -45,6 +45,12 @@ public class Main {
 			testa = testa.next;
 		}
 
+		public long length() {
+			long l = 0;
+			for (T e : this) l++;
+			return l;
+		}
+
 		@Override
 		public Iterator<T> iterator() {
 			return new Iterator<>() {

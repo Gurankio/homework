@@ -12,13 +12,11 @@ public class Main {
 
 		File file = new File("triangolo.xml");
 		Triangolo t = new Triangolo(
-				new Punto(-1.87, 0),
+				new Punto(-1.87, 0.0000000001),
 				new Punto(5, 1.5),
 				new Punto(1.54, 5)
 		);
 
-		System.out.println("Prima di salvare: ");
-		System.out.println(t);
 		try {
 			xml.save(t, file);
 		} catch (FileNotFoundException e) {
@@ -31,9 +29,6 @@ public class Main {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Caricato da file: ");
-		System.out.println(caricato);
-
 	}
 
 }

@@ -16,7 +16,7 @@ public interface FileInterface {
      * Salva un oggetto nel file.
      *
      * @param object da salvare.
-     * @param file dove salvare lo stato dell'oggetto.
+     * @param file dove salvare lo stato dell' oggetto.
      * @return se il salvataggio ha avuto successo.
      * @throws FileNotFoundException se il file è una cartella, non esiste e non puo essere creato, o non puo essere aperto.
      * @throws InvalidExtensionException se il file non ha la corretta estensione.
@@ -24,11 +24,11 @@ public interface FileInterface {
     boolean save(Object object, File file) throws FileNotFoundException, InvalidExtensionException;
 
     /**
-     * Crea un'instanza della classe, leggendo dal file.
+     * Crea un' istanza della classe, leggendo dal file.
      *
-     * @param file da cui viene letto lo stato dell'oggetto.
-     * @param target la classe di cui si vuole un'istanza.
-     * @param <T> il tipo dell'instanza.
+     * @param file da cui viene letto lo stato dell' oggetto.
+     * @param target la classe di cui si vuole un' istanza.
+     * @param <T> il tipo dell' istanza.
      * @return una istanza della classe specificata. Se si verificano errori sulla lettura, ritorna null.
      * @throws FileNotFoundException se il file non esiste, non è leggibile o è una cartella.
      * @throws InvalidExtensionException se il file non ha la corretta estensione.
