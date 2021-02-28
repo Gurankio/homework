@@ -35,8 +35,29 @@ public class TextSerializer {
         classSuppliers.put(target, (Function<Object, String>) function);
     }
 
+    public static boolean hasClassSupplier(Class<?> target) {
+        return classSuppliers.containsKey(target);
+    }
+
     // Static initializer for the suppliers.
     static {
+        registerClassSupplier(byte.class, TextSerializer::fromByte);
+        registerClassSupplier(short.class, TextSerializer::fromShort);
+        registerClassSupplier(int.class, TextSerializer::fromInt);
+        registerClassSupplier(long.class, TextSerializer::fromLong);
+        registerClassSupplier(float.class, TextSerializer::fromFloat);
+        registerClassSupplier(double.class, TextSerializer::fromDouble);
+        registerClassSupplier(boolean.class, TextSerializer::fromBoolean);
+        registerClassSupplier(char.class, TextSerializer::fromChar);
+        registerClassSupplier(Byte.class, TextSerializer::fromByte);
+        registerClassSupplier(Short.class, TextSerializer::fromShort);
+        registerClassSupplier(Integer.class, TextSerializer::fromInt);
+        registerClassSupplier(Long.class, TextSerializer::fromLong);
+        registerClassSupplier(Float.class, TextSerializer::fromFloat);
+        registerClassSupplier(Double.class, TextSerializer::fromDouble);
+        registerClassSupplier(Boolean.class, TextSerializer::fromBoolean);
+        registerClassSupplier(Character.class, TextSerializer::fromChar);
+        registerClassSupplier(String.class, String::toString);
         registerClassSupplier(ArrayList.class, TextSerializer::fromArrayList);
         registerClassSupplier(Class.class, TextSerializer::fromClass);
         registerClassSupplier(Field.class, TextSerializer::fromField);
@@ -60,12 +81,7 @@ public class TextSerializer {
     }
 
     private static String fromArrayList(ArrayList<?> array) {
-        int length = array.stream().map(e -> serialize(e).length()).reduce(Integer::sum).orElse(0);
-        StringBuilder builder = new StringBuilder();
-        builder.append("[\n");
-        builder.append(array.stream().map(TextSerializer::serialize).collect(Collectors.joining(",\n")));
-        builder.append("\n]");
-        return builder.toString();
+        return "[\n" + array.stream().map(TextSerializer::serialize).collect(Collectors.joining(",\n")) + "\n]";
     }
 
     private static String fromClass(Class<?> target) {
@@ -86,6 +102,38 @@ public class TextSerializer {
 
     private static String fromConstructor(Constructor<?> constructor) {
         return constructor.getDeclaringClass().getSimpleName() + "(" + Arrays.stream(constructor.getParameters()).map(TextSerializer::serialize).collect(Collectors.joining(", ")) + ")";
+    }
+
+    private static String fromByte(Byte b) {
+        return Byte.toString(b);
+    }
+
+    private static String fromShort(short s) {
+        return Short.toString(s);
+    }
+
+    private static String fromInt(int i) {
+        return Integer.toString(i);
+    }
+
+    private static String fromLong(long l) {
+        return Long.toString(l);
+    }
+
+    private static String fromFloat(float f) {
+        return Float.toString(f);
+    }
+
+    private static String fromDouble(double d) {
+        return Double.toString(d);
+    }
+
+    private static String fromBoolean(boolean b) {
+        return Boolean.toString(b);
+    }
+
+    private static String fromChar(char c) {
+        return Character.toString(c);
     }
 
 }

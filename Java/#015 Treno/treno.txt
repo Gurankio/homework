@@ -1,0 +1,2 @@
+gurankio.Treno; (1,java.util.ArrayList); 
+gurankio.Passeggeri; 123; 123; 123; asd; 123.0; 123; 123; 

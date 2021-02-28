@@ -1,6 +1,7 @@
 package gurankio;
 
 import gurankio.io.file.FileInterface;
+import gurankio.io.file.TextFile;
 import gurankio.io.file.XmlFile;
 import gurankio.io.text.TextParser;
 import gurankio.io.text.TextSerializer;
@@ -13,8 +14,8 @@ import java.util.Arrays;
 
 public class Main {
 
-	private static final File file = new File("./treno.xml");
-	private static final FileInterface fileInterface = new XmlFile();
+	private static final File file = new File("./treno.txt");
+	private static final FileInterface fileInterface = new TextFile();
 
 	private static Treno carica() {
 		Treno treno = null;
@@ -29,8 +30,14 @@ public class Main {
 	}
 
 	private static Object salva(Object o) {
-		fileInterface.save(o, file);
-		System.out.println("Saving...");
+		try {
+			System.out.println("Saving...");
+			fileInterface.save(o, file);
+		} catch (FileNotFoundException e) {
+			System.out.println("Failed.");
+			return o;
+		}
+		System.out.println("Succeeded.");
 		return o;
 	}
 

@@ -2,18 +2,25 @@ package gurankio.io.file;
 
 import java.io.*;
 
+/**
+ * IO su file binari tramite ObjectInputStream ed ObjectOutputStream.
+ *
+ * @author Jacopo Del Granchio
+ */
 public class BinaryFile implements FileInterface {
 
     private static final String EXTENSION = ".bin";
 
     @Override
-    public void save(Object object, File file) throws InvalidExtensionException {
+    public boolean save(Object object, File file) throws InvalidExtensionException {
         if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
         try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(file))) {
             writer.writeObject(object);
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @SuppressWarnings("unchecked")

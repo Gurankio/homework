@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class TextFile implements FileInterface {
 
-    private class Node {
+    private static class Node {
 
         private Object object;
         private List<Node> children;
@@ -80,7 +80,7 @@ public class TextFile implements FileInterface {
     }
 
     @Override
-    public void save(Object object, File file) throws InvalidExtensionException {
+    public boolean save(Object object, File file) throws InvalidExtensionException {
         Class<?> target = object.getClass();
         Node root = new Node(object);
         Stack<Node> current = new Stack<>();
@@ -175,7 +175,9 @@ public class TextFile implements FileInterface {
 
         } catch (IOException | IllegalAccessException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     private <T> T next(Class<T> target, BufferedReader reader) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, IOException {

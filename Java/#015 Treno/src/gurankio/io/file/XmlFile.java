@@ -4,41 +4,39 @@ import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.*;
 
+/**
+ * Interfaccia sulla codifica XML.
+ *
+ * @author Jacopo Del Granchio
+ */
 public class XmlFile implements FileInterface {
 
     private static final String EXTENSION = ".xml";
 
-    /**
-     * Saves an object serialized in XML into the given file.
-     *
-     * @param object The object to save.
-     * @param file   The file to write to. If it doesn't exists it is going to be created.
-     */
     @Override
-    public void save(Object object, File file) throws InvalidExtensionException {
+    public boolean save(Object object, File file) throws FileNotFoundException, InvalidExtensionException {
         if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
-        try (XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)))) {
-            e.writeObject(object);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+        // Speciale sintassi del try..catch che chiude in automatico la scrittura su file.
+        try (XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(file)))) {
+            encoder.writeObject(object);
+            return true;
+        } catch (SecurityException exception) {
+            return false;
         }
     }
 
-    /**
-     * Loads an instance of the given class from the given XML file.
-     *
-     * @param file   The file to read.
-     * @param target The class to load.
-     * @param <T>    The type of the class.
-     * @return       The parsed object.
-     */
+    // L'IDE ci avverte che il cast del oggetto a tipo T potrebbew generare un'eccezione. Possiamo Ignorarla dato che la catturiamo nel catch.
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T load(File file, Class<T> target) throws InvalidExtensionException, FileNotFoundException {
+    public <T> T load(File file, Class<T> target) throws FileNotFoundException, InvalidExtensionException {
         if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
-        try (XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
-            Object o = d.readObject();
-            if (target.isInstance(o)) return (T) o;
+
+        // Speciale sintassi del try..catch che chiude in automatico la lettura da file.
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
+            Object o = decoder.readObject();
+            return (T) o;
+        } catch (SecurityException | ArrayIndexOutOfBoundsException | ClassCastException exception) {
             return null;
         }
     }
