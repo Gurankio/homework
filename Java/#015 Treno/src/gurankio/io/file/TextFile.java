@@ -89,13 +89,11 @@ public class TextFile implements FileInterface {
                                 node.addChildren(next);
                                 current.add(next);
                             }
-
-                        } /* else if (!(r instanceof Persistent)) {
+                        } else {
                             Node next = new Node(r);
                             node.addChildren(next);
                             current.add(next);
                         }
-                        */
                     }
                 }
             }
@@ -131,12 +129,7 @@ public class TextFile implements FileInterface {
                                     long size = 0;
                                     for (Object e : (Iterable<?>) r) size++;
                                     writer.write("(" + size + "," + r.getClass().getName() + "); ");
-                                } /* else if (r instanceof Persistent) {
-                                    ((Persistent) r).save();
-                                    writer.write("@(" + Paths.get(System.getProperty("user.dir")).relativize(Paths.get(((Persistent) r).getFile().getPath())).toString() + "); ");
-                                }
-                                */
-                                else if (TextSerializer.hasClassSupplier(r.getClass())) {
+                                } else if (TextSerializer.hasClassSupplier(r.getClass())) {
                                     writer.write(TextSerializer.serialize(r) + "; ");
                                 } else {
                                     writer.write("-; ");
@@ -173,14 +166,6 @@ public class TextFile implements FileInterface {
         for (Method method : methods) {
             newToken++;
             Class<?> parameter = method.getParameters()[0].getType();
-
-            /*
-            if (tokens[newToken].matches("@\\(.*\\)")) {
-                File file = new File(tokens[newToken].replaceAll("@\\(", "").replaceAll("\\)", ""));
-                method.invoke(out, load(file, parameter));
-                continue;
-            }
-             */
 
             if (tokens[newToken].matches("\\(.*\\)")) {
                 String[] collectionData = tokens[newToken].replaceAll("\\(", "").replaceAll("\\)", "").split(",");

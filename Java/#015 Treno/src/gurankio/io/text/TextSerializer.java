@@ -58,7 +58,7 @@ public class TextSerializer {
         registerClassSupplier(Boolean.class, TextSerializer::fromBoolean);
         registerClassSupplier(Character.class, TextSerializer::fromChar);
         registerClassSupplier(String.class, String::toString);
-        registerClassSupplier(ArrayList.class, TextSerializer::fromArrayList);
+        // registerClassSupplier(ArrayList.class, TextSerializer::fromArrayList);
         registerClassSupplier(Class.class, TextSerializer::fromClass);
         registerClassSupplier(Field.class, TextSerializer::fromField);
         registerClassSupplier(Parameter.class, TextSerializer::fromParameter);

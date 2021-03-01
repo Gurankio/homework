@@ -5,6 +5,9 @@ import gurankio.util.CharPacks;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.util.NoSuchElementException;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ConsoleIO extends MenuIO {
 
@@ -26,17 +29,12 @@ public class ConsoleIO extends MenuIO {
 
     @Override
     public void print(String data) {
-        data.lines().forEach(l -> {
-            System.out.print(CharPacks.selected.getSpacer(getIndentation() * CharPacks.WIDTH));
-            System.out.print(l);
-        });
+        data.lines().forEach(l -> System.out.print(CharPacks.selected.getSpacer(getIndentation() * CharPacks.WIDTH) + l));
     }
 
     @Override
     public void println(String data) {
-        data.lines().forEach(l -> {
-            System.out.print(CharPacks.selected.getSpacer(getIndentation() * CharPacks.WIDTH));
-            System.out.println(l);
-        });
+        data.lines().forEach(l -> System.out.print(CharPacks.selected.getSpacer(getIndentation() * CharPacks.WIDTH) + l + System.lineSeparator()));
     }
+
 }

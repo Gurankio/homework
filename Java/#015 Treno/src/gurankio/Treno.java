@@ -7,20 +7,10 @@ import gurankio.menu.MenuOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Treno implements PersistentUnique {
-
-    private TestA testA;
-
-    public TestA getTestA() {
-        return testA;
-    }
-
-    public void setTestA(TestA testA) {
-        this.testA = testA;
-    }
-
-    //**//
 
     private List<Vagone> vagoni;
 
@@ -60,12 +50,7 @@ public class Treno implements PersistentUnique {
 
     @Override
     public String toString() {
-        String out = "Treno" + TextSerializer.serialize(vagoni);
-        return out;
-        /*
-                .lines()
-                .map(s -> " ".repeat(5) + s)
-                .collect(Collectors.joining("\n"));
-         */
+        return "Treno[\n" + vagoni.stream().map(vagone -> "    " + vagone.toString()).collect(Collectors.joining("\n")) + "\n]";
     }
+
 }

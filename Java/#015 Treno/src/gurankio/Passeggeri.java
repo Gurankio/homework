@@ -1,7 +1,6 @@
 package gurankio;
 
-import gurankio.io.text.TextSerializer;
-import gurankio.util.TreeBuilder;
+import gurankio.io.data.Persistent;
 
 public class Passeggeri extends Vagone {
 

@@ -1,8 +1,8 @@
 package gurankio;
 
-import java.io.Serializable;
+import gurankio.io.data.Persistent;
 
-public abstract class Vagone implements Serializable {
+public abstract class Vagone {
 
     private String codice;
     private double peso; // a vuoto

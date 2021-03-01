@@ -1,4 +1,4 @@
-package gurankio.util;
+package gurankio.io.text;
 
 import jdk.jshell.JShell;
 import jdk.jshell.SnippetEvent;

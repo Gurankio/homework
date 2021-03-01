@@ -1,9 +1,6 @@
 package gurankio.io.text;
 
-import gurankio.util.JShellEvalWrapper;
-
 import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;

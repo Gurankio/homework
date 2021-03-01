@@ -1,5 +1,6 @@
 package gurankio;
 
+import gurankio.io.data.Persistent;
 import gurankio.io.text.TextSerializer;
 import gurankio.util.TreeBuilder;
 
