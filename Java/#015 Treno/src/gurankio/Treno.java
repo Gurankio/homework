@@ -1,15 +1,26 @@
 package gurankio;
 
+import gurankio.io.data.Persistent;
+import gurankio.io.data.PersistentUnique;
 import gurankio.io.text.TextSerializer;
 import gurankio.menu.MenuOptions;
-import gurankio.util.TreeBuilder;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Treno implements Serializable {
+public class Treno implements PersistentUnique {
+
+    private TestA testA;
+
+    public TestA getTestA() {
+        return testA;
+    }
+
+    public void setTestA(TestA testA) {
+        this.testA = testA;
+    }
+
+    //**//
 
     private List<Vagone> vagoni;
 

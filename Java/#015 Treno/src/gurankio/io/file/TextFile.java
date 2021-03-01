@@ -1,10 +1,13 @@
 package gurankio.io.file;
 
+import gurankio.io.data.Persistent;
 import gurankio.io.text.TextParser;
 import gurankio.io.text.TextSerializer;
 
 import java.io.*;
 import java.lang.reflect.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,29 +56,46 @@ public class TextFile implements FileInterface {
         try {
             while (current.size() != 0) {
                 Node node = current.pop();
+
                 List<Method> methods = Arrays.stream(node.getObject().getClass().getMethods())
                         .parallel()
-                        .filter(method -> method.getName().matches("get.*"))
-                        .filter(method -> method.getParameterCount() == 0)
+                        .filter(method -> !method.getDeclaringClass().getSimpleName().equals("Object") && method.getName().matches("set.*"))
+                        .filter(method -> method.getParameterCount() == 1)
+                        .map(method -> method.getName().replace("set", "get"))
+                        .map(name -> {
+                            try {
+                                return node.getObject().getClass().getMethod(name);
+                            } catch (NoSuchMethodException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        })
+                        .filter(Objects::nonNull)
                         .sorted(Comparator.comparing(Method::getName))
                         .collect(Collectors.toList());
 
                 for (Method method : methods) {
-                    Class<?> methodReturn = method.getReturnType();
-                    if (!TextSerializer.hasClassSupplier(methodReturn)) {
-                        if (methodReturn.isArray()) {
-                            for (Object e : (Object[]) method.invoke(node.getObject())) {
+                    Object r = method.invoke(node.getObject());
+                    if (!TextSerializer.hasClassSupplier(r.getClass())) {
+                        if (r.getClass().isArray()) {
+                            for (Object e : (Object[]) r) {
                                 Node next = new Node(e);
                                 node.addChildren(next);
                                 current.add(next);
                             }
-                        } else if (method.invoke(node.getObject()) instanceof Iterable<?>) {
-                            for (Object e : (Iterable<?>) method.invoke(node.getObject())) {
+                        } else if (r instanceof Iterable<?>) {
+                            for (Object e : (Iterable<?>) r) {
                                 Node next = new Node(e);
                                 node.addChildren(next);
                                 current.add(next);
                             }
+
+                        } /* else if (!(r instanceof Persistent)) {
+                            Node next = new Node(r);
+                            node.addChildren(next);
+                            current.add(next);
                         }
+                        */
                     }
                 }
             }
@@ -87,34 +107,48 @@ public class TextFile implements FileInterface {
             for (Object o : root.getAllObjects()) {
                 writer.write(o.getClass().getName() + "; ");
 
-                List<Method> methods = Arrays.stream(o.getClass().getMethods())
-                        .parallel()
-                        .filter(method -> !method.getDeclaringClass().getSimpleName().equals("Object") && method.getName().matches("get.*"))
-                        .filter(method -> method.getParameterCount() == 0)
+                Arrays.stream(o.getClass().getMethods())
+                        .filter(method -> !method.getDeclaringClass().getSimpleName().equals("Object") && method.getName().matches("set.*"))
+                        .filter(method -> method.getParameterCount() == 1)
+                        .map(method -> method.getName().replace("set", "get"))
+                        .map(name -> {
+                            try {
+                                return o.getClass().getMethod(name);
+                            } catch (NoSuchMethodException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        })
+                        .filter(Objects::nonNull)
                         .sorted(Comparator.comparing(Method::getName))
-                        .collect(Collectors.toList());
-
-                for (Method method : methods) {
-                    Class<?> methodReturn = method.getReturnType();
-                    if (TextSerializer.hasClassSupplier(methodReturn)) {
-                        writer.write(TextSerializer.serialize(method.invoke(o)) + "; ");
-                    } else {
-                        if (methodReturn.isArray()) {
-                            Object[] a = (Object[]) method.invoke(o);
-                            writer.write("(" + a.length + "," + a.getClass().getName() + "); ");
-                        } else if (method.invoke(o) instanceof Iterable<?>) {
-                            long size = 0;
-                            for (Object e : (Iterable<?>) method.invoke(o)) size++;
-                            writer.write("(" + size + "," + method.invoke(o).getClass().getName() + "); ");
-                        }
-                    }
-                }
+                        .forEach(method -> {
+                            try {
+                                Object r = method.invoke(o);
+                                if (r.getClass().isArray()) {
+                                    Object[] a = (Object[]) r;
+                                    writer.write("(" + a.length + "," + a.getClass().getName() + "); ");
+                                } else if (r instanceof Iterable<?>) {
+                                    long size = 0;
+                                    for (Object e : (Iterable<?>) r) size++;
+                                    writer.write("(" + size + "," + r.getClass().getName() + "); ");
+                                } /* else if (r instanceof Persistent) {
+                                    ((Persistent) r).save();
+                                    writer.write("@(" + Paths.get(System.getProperty("user.dir")).relativize(Paths.get(((Persistent) r).getFile().getPath())).toString() + "); ");
+                                }
+                                */
+                                else if (TextSerializer.hasClassSupplier(r.getClass())) {
+                                    writer.write(TextSerializer.serialize(r) + "; ");
+                                } else {
+                                    writer.write("-; ");
+                                }
+                            } catch (IOException | IllegalAccessException | InvocationTargetException ignored) {
+                            }
+                        });
 
                 writer.write(System.lineSeparator());
             }
 
-        } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
             return false;
         }
         return true;
@@ -139,6 +173,14 @@ public class TextFile implements FileInterface {
         for (Method method : methods) {
             newToken++;
             Class<?> parameter = method.getParameters()[0].getType();
+
+            /*
+            if (tokens[newToken].matches("@\\(.*\\)")) {
+                File file = new File(tokens[newToken].replaceAll("@\\(", "").replaceAll("\\)", ""));
+                method.invoke(out, load(file, parameter));
+                continue;
+            }
+             */
 
             if (tokens[newToken].matches("\\(.*\\)")) {
                 String[] collectionData = tokens[newToken].replaceAll("\\(", "").replaceAll("\\)", "").split(",");

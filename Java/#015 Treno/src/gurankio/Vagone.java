@@ -1,8 +1,5 @@
 package gurankio;
 
-import gurankio.io.text.TextSerializer;
-import gurankio.util.TreeBuilder;
-
 import java.io.Serializable;
 
 public abstract class Vagone implements Serializable {

@@ -60,12 +60,7 @@ public class TextSerializer {
     }
 
     private static String fromArrayList(ArrayList<?> array) {
-        int length = array.stream().map(e -> serialize(e).length()).reduce(Integer::sum).orElse(0);
-        StringBuilder builder = new StringBuilder();
-        builder.append("[\n");
-        builder.append(array.stream().map(TextSerializer::serialize).collect(Collectors.joining(",\n")));
-        builder.append("\n]");
-        return builder.toString();
+        return "[\n" + array.stream().map(TextSerializer::serialize).collect(Collectors.joining(",\n")) + "\n]";
     }
 
     private static String fromClass(Class<?> target) {
