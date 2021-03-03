@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <class>gurankio.Treno</class>
+ <object class="gurankio.io.data.Persistent$CollectionData" id="Persistent$CollectionData0">
+  <void property="collection">
+   <class>java.util.ArrayList</class>
+  </void>
+  <void property="contents">
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Merci</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+   <void method="add">
+    <class>gurankio.Passeggeri</class>
+   </void>
+  </void>
+ </object>
+ <string>c2d5b4ed-ec12-4a1c-b8b7-c3144e3ddfcb.mrc</string>
+ <string>c3f283b5-e4a2-4569-ab65-ae7f297f4d55.mrc</string>
+ <string>6decd48d-f389-4046-9782-3d398794c3fb.mrc</string>
+ <string>79fdbd1f-60d0-4014-8c3b-ba5abbab96a0.mrc</string>
+ <string>529e2457-98d7-44bd-a09a-0c3377e6af0b.mrc</string>
+ <string>d033ab9e-3bc5-49f0-892d-c1e74cef86c5.mrc</string>
+ <string>1d168f08-cd39-4d8f-84ab-9eb11f624911.mrc</string>
+ <string>77acc337-453e-491c-81bf-93a04404822d.mrc</string>
+ <string>39fca52b-824a-4995-9c5a-f58b691539ab.mrc</string>
+ <string>4afcab15-b25d-4571-8c9b-f0888c3019b8.psgr</string>
+ <string>207d9518-1684-4375-a179-75189014f3a2.psgr</string>
+ <string>a3c9b4f1-9260-4bc1-b969-b356f0e640ec.psgr</string>
+ <string>e9a73a9f-56ac-45dd-8d85-dc50662f0f6f.psgr</string>
+ <string>290965d4-4067-434c-8c6c-82d9071d43e6.psgr</string>
+ <string>8d666c12-8af2-42e8-873f-3b9e55a7a0d8.psgr</string>
+ <string>c765a84e-45ed-4eb9-8d5e-f8d828947344.psgr</string>
+ <string>efa40fe1-8d74-4669-a06c-775fdd5d0bc6.psgr</string>
+</java>

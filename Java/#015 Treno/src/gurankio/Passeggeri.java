@@ -2,6 +2,8 @@ package gurankio;
 
 import gurankio.io.data.Persistent;
 
+import java.io.File;
+
 public class Passeggeri extends Vagone {
 
     private static final double PESO_MEDIO = 65;
@@ -10,8 +12,8 @@ public class Passeggeri extends Vagone {
     private int postiDisponibili;
     private int postiOccupati;
 
-    public Passeggeri() {
-        this("-", 0, "default", 0, "default", 0, 0);
+    public Passeggeri(File file) {
+        super(file);
     }
 
     public Passeggeri(String codice, double peso, String azienda, int annoCostruzione, String classe, int postiDisponibili, int postiOccupati) {

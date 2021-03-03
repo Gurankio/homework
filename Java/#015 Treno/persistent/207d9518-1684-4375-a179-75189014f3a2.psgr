@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <class>gurankio.Passeggeri</class>
+ <int>51</int>
+ <string>1</string>
+ <string>1</string>
+ <string>asd</string>
+ <double>50.0</double>
+ <int>52</int>
+ <int>53</int>
+</java>

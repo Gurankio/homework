@@ -9,11 +9,8 @@ import java.io.*;
  */
 public class BinaryFile implements FileInterface {
 
-    private static final String EXTENSION = ".bin";
-
     @Override
-    public boolean save(Object object, File file) throws InvalidExtensionException {
-        if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
+    public boolean save(Object object, File file) {
         try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(file))) {
             writer.writeObject(object);
             return true;
@@ -25,8 +22,7 @@ public class BinaryFile implements FileInterface {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T load(File file, Class<T> target) throws InvalidExtensionException, FileNotFoundException {
-        if (!file.getName().endsWith(EXTENSION)) throw new InvalidExtensionException(file, EXTENSION);
+    public <T> T load(File file, Class<T> target) throws FileNotFoundException {
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file))) {
             Object o = reader.readObject();
             if (target.isInstance(o)) return (T) o;

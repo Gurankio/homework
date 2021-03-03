@@ -4,6 +4,7 @@ import gurankio.io.data.Persistent;
 import gurankio.io.text.TextSerializer;
 import gurankio.util.TreeBuilder;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Merci extends Vagone {
@@ -12,8 +13,8 @@ public class Merci extends Vagone {
     private double pesoMassimo;
     private double pesoEffettivo;
 
-    public Merci() {
-        this("-", 0, "default", 0, 0, 0, 0);
+    public Merci(File file) {
+        super(file);
     }
 
     public Merci(String codice, double peso, String azienda, int annoCostruzione, double volume, double pesoMassimo, double pesoEffettivo) {

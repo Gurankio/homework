@@ -1,56 +1,204 @@
 package gurankio.io.data;
 
-import gurankio.io.file.FileInterface;
-import gurankio.io.file.TextFile;
-import gurankio.menu.MenuOptions;
+import java.beans.*;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
-import java.util.UUID;
+// Sottoclassi necessitano di un costruttore con un solo parametro file.
+public abstract class Persistent implements Serializable {
 
-public interface Persistent extends Serializable {
+    // Object
 
-    @MenuOptions.Hide
-    FileInterface fileInterface = new TextFile();
+    // Won't get saved to file.
+    private File file;
 
-    @MenuOptions.Hide
-    default String getExtension() {
-        return ".txt";
+    public Persistent() {
+        this.file = path(UUID.randomUUID().toString(), getClass());
     }
 
-    @MenuOptions.Hide
-    default String getFolder() {
-        File folder = new File("data");
-        folder.mkdirs();
-        return folder.getAbsolutePath() + "/";
+    public Persistent(File file) {
+        this.file = file;
+        load();
+
+        // if (load()) System.out.println(getClass().getSimpleName() + " instance loaded.");
     }
 
-    @MenuOptions.Hide
-    default String getUUID() {
-        return UUID.nameUUIDFromBytes(toString().getBytes()).toString();
+    public File getFile() {
+        return file;
     }
 
-    default File getFile() {
-        return new File(getFolder() + getUUID() + getExtension());
+    public void setFile(File file) {
+        this.file = file;
     }
 
-    @MenuOptions.Hide
-    default boolean save() {
-        try {
-            return fileInterface.save(this, getFile());
+    // Instance IO
+
+    public boolean save() {
+        try (XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(getFile())))) {
+            encoder.writeObject(getClass());
+            Arrays.stream(getClass().getMethods())
+                    .filter(method -> !method.getDeclaringClass().equals(Object.class) && method.getName().matches("set.*"))
+                    .filter(method -> method.getParameterCount() == 1)
+                    .filter(method -> !method.getName().matches("setFile"))
+                    .sorted(Comparator.comparing(Method::getName))
+                    .map(method -> method.getName().replace("set", "get"))
+                    .map(name -> {
+                        try {
+                            return getClass().getMethod(name);
+                        } catch (NoSuchMethodException e) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .map(method -> {
+                        try {
+                            Object o = method.invoke(this);
+                            if (o.getClass().isArray()) {
+                                Object[] a = new Object[1 + ((Collection<?>) o).size()];
+                                List<Class<?>> classes = new ArrayList<>();
+                                for (int i = 0; i < Array.getLength(o); i++) classes.add(Array.get(o, i).getClass());
+                                a[0] = new CollectionData(o.getClass(), classes);
+                                System.arraycopy(o, 0, a, 1, Array.getLength(o));
+                                return a;
+                            }
+                            else if (o instanceof Collection<?>) {
+                                Object[] a = new Object[1 + ((Collection<?>) o).size()];
+                                a[0] = new CollectionData(o.getClass(), ((Collection<?>) o).stream().map(Object::getClass).collect(Collectors.toList()));
+                                System.arraycopy(((Collection<?>) o).toArray(), 0, a, 1, ((Collection<?>) o).size());
+                                return a;
+                            }
+                            else return new Object[]{o};
+                        } catch (IllegalAccessException | InvocationTargetException ignored) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .flatMap(Arrays::stream)
+                    .forEach(o -> {
+                        if (o instanceof Persistent) {
+                            ((Persistent) o).save();
+                            o = Path.of(getFolder().getAbsolutePath()).relativize(Path.of(((Persistent) o).getFile().getAbsolutePath())).toString();
+                        }
+                        encoder.writeObject(o);
+                    });
+            return true;
         } catch (FileNotFoundException e) {
-           return false;
+            // e.printStackTrace();
+            return false;
         }
     }
 
-    @MenuOptions.Hide
-    default Persistent load() {
-        try {
-            return fileInterface.load(getFile(), getClass());
+    public boolean load() {
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(getFile())))) {
+            Class<?> target = (Class<?>) decoder.readObject();
+            if (!getClass().equals(target)) {
+                // System.err.println("Something has gone wrong...");
+                return false;
+            }
+
+            Arrays.stream(target.getMethods())
+                    .filter(method -> !method.getDeclaringClass().equals(Object.class) && method.getName().matches("set.*"))
+                    .filter(method -> method.getParameterCount() == 1)
+                    .filter(method -> !method.getName().matches("setFile"))
+                    .sorted(Comparator.comparing(Method::getName))
+                    .forEach(method -> {
+                        try {
+                            Object o = decoder.readObject();
+                            if (o instanceof CollectionData) {
+                                List<Class<?>> contents = ((CollectionData) o).getContents();
+                                o = ((CollectionData) o).getCollection().getConstructor().newInstance();
+                                for (Class<?> content : contents) {
+                                    if (Persistent.class.isAssignableFrom(content)) {
+                                        ((Collection<Persistent>) o).add(((Persistent) content.getConstructor(File.class).newInstance(new File(getFolder().getAbsolutePath() + "/" + decoder.readObject()))));
+                                    } else {
+                                        ((Collection<Object>) o).add(decoder.readObject());
+                                    }
+                                }
+                            }
+                            method.invoke(this, o);
+                        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException | InstantiationException e) {
+                            // e.printStackTrace();
+                        }
+                    });
+            return true;
         } catch (FileNotFoundException e) {
-            return this;
+            // e.printStackTrace();
+            return false;
         }
     }
 
+    // Static Utility
+
+    public static <T extends Persistent> List<T> list(Class<T> target) {
+        File[] files = getFolder().listFiles((dir, name) -> name.endsWith(getExtension(target)));
+        assert files != null;
+
+        List<T> list = new ArrayList<>(files.length);
+        for (File file : files) {
+            try {
+                list.add(target.getConstructor(File.class).newInstance(file));
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public static File path(String name, Class<? extends Persistent> target) {
+        return new File(getFolder().getAbsolutePath() + "/" + name + "." + getExtension(target));
+    }
+
+    // Internal
+
+    private static File getFolder() {
+        File folder = new File("persistent/");
+        if (folder.mkdirs()) System.out.println("Creating persistent folder...");
+        return folder;
+    }
+
+    private static String getExtension(Class<? extends Persistent> target) {
+        long capitals = target.getSimpleName().chars().filter(Character::isUpperCase).count();
+        return capitals < 3 ?
+                target.getSimpleName().chars().map(Character::toLowerCase).filter(c -> c != 'a' && c != 'e' && c != 'i' && c != 'o' && c != 'u').distinct().mapToObj(c -> String.format("%c", c)).collect(Collectors.joining()) :
+                target.getSimpleName().chars().filter(Character::isUpperCase).mapToObj(c -> String.format("%c", c)).collect(Collectors.joining());
+    }
+
+    // Internal collection class.
+
+    public static class CollectionData {
+
+        private Class<?> collection;
+        private List<Class<?>> contents;
+
+        public CollectionData() {
+            this.collection = null;
+            this.contents = new ArrayList<>();
+        }
+
+        public CollectionData(Class<?> target, List<Class<?>> contents) {
+            this.collection = target;
+            this.contents = contents;
+        }
+
+        public Class<?> getCollection() {
+            return collection;
+        }
+
+        public void setCollection(Class<?> collection) {
+            this.collection = collection;
+        }
+
+        public List<Class<?>> getContents() {
+            return contents;
+        }
+
+        public void setContents(List<Class<?>> contents) {
+            this.contents = contents;
+        }
+    }
 }

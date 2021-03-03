@@ -2,15 +2,17 @@ package gurankio;
 
 import gurankio.io.data.Persistent;
 
-public abstract class Vagone {
+import java.io.File;
+
+public abstract class Vagone extends Persistent {
 
     private String codice;
     private double peso; // a vuoto
     private String casaCostruttrice;
     private int annoCostruzione;
 
-    public Vagone() {
-        this("-", 0, "default", 0);
+    public Vagone(File file) {
+        super(file);
     }
 
     public Vagone(String codice, double peso, String azienda, int annoCostruzione) {

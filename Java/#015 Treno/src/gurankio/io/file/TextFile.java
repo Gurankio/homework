@@ -158,7 +158,7 @@ public class TextFile implements FileInterface {
 
         List<Method> methods = Arrays.stream(out.getClass().getMethods())
                 .parallel()
-                .filter(method -> !method.getDeclaringClass().getSimpleName().equals("Object") && method.getName().matches("set.*"))
+                .filter(method -> !method.getDeclaringClass().equals(Object.class) && method.getName().matches("set.*"))
                 .filter(method -> method.getParameterCount() == 1)
                 .sorted(Comparator.comparing(Method::getName))
                 .collect(Collectors.toList());

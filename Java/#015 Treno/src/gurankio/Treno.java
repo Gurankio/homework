@@ -1,21 +1,22 @@
 package gurankio;
 
 import gurankio.io.data.Persistent;
-import gurankio.io.data.PersistentUnique;
-import gurankio.io.text.TextSerializer;
 import gurankio.menu.MenuOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Treno implements PersistentUnique {
+public class Treno extends Persistent {
 
     private List<Vagone> vagoni;
 
     public Treno() {
-        vagoni = new ArrayList<>();
+    }
+
+    public Treno(File file) {
+        super(file);
     }
 
     @MenuOptions.Hide
