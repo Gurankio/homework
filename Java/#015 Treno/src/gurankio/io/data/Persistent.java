@@ -5,7 +5,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,7 +18,7 @@ public abstract class Persistent implements Serializable {
     private File file;
 
     public Persistent() {
-        this.file = path(UUID.randomUUID().toString(), getClass());
+        this.file = of(UUID.randomUUID().toString(), getClass());
     }
 
     public Persistent(File file) {
@@ -82,7 +82,7 @@ public abstract class Persistent implements Serializable {
                     .forEach(o -> {
                         if (o instanceof Persistent) {
                             ((Persistent) o).save();
-                            o = Path.of(getFolder().getAbsolutePath()).relativize(Path.of(((Persistent) o).getFile().getAbsolutePath())).toString();
+                            o = Paths.get(getFolder().getAbsolutePath()).relativize(Paths.get(((Persistent) o).getFile().getAbsolutePath())).toString();
                         }
                         encoder.writeObject(o);
                     });
@@ -149,7 +149,7 @@ public abstract class Persistent implements Serializable {
         return list;
     }
 
-    public static File path(String name, Class<? extends Persistent> target) {
+    public static File of(String name, Class<? extends Persistent> target) {
         return new File(getFolder().getAbsolutePath() + "/" + name + "." + getExtension(target));
     }
 

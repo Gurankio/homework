@@ -3,17 +3,16 @@ package gurankio;
 import gurankio.io.data.Persistent;
 import gurankio.menu.io.MenuIO;
 
-import java.beans.XMLEncoder;
+import javax.swing.*;
+import javax.swing.text.Document;
+import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
+import java.util.*;
+import java.util.Timer;
 
 public class Main {
 
+	/*
 	private static Treno carica() {
 		return Persistent.list(Treno.class).get(0);
 	}
@@ -33,10 +32,10 @@ public class Main {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
-		Treno t = new Treno(Persistent.path("main", Treno.class));
-		System.out.println(t);
-		/*
+	//Treno t = new Treno(Persistent.path("main", Treno.class));
+    //System.out.println(t);
+
+
 		ArrayList<Vagone> v = new ArrayList<>();
 		int i = 0;
 		v.add(new Merci("asd", ++i, "1", ++i, ++i, ++i, ++i));
@@ -59,14 +58,53 @@ public class Main {
 		t.setVagoni(v);
 		t.save();
 
+	// System.out.println(Persistent.list(Treno.class));
 
-		 */
-		// System.out.println(Persistent.list(Treno.class));
+	//System.out.println(Persistent.load(Treno.class));
+	//MenuIO.registerOverride(Vagone.class, Main::creaVagone);
+	//Menu.ignore(Object[].class);
+	//new Menu(Main::carica).onClose(Main::salva).run();
+	*/
 
-		//System.out.println(Persistent.load(Treno.class));
-		//MenuIO.registerOverride(Vagone.class, Main::creaVagone);
-		//Menu.ignore(Object[].class);
-		//new Menu(Main::carica).onClose(Main::salva).run();
+	public static void main(String[] args) throws IOException {
+		Timer timer = new Timer();
+
+		Desktop.getDesktop().open(new File("persistent/oraEsatta.mp4"));
+
+		SwingTerminal terminal = new SwingTerminal();
+		terminal.setCursor(24, 12);
+		terminal.setColor(Color.red);
+		terminal.println("asdfopiaso0fsaoifjaspojopasjsajopfsaojpfjoasp");
+
+		timer.scheduleAtFixedRate(new TimerTask() {
+			Random random = new Random();
+
+			@Override
+			public void run() {
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.print("  gay  ");
+				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+				terminal.println("  gay  ");
+			}
+		}, 100, 100);
 	}
 
 }
