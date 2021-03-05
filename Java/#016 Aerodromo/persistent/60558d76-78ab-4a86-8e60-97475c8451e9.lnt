@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <class>gurankio.Aliante</class>
+ <double>0.234</double>
+ <string>AL3</string>
+</java>

@@ -69,8 +69,6 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Timer timer = new Timer();
 
-		Desktop.getDesktop().open(new File("persistent/oraEsatta.mp4"));
-
 		SwingTerminal terminal = new SwingTerminal();
 		terminal.setCursor(24, 12);
 		terminal.setColor(Color.red);

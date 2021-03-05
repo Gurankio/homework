@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <class>gurankio.AereoMotore</class>
+ <double>561.0</double>
+ <string>AM3</string>
+</java>
