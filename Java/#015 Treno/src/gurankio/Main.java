@@ -1,10 +1,7 @@
 package gurankio;
 
-import gurankio.io.data.Persistent;
-import gurankio.menu.io.MenuIO;
+import gurankio.swing.SwingTerminalCanvas;
 
-import javax.swing.*;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -69,36 +66,16 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		Timer timer = new Timer();
 
-		SwingTerminal terminal = new SwingTerminal();
-		terminal.setCursor(24, 12);
-		terminal.setColor(Color.red);
+		SwingTerminalCanvas terminal = new SwingTerminalCanvas();
+		terminal.setCursor(20, 12);
+		terminal.println("asdfopiaso0fsaoifjaspojopasjsajopfsaojpfjoasp");
 		terminal.println("asdfopiaso0fsaoifjaspojopasjsajopfsaojpfjoasp");
 
 		timer.scheduleAtFixedRate(new TimerTask() {
-			Random random = new Random();
+			final Random random = new Random();
 
 			@Override
 			public void run() {
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
-				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-				terminal.print("  gay  ");
 				terminal.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
 				terminal.println("  gay  ");
 			}

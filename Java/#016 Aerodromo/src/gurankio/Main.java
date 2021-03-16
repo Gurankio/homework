@@ -33,7 +33,6 @@ public class Main {
 
 		System.out.print("Sigla del secondo aeromobili da confrontare: ");
 		String b = scanner.next();
-
 		try {
 			int d = aerodromo.compare(a, b);
 			if (d < 0) System.out.println("Il secondo aeromobile è il migliore.");
@@ -46,7 +45,5 @@ public class Main {
 		} catch (NullPointerException exception) {
 			System.out.println("Non dovrei esistere.");
 		}
-
 	}
-
 }
