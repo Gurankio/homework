@@ -1,7 +1,5 @@
 package gurankio.util;
 
-import gurankio.A;
-
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -27,7 +25,6 @@ public abstract class Menu {
     public Menu() {
         actions = new LinkedList<>();
         types = new HashSet<>();
-        setup();
     }
 
     protected abstract void setup();
@@ -72,6 +69,7 @@ public abstract class Menu {
     }
 
     public void run() {
+        setup();
         // Intro.
 
         // Loop.
@@ -136,12 +134,12 @@ public abstract class Menu {
                 ╦ ╦\s
                 ╠═╣\s
                 ╩ ╩\s
-                ┬  \s
-                │  \s
-                ┴  \s
-                ╦  \s
-                ║  \s
-                ╩  \s
+                ┬\s
+                │\s
+                ┴\s
+                ╦\s
+                ║\s
+                ╩\s
                  ┬ \s
                  │ \s
                 └┘ \s
@@ -214,12 +212,12 @@ public abstract class Menu {
                 ╦ ╦\s
                 ║ ║\s
                 ╚═╝\s
-                ┬  ┬
-                └┐┌┘
-                 └┘\s
-                ╦  ╦
-                ╚╗╔╝
-                 ╚╝\s
+                ┬  ┬\s
+                └┐┌┘\s
+                 └┘ \s
+                ╦  ╦\s
+                ╚╗╔╝\s
+                 ╚╝ \s
                 ┬ ┬\s
                 │││\s
                 └┴┘\s

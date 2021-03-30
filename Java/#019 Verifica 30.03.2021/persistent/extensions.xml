@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="java.util.concurrent.ConcurrentHashMap">
+  <void method="put">
+   <string>mtrl</string>
+   <class>gurankio.Amatoriale</class>
+  </void>
+  <void method="put">
+   <string>gnst</string>
+   <class>gurankio.Agonista</class>
+  </void>
+ </object>
+</java>

@@ -4,8 +4,6 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		new Tm().run();
-
 		/*
 		new File("persistent").delete();
 
