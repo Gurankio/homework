@@ -1,7 +1,5 @@
 package gurankio;
 
-import gurankio.io.data.Persistent;
-
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -33,10 +31,14 @@ public class Mailbox {
         return mails.stream().filter(mail -> mail.getOggetto().contains(s)).collect(Collectors.toList());
     }
 
+    public int size() {
+        return mails.size();
+    }
+
     @Override
     public String toString() {
         DecimalFormat format = new DecimalFormat();
         format.setMinimumIntegerDigits(Integer.toString(mails.size()).length());
-        return IntStream.range(0, mails.size()).map(i -> mails.size() - i - 1).mapToObj(i -> String.format(" + (%s): %s", format.format(i), mails.get(i))).collect(Collectors.joining("\n"));
+        return IntStream.range(0, mails.size()).map(i -> mails.size() - i - 1).mapToObj(i -> String.format(" + [%s]: %s", format.format(i), mails.get(i))).collect(Collectors.joining("\n"));
     }
 }

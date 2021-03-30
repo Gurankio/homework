@@ -1,7 +1,5 @@
 package gurankio;
 
-import gurankio.io.data.Persistent;
-
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +19,7 @@ public class Mail extends Persistent {
         save(); // auto save
     }
 
+    @Main.Menu(prompts = {"Inserire l'oggetto: ", "Inserire il mittente: ", "Inserire il testo della mail: "})
     public Mail(String mittente, String oggetto, String testo) {
         this(mittente, oggetto, LocalDateTime.now(), testo);
     }
