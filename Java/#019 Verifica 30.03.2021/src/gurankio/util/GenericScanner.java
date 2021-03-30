@@ -144,6 +144,7 @@ public class GenericScanner {
             return t.get();
         } else {
             Logger.WARN.println(error);
+            confirm();
             return next(type, prompt, checker, error);
         }
     }

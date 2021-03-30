@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.Amatoriale">
+  <object class="java.io.File">
+   <string>persistent/cliente/amatoriale/e96cfc5f-d19f-4734-9b42-ab3af37c8ddf.mtrl</string>
+  </object>
+  <void property="abbonamento">
+   <object class="gurankio.Abbonamento">
+    <void property="creazione">
+     <object class="java.time.LocalDateTime" method="of">
+      <int>2020</int>
+      <int>3</int>
+      <int>30</int>
+      <int>14</int>
+      <int>35</int>
+      <int>30</int>
+      <int>410251000</int>
+     </object>
+    </void>
+    <void property="tipo">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>gurankio.Abbonamento$Tipo</class>
+      <string>TRIMESTRALE</string>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="cognome">
+   <string>qwqe</string>
+  </void>
+  <void property="disciplina">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>gurankio.Disciplina</class>
+    <string>NUOTO</string>
+   </object>
+  </void>
+  <void property="esperienza">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>gurankio.Amatoriale$Esperienza</class>
+    <string>MEDIO</string>
+   </object>
+  </void>
+  <void property="nascita">
+   <object class="java.time.LocalDateTime" method="of">
+    <int>2011</int>
+    <int>11</int>
+    <int>9</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
+   </object>
+  </void>
+  <void property="nome">
+   <string>qwe</string>
+  </void>
+  <void property="numeroTessera">
+   <int>2</int>
+  </void>
+ </object>
+</java>

@@ -6,6 +6,7 @@ import gurankio.util.Menu;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Main extends Menu {
 
@@ -32,7 +33,7 @@ public class Main extends Menu {
 			@Override
 			protected void setup() {
 				message("Dati del cliente " + cliente.getClass().getSimpleName() + ": ");
-				message(cliente::toString);
+				message(cliente::toString, "   ");
 				space();
 				first(cliente.getAbbonamento().isScaduto() ? "[R]innova Abbonamento" : "[M]odifica Abbonamento", char.class, c -> {
 					gestisciAbbonamento(cliente, c);
@@ -59,18 +60,18 @@ public class Main extends Menu {
 	}
 
 	public boolean aggiungiCliente(char c) {
-		boolean agonista = GenericScanner.next(boolean.class, "Cliente agonista?", "Inserire 'true' o 'false'");
+		boolean agonista = GenericScanner.next(Boolean.class, "Cliente agonista?", "Inserire 'true' o 'false'");
 		String nome = GenericScanner.next("Inserire il nome del cliente.");
 		String cognome = GenericScanner.next("Inserire il cognome del cliente.");
 		LocalDateTime nascita = GenericScanner.next( LocalDateTime.class,"Inserire la data di nascita del cliente.", "Inserire una data nel formato: dd.mm.yyyy");
-		Abbonamento.Tipo tipo = GenericScanner.next(Abbonamento.Tipo.class, "Inserire il tipo dell'abbonamento.", "Inserire un tipo valido.");
+		Abbonamento.Tipo tipo = GenericScanner.next(Abbonamento.Tipo.class, "Inserire il tipo dell'abbonamento.\nDeve essere uno tra: " + Arrays.stream(Abbonamento.Tipo.values()).map(Object::toString).collect(Collectors.joining(", ")), "Inserire un tipo valido.");
 		Abbonamento abbonamento = new Abbonamento(tipo, LocalDateTime.now());
-		Disciplina disciplina = GenericScanner.next(Disciplina.class, "Inserire la disciplina.", "Inserire una disciplina valida.");
+		Disciplina disciplina = GenericScanner.next(Disciplina.class, "Inserire la disciplina.\nDeve essere uno tra: " + Arrays.stream(Disciplina.values()).map(Object::toString).collect(Collectors.joining(", ")), "Inserire una disciplina valida.");
 		Cliente cliente;
 		if (agonista) {
 			cliente = new Agonista(nome, cognome, nascita, disciplina, centroSportivo.nextNumeroTessera(), abbonamento);
 		} else {
-			Amatoriale.Esperienza esperienza = GenericScanner.next(Amatoriale.Esperienza.class, "Inserire l'esperienza del cliente nella disciplina.", "Inserire unn livello vdi esperienza valido.");
+			Amatoriale.Esperienza esperienza = GenericScanner.next(Amatoriale.Esperienza.class, "Inserire l'esperienza del cliente nella disciplina.\nDeve essere uno tra: " + Arrays.stream(Amatoriale.Esperienza.values()).map(Object::toString).collect(Collectors.joining(", ")), "Inserire unn livello vdi esperienza valido.");
 			cliente = new Amatoriale(nome, cognome, nascita, disciplina, centroSportivo.nextNumeroTessera(), abbonamento, esperienza);
 		}
 		cliente.asave();

@@ -86,6 +86,6 @@ public abstract class Cliente extends Persistent {
     @Override
     public String toString() {
         String abbonamento = getAbbonamento().isScaduto() ? "Abbonamento scaduto." : String.format("Abbonamento %s nella disciplina %s", getAbbonamento().getTipo(), getDisciplina());
-        return String.format("'%s %s' nato il %s\n%s\nTasso di %.2f€ con %.2f€ di sconto.\nNumero di tessera: %02d", nome, cognome, nascita.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), abbonamento, calcolaTassa(), calcolaSconto(), numeroTessera);
+        return String.format("'%s %s' nato il %s\n%s\nTasso di %.2f€ con %.0f%% di sconto.\nNumero di tessera: %02d", nome, cognome, nascita.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")), abbonamento, calcolaTassa(), calcolaSconto() * 100, numeroTessera);
     }
 }

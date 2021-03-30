@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.Agonista">
+  <object class="java.io.File">
+   <string>persistent/cliente/agonista/a731988b-c594-4656-bd1b-43a4ee1172e0.gnst</string>
+  </object>
+  <void property="abbonamento">
+   <object class="gurankio.Abbonamento">
+    <void property="creazione">
+     <object class="java.time.LocalDateTime" method="of">
+      <int>2021</int>
+      <int>3</int>
+      <int>30</int>
+      <int>14</int>
+      <int>46</int>
+      <int>26</int>
+      <int>562272000</int>
+     </object>
+    </void>
+    <void property="tipo">
+     <object class="java.lang.Enum" method="valueOf">
+      <class>gurankio.Abbonamento$Tipo</class>
+      <string>TRIMESTRALE</string>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="cognome">
+   <string>23</string>
+  </void>
+  <void property="disciplina">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>gurankio.Disciplina</class>
+    <string>NUOTO</string>
+   </object>
+  </void>
+  <void property="nascita">
+   <object class="java.time.LocalDateTime" method="of">
+    <int>1987</int>
+    <int>4</int>
+    <int>12</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
+    <int>0</int>
+   </object>
+  </void>
+  <void property="nome">
+   <string>12</string>
+  </void>
+  <void property="numeroTessera">
+   <int>3</int>
+  </void>
+ </object>
+</java>
