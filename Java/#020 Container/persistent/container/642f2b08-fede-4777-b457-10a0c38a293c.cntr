@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.container.Container">
+  <object class="java.io.File">
+   <string>persistent/container/642f2b08-fede-4777-b457-10a0c38a293c.cntr</string>
+  </object>
+  <void property="carico">
+   <double>435.0</double>
+  </void>
+  <void property="codice">
+   <int>12</int>
+  </void>
+  <void property="stazza">
+   <double>45.0</double>
+  </void>
+ </object>
+</java>

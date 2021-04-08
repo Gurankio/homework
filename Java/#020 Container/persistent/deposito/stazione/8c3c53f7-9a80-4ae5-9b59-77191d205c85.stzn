@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.terminal.Stazione">
+  <object class="java.io.File">
+   <string>persistent/deposito/stazione/8c3c53f7-9a80-4ae5-9b59-77191d205c85.stzn</string>
+  </object>
+  <void property="containersMap">
+   <object class="java.util.HashMap">
+    <void method="put">
+     <string>SAS1</string>
+     <object class="gurankio.container.Refrigerato">
+      <object class="java.io.File">
+       <string>persistent/container/refrigerato/a049d8e3-d3b6-41ff-8e9b-0a6079f590cd.rfgt</string>
+      </object>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

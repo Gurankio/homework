@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="java.util.concurrent.ConcurrentHashMap">
+  <void method="put">
+   <string>trn</string>
+   <class>gurankio.terminal.Treno</class>
+  </void>
+  <void method="put">
+   <string>dpst</string>
+   <class>gurankio.terminal.Deposito</class>
+  </void>
+  <void method="put">
+   <string>stzn</string>
+   <class>gurankio.terminal.Stazione</class>
+  </void>
+  <void method="put">
+   <string>rfgt</string>
+   <class>gurankio.container.Refrigerato</class>
+  </void>
+  <void method="put">
+   <string>cntr</string>
+   <class>gurankio.container.Container</class>
+  </void>
+ </object>
+</java>

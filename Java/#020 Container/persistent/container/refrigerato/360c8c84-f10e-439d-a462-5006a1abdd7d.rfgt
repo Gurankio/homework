@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.container.Refrigerato">
+  <object class="java.io.File">
+   <string>persistent/container/refrigerato/360c8c84-f10e-439d-a462-5006a1abdd7d.rfgt</string>
+  </object>
+  <void property="carico">
+   <double>456.0</double>
+  </void>
+  <void property="codice">
+   <int>456</int>
+  </void>
+  <void property="stazza">
+   <double>456.0</double>
+  </void>
+  <void property="temperatura">
+   <double>23.3</double>
+  </void>
+ </object>
+</java>

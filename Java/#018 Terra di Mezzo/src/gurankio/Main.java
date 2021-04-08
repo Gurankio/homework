@@ -1,41 +1,39 @@
 package gurankio;
 
+import gurankio.dati.*;
+import gurankio.gioco.Partita;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class Main {
 
 	public static void main(String[] args) {
+		Random rand = new Random();
+		List<Combattente> list = new ArrayList<>();
 
-		/*
-		new File("persistent").delete();
-
-		int DIM = 100;
-
-		As as = new As(new File("./persistent/pippo.xml"));
-		as.setAs(new ArrayList<>(DIM));
-
-		long start = System.currentTimeMillis();
-		Random r = new Random();
-		for (int i = 0; i < DIM; i++) {
-			as.getAs().add(new D(i, i));
+		for (int i=0; i<5; i++) {
+			for (Razza r : Razza.values()) {
+				list.add(new Personaggio(rand, r));
+			}
 		}
-		long mid = System.currentTimeMillis();
-		as.save();
-		long end = System.currentTimeMillis();
-		System.out.printf("Create: %.2f\n", (mid - start) / 1000.0);
-		System.out.printf("Save: %.2f\n", (end - mid) / 1000.0);
 
-		long load = System.currentTimeMillis();
-		As loadedAs = new As(new File("./persistent/pippo.xml"));
-		end = System.currentTimeMillis();
+		list.add(new Eroe(rand, Schieramento.BENE));
+		list.add(new Eroe(rand, Schieramento.MALE));
 
-		boolean error = false;
-		for (int i = 0; i < DIM; i++) {
-			A a = loadedAs.getAs().get(i);
-			error = error || a.getA() != i || a.getB() != i;
+		ConcurrentHashMap<Schieramento, Integer> vittorie = new ConcurrentHashMap<>();
+		vittorie.put(Schieramento.BENE, 0);
+		vittorie.put(Schieramento.MALE, 0);
+
+		int size = 100000;
+		for (int i = 0; i < size; i++) {
+			vittorie.compute(Partita.partita(new ArrayList<>(list)), (schieramento, integer) -> integer+1);
 		}
-		System.out.println("Error: " + error);
-		System.out.printf("Load: %.2f\n", (mid - start) / 1000.0);
-		*/
 
+		System.out.printf("BENE: %.4f%%\n", vittorie.get(Schieramento.BENE) * 100.0 / size );
+		System.out.printf("MALE: %.4f%%\n", vittorie.get(Schieramento.MALE) * 100.0 / size);
 	}
 
 }

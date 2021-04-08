@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-// TODO: add loggers.
-public abstract class Menu {
+// TODO: add loggers. String as an input type should enable partial match and regexes.
+public abstract class DynamicMenu {
 
     public static final Map<Class<?>, Double> priority = new HashMap<>();
     static {
@@ -22,9 +22,14 @@ public abstract class Menu {
     private final List<Action<?>> actions;
     private final Set<Class<?>> types;
 
-    public Menu() {
+    public DynamicMenu() {
         actions = new LinkedList<>();
         types = new HashSet<>();
+    }
+
+    protected void reset() {
+        actions.clear();
+        types.clear();
     }
 
     protected abstract void setup();
@@ -69,6 +74,7 @@ public abstract class Menu {
     }
 
     public void run() {
+        reset(); // Reset to allow multiple calls.
         setup();
         // Intro.
 
@@ -181,12 +187,12 @@ public abstract class Menu {
                              "╔═╗ \n" +
                              "╠═╝ \n" +
                              "╩   \n" +
-                             "┌─┐ \n" +
-                             "│─┼┐\n" +
-                             "└─┘└\n" +
-                             "╔═╗ \n" +
-                             "║═╬╗\n" +
-                             "╚═╝╚\n" +
+                             "┌─┐  \n" +
+                             "│─┼┐ \n" +
+                             "└─┘└ \n" +
+                             "╔═╗  \n" +
+                             "║═╬╗ \n" +
+                             "╚═╝╚ \n" +
                              "┬─┐ \n" +
                              "├┬┘ \n" +
                              "┴└─ \n" +
@@ -223,12 +229,12 @@ public abstract class Menu {
                              "╦ ╦ \n" +
                              "║║║ \n" +
                              "╚╩╝ \n" +
-                             "─┐ ┬\n" +
-                             "┌┴┬┘\n" +
-                             "┴ └─\n" +
-                             "═╗ ╦\n" +
-                             "╔╩╦╝\n" +
-                             "╩ ╚═\n" +
+                             "─┐ ┬ \n" +
+                             "┌┴┬┘ \n" +
+                             "┴ └─ \n" +
+                             "═╗ ╦ \n" +
+                             "╔╩╦╝ \n" +
+                             "╩ ╚═ \n" +
                              "┬ ┬ \n" +
                              "└┬┘ \n" +
                              " ┴  \n" +
@@ -276,69 +282,73 @@ public abstract class Menu {
                 builder.append("\n");
             }
             return builder.toString().stripTrailing();
-        }, null);
+        }, "   ");
     }
 
     protected void title(String message) {
         title(() -> message);
     }
 
+    protected void close(String message, Class<?> type) {
+        single(message, type, (x) -> false);
+    }
 
 
-    protected <T> void any(Supplier<String> supplier, String indent, Class<T> type, Function<T, Boolean> action) {
-        actions.add(new Action<>(() -> Logger.wrap(supplier.get(), indent), type, Menu::parseAny, action));
+
+    protected <T> void multiple(Supplier<String> supplier, String indent, Class<T> type, Function<T, Boolean> action) {
+        actions.add(new Action<>(() -> Logger.wrap(supplier.get(), indent), type, DynamicMenu::parseAny, action));
         types.add(type);
     }
 
-    protected <T> void any(String message, String indent, Class<T> type, Function<T, Boolean> action) {
-        any(() -> message, indent, type, action);
+    protected <T> void multiple(String message, String indent, Class<T> type, Function<T, Boolean> action) {
+        multiple(() -> message, indent, type, action);
     }
 
-    protected <T> void any(Supplier<String> supplier, Class<T> type, Function<T, Boolean> action) {
-        any(supplier, " + ", type, action);
+    protected <T> void multiple(Supplier<String> supplier, Class<T> type, Function<T, Boolean> action) {
+        multiple(supplier, " + ", type, action);
     }
 
-    protected <T> void any(String message, Class<T> type, Function<T, Boolean> action) {
-        any(() -> message, type, action);
+    protected <T> void multiple(String message, Class<T> type, Function<T, Boolean> action) {
+        multiple(() -> message, type, action);
     }
 
 
 
-    protected <T> void first(Supplier<String> supplier, String indent, Class<T> type, Function<T, Boolean> action) {
-        actions.add(new Action<>(() -> Logger.wrap(supplier.get(), indent), type, Menu::parseFirst, action));
+    protected <T> void single(Supplier<String> supplier, String indent, Class<T> type, Function<T, Boolean> action) {
+        actions.add(new Action<>(() -> Logger.wrap(supplier.get(), indent), type, DynamicMenu::parseFirst, action));
         types.add(type);
     }
 
-    protected <T> void first(String message, String indent, Class<T> type, Function<T, Boolean> action) {
-        first(() -> message, indent, type, action);
+    protected <T> void single(String message, String indent, Class<T> type, Function<T, Boolean> action) {
+        single(() -> message, indent, type, action);
     }
 
-    protected <T> void first(Supplier<String> supplier, Class<T> type, Function<T, Boolean> action) {
-        first(supplier, " - ", type, action);
+    protected <T> void single(Supplier<String> supplier, Class<T> type, Function<T, Boolean> action) {
+        single(supplier, " - ", type, action);
     }
 
-    protected <T> void first(String message, Class<T> type, Function<T, Boolean> action) {
-        first(() -> message, type, action);
+    protected <T> void single(String message, Class<T> type, Function<T, Boolean> action) {
+        single(() -> message, type, action);
     }
 
 
 
-    protected <T> void sub(Supplier<String> supplier, String indent, Class<T> type, Menu menu) {
-        first(supplier, indent, type, in -> {
+    protected <T> void sub(Supplier<String> supplier, String indent, Class<T> type, DynamicMenu menu) {
+        single(supplier, indent, type, in -> {
             menu.run();
             return true;
         });
     }
 
-    protected <T> void sub(String supplier, String indent, Class<T> type, Menu menu) {
+    protected <T> void sub(String supplier, String indent, Class<T> type, DynamicMenu menu) {
         sub(() -> supplier, indent, type, menu);
     }
 
-    protected <T> void sub(Supplier<String> supplier, Class<T> type, Menu menu) {
+    protected <T> void sub(Supplier<String> supplier, Class<T> type, DynamicMenu menu) {
         sub(supplier, " * ", type, menu);
     }
 
-    protected <T> void sub(String message, Class<T> type, Menu menu) {
+    protected <T> void sub(String message, Class<T> type, DynamicMenu menu) {
         sub(() -> message, type, menu);
     }
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15" class="java.beans.XMLDecoder">
+ <object class="gurankio.terminal.Treno">
+  <object class="java.io.File">
+   <string>persistent/treno/aee97035-1929-492c-8d43-3b33fcb97531.trn</string>
+  </object>
+  <void property="containers">
+   <object class="java.util.LinkedList">
+    <void method="add">
+     <object class="gurankio.container.Container">
+      <object class="java.io.File">
+       <string>persistent/container/8d1be04a-e572-4bc6-a045-dbd5b199b467.cntr</string>
+      </object>
+     </object>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>
