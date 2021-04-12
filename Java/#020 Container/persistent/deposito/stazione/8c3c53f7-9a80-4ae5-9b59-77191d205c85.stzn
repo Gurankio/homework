@@ -7,7 +7,7 @@
   <void property="containersMap">
    <object class="java.util.HashMap">
     <void method="put">
-     <string>SAS1</string>
+     <int>789</int>
      <object class="gurankio.container.Refrigerato">
       <object class="java.io.File">
        <string>persistent/container/refrigerato/a049d8e3-d3b6-41ff-8e9b-0a6079f590cd.rfgt</string>

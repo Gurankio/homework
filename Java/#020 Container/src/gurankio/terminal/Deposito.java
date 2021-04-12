@@ -7,13 +7,10 @@ import gurankio.util.Persistent;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Deposito extends Persistent {
 
-    private Map<String, Container> containersMap;
+    private Map<Integer, Container> containersMap;
 
     public Deposito() {
         this.containersMap = new HashMap<>();
@@ -23,19 +20,19 @@ public class Deposito extends Persistent {
         super(file);
     }
 
-    public Map<String, Container> getContainersMap() {
+    public Map<Integer, Container> getContainersMap() {
         return containersMap;
     }
 
-    public Container getContainer(String postazione) {
+    public Container getContainer(Integer postazione) {
         return containersMap.getOrDefault(postazione, null);
     }
 
-    public String findContainer(int codice) {
+    public Integer findContainer(int codice) {
         return containersMap.entrySet().stream().filter(c -> c.getValue().getCodice() == codice).map(Map.Entry::getKey).findFirst().orElse(null);
     }
 
-    public Container removeContainer(String postazione) {
+    public Container removeContainer(Integer postazione) {
         Container container = containersMap.remove(postazione);
         asave();
         return container;
@@ -49,16 +46,15 @@ public class Deposito extends Persistent {
         return containersMap.values().stream().filter(c -> c instanceof Refrigerato).mapToDouble(Container::getCarico).sum();
     }
 
-    public void setContainersMap(Map<String, Container> containersMap) {
+    public void setContainersMap(Map<Integer, Container> containersMap) {
         this.containersMap = containersMap;
     }
 
     public void addContainer(Container container) {
-        String postazione = IntStream.generate(() -> 'A' + new Random().nextInt('Z' - 'A')).limit(6).mapToObj(c -> String.valueOf((char) c)).collect(Collectors.joining());
-        addContainer(postazione, container);
+        addContainer(containersMap.keySet().stream().max(Integer::compareTo).orElse(0) + 1, container);
     }
 
-    public void addContainer(String postazione, Container container) {
+    public void addContainer(Integer postazione, Container container) {
         containersMap.putIfAbsent(postazione, container);
         asave();
     }

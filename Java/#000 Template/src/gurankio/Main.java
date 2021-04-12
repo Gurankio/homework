@@ -1,41 +1,32 @@
 package gurankio;
 
+import gurankio.util.DynamicMenu;
+import gurankio.util.PersistentCSV;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Main {
 
 	public static void main(String[] args) {
 
-		/*
-		new File("persistent").delete();
-
-		int DIM = 100;
-
-		As as = new As(new File("./persistent/pippo.xml"));
-		as.setAs(new ArrayList<>(DIM));
-
-		long start = System.currentTimeMillis();
-		Random r = new Random();
-		for (int i = 0; i < DIM; i++) {
-			as.getAs().add(new D(i, i));
+		ArrayList<A> as = new ArrayList<>();
+		for (int i = 0; i < 20; i++) {
+			as.add(new B(i, i*1.62197489127));
 		}
-		long mid = System.currentTimeMillis();
-		as.save();
-		long end = System.currentTimeMillis();
-		System.out.printf("Create: %.2f\n", (mid - start) / 1000.0);
-		System.out.printf("Save: %.2f\n", (end - mid) / 1000.0);
-
-		long load = System.currentTimeMillis();
-		As loadedAs = new As(new File("./persistent/pippo.xml"));
-		end = System.currentTimeMillis();
-
-		boolean error = false;
-		for (int i = 0; i < DIM; i++) {
-			A a = loadedAs.getAs().get(i);
-			error = error || a.getA() != i || a.getB() != i;
+		for (int i = 0; i < 20; i++) {
+			as.add(new C(i, "asd"));
 		}
-		System.out.println("Error: " + error);
-		System.out.printf("Load: %.2f\n", (mid - start) / 1000.0);
-		*/
+		System.out.println("Saved");
+		System.out.println(as);
+		PersistentCSV.save(new File("test.txt"), as.stream());
+		System.out.println("Loaded");
+		System.out.println(PersistentCSV.load(new File("test.txt")).collect(Collectors.toList()));
 
+		Class<?> c = DynamicMenu.choose("Tipo di A?", List.of("[B]", "[C]"), String.class, List.of(B.class, C.class));
+		System.out.println(c);
 	}
 
 }

@@ -8,6 +8,8 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -42,6 +44,8 @@ public class GenericScanner {
         registerParser(Boolean.class, Boolean::parseBoolean);
         registerParser(Character.class, s -> s.charAt(0));
         registerParser(String.class, String::strip);
+        // Specials
+        registerParser(LocalDateTime.class, s -> LocalDateTime.parse(s, DateTimeFormatter.ofPattern("dd.MM.yyyy")));
     }
 
     @SuppressWarnings("unchecked") // registerParser makes sure that key and value match.
@@ -73,17 +77,17 @@ public class GenericScanner {
             String[] prompts = constructor.getAnnotation(Prompts.class).value();
             Parameter[] parameters = constructor.getParameters();
 
-            if (prompts.length == parameters.length) {
+            if (prompts.length != parameters.length) {
                 Logger.DEBUG.println("@Prompts annotated constructor for '" + type.getSimpleName() + "' has a wrong number of prompts. (" + prompts.length + " != " + parameters.length + ")");
                 return Optional.empty();
             }
 
             Object[] values = IntStream.range(0, parameters.length)
-                    .mapToObj(i -> next(parameters[i].getType(), prompts[i]))
+                    .mapToObj(i -> next(parameters[i].getType(), prompts[i]).orElseThrow(IllegalArgumentException::new))
                     .toArray();
 
             return Optional.of(constructor.newInstance(values));
-        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             Logger.DEBUG.exception(e);
             return Optional.empty();
         } catch (MissingPromptConstructor e) {
@@ -114,21 +118,25 @@ public class GenericScanner {
     // Required type or null.
     @SuppressWarnings("unchecked") // not unchecked as we use Array::newInstance.
     private static <T> Optional<T> next(Class<T> type, String prompt) {
-        String input = next(prompt);
-
         // Known serialization.
         if (parsers.containsKey(type)) {
+            String input = next(prompt);
             return parse(input, type);
         }
 
         if (type.isArray()) {
+            String input = next(prompt);
             String[] tokens = input.replaceFirst("\\[", "").replaceFirst("](?!.*?])", "").split(","); // TODO: does not work with more than one dimension.
             Object array = Array.newInstance(type.getComponentType(), tokens.length);
-            for (int i = 0; i < tokens.length; i++) Array.set(array, i, parse(tokens[i], type.getComponentType()));
+            for (int i = 0; i < tokens.length; i++) {
+                Optional<T> optional = (Optional<T>) parse(tokens[i].strip(), type.getComponentType());
+                if (optional.isPresent()) Array.set(array, i, optional.get());
+            }
             return Optional.of((T) array);
         }
 
         if (type.isEnum()) {
+            String input = next(prompt);
             return Arrays.stream(type.getEnumConstants())
                     .filter(t -> t.toString().equalsIgnoreCase(input))
                     .findFirst();

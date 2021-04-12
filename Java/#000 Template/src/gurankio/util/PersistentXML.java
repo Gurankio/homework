@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,21 +15,21 @@ import java.util.stream.Stream;
  *  TODO: Javadoc.
  */
 @SuppressWarnings("unchecked")
-public abstract class Persistent implements Serializable {
+public abstract class PersistentXML implements Serializable {
 
     // List of subclasses, needed for persistence delegates.
     private static final CopyOnWriteArraySet<Class<?>> subClasses = new CopyOnWriteArraySet<>();
 
     // Bean
 
-    private final transient File file;
+    private final File file;
 
-    public Persistent() {
+    public PersistentXML() {
         this.file = file(UUID.randomUUID().toString(), getClass());
         subClasses.add(getClass());
     }
 
-    public Persistent(File file) {
+    public PersistentXML(File file) {
         this.file = file;
         subClasses.add(getClass());
 
@@ -40,6 +39,13 @@ public abstract class Persistent implements Serializable {
 
     public File getFile() {
         return file;
+    }
+
+    @Override
+    public String toString() {
+        return "Persistent{" +
+                "file=" + file +
+                '}';
     }
 
     // File Input
@@ -78,11 +84,11 @@ public abstract class Persistent implements Serializable {
     public boolean load() {
         if (blocked.contains(file.getName())) return false; // Avoids loops. TODO: wait for availability?
 
-        Persistent object;
+        PersistentXML object;
 
         blocked.add(file.getName()); // Disable loading for this file.
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file)))) {
-            object = (Persistent) decoder.readObject();
+            object = (PersistentXML) decoder.readObject();
         } catch (FileNotFoundException e) {
             Logger.DEBUG.println("Tried to load nonexistent file '" + file +"'.");
             return false;
@@ -111,7 +117,7 @@ public abstract class Persistent implements Serializable {
     // Nomenclature Utilities
 
     // Custom folder support should not help in any scenario...
-    public static String folder(Class<? extends Persistent> type) {
+    public static String folder(Class<? extends PersistentXML> type) {
         StringBuilder path = new StringBuilder();
         Class<?> current = type;
         do path.insert(0, current.getSimpleName() + "/"); // TODO: change nomenclature
@@ -124,17 +130,17 @@ public abstract class Persistent implements Serializable {
     /// Static Extension Map
 
     private static final File EXTENSIONS_FILE = new File("persistent/extensions.xml");
-    private static Map<String, Class<? extends Persistent>> extensions;
+    private static Map<String, Class<? extends PersistentXML>> extensions;
 
     static {
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(EXTENSIONS_FILE)))) {
-            extensions = (Map<String, Class<? extends Persistent>>) decoder.readObject(); // Not unchecked as it's only populated by extension().
+            extensions = (Map<String, Class<? extends PersistentXML>>) decoder.readObject(); // Not unchecked as it's only populated by extension().
         } catch (Exception e) {
             extensions = new ConcurrentHashMap<>();
         }
     }
 
-    private static String extension(Class<? extends Persistent> type) {
+    private static String extension(Class<? extends PersistentXML> type) {
         long capitals = type.getSimpleName().chars().filter(Character::isUpperCase).count();
         String extension = capitals < 3 ?
                 type.getSimpleName().chars().map(Character::toLowerCase).filter(c -> c != 'a' && c != 'e' && c != 'i' && c != 'o' && c != 'u').distinct().mapToObj(c -> String.format("%c", c)).collect(Collectors.joining()) :
@@ -150,13 +156,13 @@ public abstract class Persistent implements Serializable {
         return extension;
     }
 
-    private static File file(String filename, Class<? extends Persistent> type) {
+    private static File file(String filename, Class<? extends PersistentXML> type) {
         return new File(folder(type) + "/" + filename + "." + extension(type));
     }
 
     // Encoders Utility
 
-    private void addPersistenceDelegates(Encoder encoder, Class<? extends Persistent> caller) {
+    private void addPersistenceDelegates(Encoder encoder, Class<? extends PersistentXML> caller) {
         // Set all Persistent subclasses, but the caller, which gets just custom constructor, to File only constructor.
         encoder.setPersistenceDelegate(caller, new DefaultPersistenceDelegate(new String[]{ "file" }));
         subClasses.stream()
@@ -164,8 +170,8 @@ public abstract class Persistent implements Serializable {
                 .forEach(persistent -> encoder.setPersistenceDelegate(persistent, new PersistenceDelegate() {
                     @Override
                     protected Expression instantiate(Object target, Encoder encoder) {
-                        ((Persistent) target).asave(); // asave might not be the smartest idea...
-                        return new Expression(target, persistent, "new", new Object[]{ ((Persistent) target).getFile() });
+                        ((PersistentXML) target).asave(); // asave might not be the smartest idea...
+                        return new Expression(target, persistent, "new", new Object[]{ ((PersistentXML) target).getFile() });
                     }
                 }));
         // Set File to a relative URI.
@@ -173,7 +179,7 @@ public abstract class Persistent implements Serializable {
             @Override
             protected Expression instantiate(Object target, Encoder encoder) {
                 Path other = Path.of(((File) target).toURI());
-                Path persistentParent = Path.of((new File(folder(Persistent.class)).getParentFile()).toURI());
+                Path persistentParent = Path.of((new File(folder(PersistentXML.class)).getParentFile()).toURI());
                 return new Expression(target, File.class, "new",
                         new Object[]{ persistentParent.relativize(other).toString() });
             }
@@ -199,9 +205,9 @@ public abstract class Persistent implements Serializable {
 
     // Static File Input
 
-    private static Persistent of(File file) {
+    private static PersistentXML of(File file) {
         try {
-            Class<? extends Persistent> type = extensions.entrySet().stream().filter(entry -> file.getName().endsWith("." + entry.getKey())).findFirst().orElseThrow().getValue();
+            Class<? extends PersistentXML> type = extensions.entrySet().stream().filter(entry -> file.getName().endsWith("." + entry.getKey())).findFirst().orElseThrow().getValue();
             return type.getConstructor(File.class).newInstance(file);
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
             Logger.DEBUG.exception(e);
@@ -220,10 +226,10 @@ public abstract class Persistent implements Serializable {
     }
 
     // Note: returns a parallel stream as load operations are done in parallel.
-    public static <T extends Persistent> Stream<T> stream(Class<T> type) {
+    public static <T extends PersistentXML> Stream<T> stream(Class<T> type) {
         return deepListFiles(new File(folder(type)))
                 .parallel()
-                .map(Persistent::of)
+                .map(PersistentXML::of)
                 .filter(Objects::nonNull)
                 .filter(persistent -> type.isAssignableFrom(persistent.getClass()))
                 .map(persistent -> (T) persistent); // Not unchecked as: 1) we check above if it is assignable and 2) is guaranteed by the folder organization.

@@ -7,7 +7,7 @@
   <void property="containersMap">
    <object class="java.util.HashMap">
     <void method="put">
-     <string>SAS434</string>
+     <int>123</int>
      <object class="gurankio.container.Container">
       <object class="java.io.File">
        <string>persistent/container/642f2b08-fede-4777-b457-10a0c38a293c.cntr</string>

@@ -29,10 +29,10 @@ public class Main {
 
 		int size = 100000;
 		for (int i = 0; i < size; i++) {
-			vittorie.compute(Partita.partita(new ArrayList<>(list)), (schieramento, integer) -> integer+1);
+			vittorie.compute(Partita.partita(new ArrayList<>(list)), (s, x) -> x+1);
 		}
 
-		System.out.printf("BENE: %.4f%%\n", vittorie.get(Schieramento.BENE) * 100.0 / size );
+		System.out.printf("BENE: %.4f%%\n", vittorie.get(Schieramento.BENE) * 100.0 / size);
 		System.out.printf("MALE: %.4f%%\n", vittorie.get(Schieramento.MALE) * 100.0 / size);
 	}
 
