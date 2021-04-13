@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15.0.2" class="java.beans.XMLDecoder">
+ <object class="gurankio.Triangolo" id="Triangolo0">
+  <void property="p1">
+   <void property="x">
+    <double>-1.87</double>
+   </void>
+   <void property="y">
+    <double>1.0E-10</double>
+   </void>
+  </void>
+  <void property="p2">
+   <void property="x">
+    <double>5.0</double>
+   </void>
+   <void property="y">
+    <double>1.5</double>
+   </void>
+  </void>
+  <void property="p3">
+   <void property="x">
+    <double>1.54</double>
+   </void>
+   <void property="y">
+    <double>5.0</double>
+   </void>
+  </void>
+ </object>
+</java>
