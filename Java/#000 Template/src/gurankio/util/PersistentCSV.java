@@ -3,6 +3,9 @@ package gurankio.util;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -10,6 +13,16 @@ public interface PersistentCSV {
 
     void serialize(Stack<String> tokens);
     boolean parse(Stack<String> tokens);
+
+    ExecutorService POOL = Executors.newCachedThreadPool(r -> {
+        Thread t = new Thread(r);
+        t.setDaemon(true);
+        return t;
+    });
+
+    static Future<Boolean> asave(File file, Stream<? extends PersistentCSV> elements) {
+        return POOL.submit(() -> save(file, elements));
+    }
 
     static boolean save(File file, Stream<? extends PersistentCSV> elements) {
         try (PrintStream writer = new PrintStream(new BufferedOutputStream(new FileOutputStream(file)))) {
