@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <h2>JavaScript Hoisting</h2>
+    <p>
+      Con <b>const</b>, non è possibile utilizzare una variabile prima che venga
+      dichiarata.
+    </p>
+    <p id="demo">testo non modificato</p>
+    <script>
+      carName = "Volvo";
+      const carName;
+      document.getElementById("demo").innerHTML = carName;
+    </script>
+  </body>
+</html>

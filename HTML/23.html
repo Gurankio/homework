@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <h2>Dichiarazione di una variabile utilizzando var</h2>
+    <p>La variabile x dichiarata all'inizio vale</p>
+    <p id="prova"></p>
+    <hr />
+    <p>La variabile x dichiarata all'interno del blocco vale</p>
+    <p id="prova1"></p>
+    <script>
+      var x = 10; // in questo blocco x vale 10
+      {
+        var x = 2;
+        // in questo blocco x vale 2
+        document.getElementById("prova").innerHTML = x;
+      }
+      // in questo blocco x vale 2
+      document.getElementById("prova1").innerHTML = x;
+    </script>
+  </body>
+</html>

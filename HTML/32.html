@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <h2>JavaScript const</h2>
+    <p>Non è è possibile riassegnare un oggetto costante:</p>
+    <p id="demo"></p>
+    <script>
+      try {
+        const car = { type: "Fiat", model: "500", color: "bianca" };
+        car = { type: "Volvo", model: "EX60", color: "rossa" };
+      } catch (errore) {
+        document.getElementById("demo").innerHTML = errore;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <h2>Variabili globali in JavaScript</h2>
+    <p>
+      In HTML, le variabili globali definite con <b>let</b>, non sono variabili
+      di finestra.
+    </p>
+    <p id="demo"></p>
+    <script>
+      let carName = "Volvo"; // non è possibile utilizzare window.carName
+      document.getElementById("demo").innerHTML =
+        "Casa automobilistica" + window.carName;
+    </script>
+  </body>
+</html>

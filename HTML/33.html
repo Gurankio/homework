@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <h2>JavaScript const</h2>
+    <p>
+      La dichiarazione di un array costante NON rende gli elementi immutabili:
+    </p>
+    <p id="demo"></p>
+    <script>
+      // creo un Array:
+      const cars = ["Saab", "Volvo", "BMW"];
+      // modifico il primo elemento:
+      cars[0] = "Toyota";
+      // aggiungo un elemento:
+      cars.push("Audi");
+      // visualizzo l'Array:
+      document.getElementById("demo").innerHTML = cars;
+    </script>
+  </body>
+</html>

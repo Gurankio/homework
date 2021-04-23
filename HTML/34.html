@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <h2>JavaScript const</h2>
+    <p>Non è possibile riassegnare un array costante:</p>
+    <p id="demo"></p>
+    <script>
+      try {
+        const cars = ["Saab", "Volvo", "BMW"];
+        cars = ["Toyota", "Volvo", "Audi"];
+      } catch (errore) {
+        document.getElementById("demo").innerHTML = errore;
+      }
+    </script>
+  </body>
+</html>

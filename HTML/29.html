@@ -1,0 +1,21 @@
+<html>
+  <body>
+    <h2>JavaScript Hoisting</h2>
+    <p>
+      Con <b>let</b>, non posso utilizzare una variabile prima che venga
+      dichiarata:
+    </p>
+    <p id="demo"></p>
+    <script>
+      try {
+        carName = "Volvo";
+        let carName;
+        document.getElementById("demo").innerHTML =
+          "Casa automobilistica" + carName;
+      } catch (errore) {
+        document.getElementById("demo").innerHTML =
+          errore.name + ": " + errore.message;
+      }
+    </script>
+  </body>
+</html>

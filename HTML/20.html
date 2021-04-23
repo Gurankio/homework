@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <h2>Ambito globale JavaScript</h2>
+    <p>
+      È possibile accedere a una variabile globale da qualsiasi script o
+      funzione.
+    </p>
+    <p id="demo"></p>
+    <script>
+      var carName = "Volvo";
+      /*variabile dichiarata prima  della funzione */
+      myFunction();
+      function myFunction() {
+        document.getElementById("demo").innerHTML =
+          "Posso visualizzare" + carName;
+      }
+    </script>
+  </body>
+</html>
