@@ -12,10 +12,10 @@
 
 #define malloc_shared(size) mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
-enum { a, b, c, d, e, f };
+enum { a, b, c, d, e };
 
 int main(int argc, char const *argv[]) {
-    int* s = malloc_shared(sizeof(int) * 6);
+    int* s = malloc_shared(sizeof(int) * 5);
     
     // (7 * 2) + (25 : 5) * (8 - 5) 
 
