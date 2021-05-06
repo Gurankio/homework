@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="gurankio.gui.controller.Controller">
+    <columnConstraints>
+        <ColumnConstraints minWidth="10.0" prefWidth="600.0"/>
+        <ColumnConstraints minWidth="10.0" prefWidth="50.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="600.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+    </rowConstraints>
+    <TableView fx:id="tabella" GridPane.rowIndex="0">
+        <columns>
+            <TableColumn fx:id="colonnaID" prefWidth="50.0" text="ID"/>
+            <TableColumn fx:id="colonnaTipo" prefWidth="100.0" text="Tipo"/>
+            <TableColumn fx:id="colonnaCreazione" prefWidth="100.0" text="Creazione" />
+            <TableColumn fx:id="colonnaNome" prefWidth="100.0" text="Nome"/>
+            <TableColumn fx:id="colonnaCognome" prefWidth="100.0" text="Cognome"/>
+            <TableColumn fx:id="colonnaNascita" prefWidth="100.0" text="Nascita"/>
+            <TableColumn fx:id="colonnaCosto" prefWidth="75.0" text="Costo"/>
+            <TableColumn fx:id="colonnaSconto" prefWidth="75.0" text="Sconto"/>
+        </columns>
+    </TableView>
+    <Button mnemonicParsing="false" text="Salva" GridPane.columnIndex="1"/>
+    <HBox GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <TextField fx:id="id" prefHeight="27.0" prefWidth="50.0" editable="false"/>
+        <TextField fx:id="tipo" prefHeight="27.0" prefWidth="100.0"/>
+        <TextField fx:id="creazione" prefHeight="27.0" prefWidth="100.0"/>
+        <TextField fx:id="nome" prefHeight="27.0" prefWidth="100.0"/>
+        <TextField fx:id="cognome" prefHeight="27.0" prefWidth="100.0"/>
+        <TextField fx:id="nascita" prefHeight="27.0" prefWidth="100.0"/>
+        <TextField fx:id="costo" prefHeight="27.0" prefWidth="75.0" editable="false"/>
+        <TextField fx:id="sconto" prefHeight="27.0" prefWidth="75.0" editable="false"/>
+    </HBox>
+    <Button fx:id="aggiungi" mnemonicParsing="false" text="Aggiungi" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+</GridPane>
