@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="https://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gurankio.controller.MainController"
+            minHeight="600" minWidth="1100">
+
+    <StackPane AnchorPane.leftAnchor="0" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0">
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Nuovo" fx:id="nuovo" />
+                <MenuItem text="Apri" fx:id="apri" />
+                <Menu text="Recenti" fx:id="recenti" />
+            </Menu>
+            <Menu text="Modifica" >
+                <MenuItem fx:id="aggiungi" text="Aggiungi" />
+                <MenuItem fx:id="cerca" text="Cerca" visible="false" />
+                <MenuItem fx:id="rinnova" text="Rinnova" />
+                <MenuItem fx:id="elimina" text="Elimina" />
+                <SeparatorMenuItem />
+                <MenuItem fx:id="undo" text="Indietro" />
+                <MenuItem fx:id="redo" text="Avanti" />
+            </Menu>
+        </MenuBar>
+    </StackPane>
+
+    <HBox AnchorPane.topAnchor="0" AnchorPane.rightAnchor="10" >
+        <Label prefHeight="33" text="In visualizzazione: " />
+        <Label prefHeight="33" fx:id="current" />
+    </HBox>
+
+    <StackPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.topAnchor="33" AnchorPane.rightAnchor="0">
+        <TableView fx:id="tabella" >
+            <columns>
+                <TableColumn text="Abbonamento">
+                    <columns>
+                        <TableColumn fx:id="colonnaID" resizable="false" text="ID" />
+                        <TableColumn fx:id="colonnaTipo" resizable="false" text="Tipo"/>
+                        <TableColumn fx:id="colonnaCreazione" resizable="false" text="Creazione" />
+                        <TableColumn fx:id="colonnaCosto" resizable="false" text="Prezzo"/>
+                        <TableColumn fx:id="colonnaSconto" resizable="false" text="Sconto"/>
+                    </columns>
+                </TableColumn>
+                <TableColumn text="Utente">
+                    <columns>
+                        <TableColumn fx:id="colonnaNome" resizable="false" text="Nome"/>
+                        <TableColumn fx:id="colonnaCognome" resizable="false" text="Cognome"/>
+                        <TableColumn fx:id="colonnaNascita" resizable="false" text="Nascita"/>
+                        <TableColumn fx:id="colonnaExtra" resizable="false" text="Extra"/>
+                    </columns>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </StackPane>
+</AnchorPane>

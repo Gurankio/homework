@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="https://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="gurankio.controller.RenewController"
+           prefHeight="250.0" prefWidth="400.0">
+
+    <VBox spacing="20">
+        <HBox>
+
+        </HBox>
+
+
+    </VBox>
+
+</StackPane>

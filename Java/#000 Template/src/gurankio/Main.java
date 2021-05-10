@@ -16,7 +16,7 @@ public class Main {
 	static Semaphore mettiSemaphore = new Semaphore(20);
 	static Semaphore[] buffer = Stream.generate(() -> new Semaphore(1)).limit(20).toArray(Semaphore[]::new);
 
-	static int metti = 0;
+	static Integer metti = 0;
 	static int togli = 0;
 
 	public static void main(String[] args) {

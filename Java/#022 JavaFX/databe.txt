@@ -1,0 +1,1 @@
+gurankio.model.Abbonamento, 1, 09.05.2021, MENSILE, gurankio.model.Minore, RAGAZZO, asd, asd, 04.05.2021

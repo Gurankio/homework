@@ -1,0 +1,36 @@
+gurankio/model/Minore.java
+ gurankio.model.Minore
+ gurankio.model.Minore$Categoria
+gurankio/util/MapBindings.java
+ gurankio.util.MapBindings
+ gurankio.util.MapBindings$ContentMapping
+ gurankio.util.MapBindings$ListContentMapping
+module-info.java
+ module-info
+gurankio/model/Adulto.java
+ gurankio.model.Adulto
+ gurankio.model.Adulto$Sesso
+gurankio/model/PersistentCSV.java
+ gurankio.model.PersistentCSV
+gurankio/controller/AddController.java
+ gurankio.controller.AddController
+gurankio/model/DatabaseManager.java
+ gurankio.model.DatabaseManager
+ gurankio.model.DatabaseManager$Action
+gurankio/controller/RenewController.java
+ gurankio.controller.RenewController
+gurankio/model/Abbonamento.java
+ gurankio.model.Abbonamento
+ gurankio.model.Abbonamento$Tipologia
+gurankio/Main.java
+ gurankio.Main
+gurankio/model/Cliente.java
+ gurankio.model.Cliente
+gurankio/model/PersistenceManager.java
+ gurankio.model.PersistenceManager
+ gurankio.model.PersistenceManager$FileWrapper
+gurankio/controller/MainController.java
+ gurankio.controller.MainController
+ gurankio.controller.MainController$AbbonamentoTableRow
+gurankio/ViewManager.java
+ gurankio.ViewManager

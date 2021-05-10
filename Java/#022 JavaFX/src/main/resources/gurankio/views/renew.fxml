@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="https://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="gurankio.controller.RenewController"
+           prefHeight="250.0" prefWidth="400.0">
+
+    <VBox spacing="20">
+        <Label fx:id="warning" text="Abbonamento ancora valido!" style="-fx-text-fill: rgb(255, 0, 0); -fx-font-weight: bold;" />
+        <Label text="Selezionare il periodo del nuovo rinnovo." />
+
+        <GridPane hgap="20">
+            <columnConstraints>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+            </columnConstraints>
+            <RadioButton fx:id="mensile" text="1 Mese" GridPane.columnIndex="0" />
+            <RadioButton fx:id="trimestrale" text="3 Mesi" GridPane.columnIndex="1" />
+            <RadioButton fx:id="annuale" text="12 Mesi" GridPane.columnIndex="2" />
+        </GridPane>
+
+        <Label fx:id="costo" />
+        <Label fx:id="scontato" />
+    </VBox>
+
+</StackPane>

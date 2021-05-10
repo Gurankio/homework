@@ -1,0 +1,3 @@
+gurankio.model.Abbonamento, 127, 09.05.2021, ANNUALE, gurankio.model.Adulto, DONNA, E, F, 17.05.1996
+gurankio.model.Abbonamento, 126, 07.05.2021, MENSILE, gurankio.model.Minore, TEENAGER, C, D, 07.05.2021
+gurankio.model.Abbonamento, 128, 09.05.2021, ANNUALE, gurankio.model.Minore, BAMBINO, asd, asd, 14.05.2021

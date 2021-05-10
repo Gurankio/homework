@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="https://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="gurankio.controller.AddController"
+           prefHeight="250.0" prefWidth="400.0">
+
+    <VBox spacing="10">
+        <TextField fx:id="nome" prefHeight="33" prefWidth="400" promptText="Nome" />
+        <TextField fx:id="cognome" prefHeight="33" prefWidth="400" promptText="Cognome" />
+        <DatePicker fx:id="nascita" prefHeight="50" prefWidth="400" promptText="Data di Nascita" />
+
+        <GridPane hgap="20">
+            <columnConstraints>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+            </columnConstraints>
+            <RadioButton fx:id="mensile" text="1 Mese" GridPane.columnIndex="0" />
+            <RadioButton fx:id="trimestrale" text="3 Mesi" GridPane.columnIndex="1" />
+            <RadioButton fx:id="annuale" text="12 Mesi" GridPane.columnIndex="2" />
+        </GridPane>
+
+        <Label fx:id="costo" />
+
+        <GridPane hgap="20">
+            <columnConstraints>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+                <ColumnConstraints prefWidth="100.0"/>
+            </columnConstraints>
+            <RadioButton fx:id="uomo" text="Uomo" GridPane.columnIndex="0" prefHeight="30" />
+            <RadioButton fx:id="bambino" text="Bambino" GridPane.columnIndex="0" prefHeight="30" />
+            <RadioButton fx:id="donna" text="Donna" GridPane.columnIndex="1" prefHeight="30" />
+            <RadioButton fx:id="ragazzo" text="Ragazzo" GridPane.columnIndex="1" prefHeight="30" />
+            <RadioButton fx:id="teenager" text="Teenager" GridPane.columnIndex="2" prefHeight="30" />
+        </GridPane>
+
+        <Label fx:id="scontato" />
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="ID: " />
+            <TextField fx:id="id" prefWidth="340" promptText="ID" />
+        </HBox>
+    </VBox>
+</StackPane>
