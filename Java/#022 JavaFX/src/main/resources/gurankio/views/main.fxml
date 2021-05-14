@@ -37,7 +37,7 @@
             <columns>
                 <TableColumn text="Abbonamento">
                     <columns>
-                        <TableColumn fx:id="colonnaID" resizable="false" text="ID" />
+                        <TableColumn fx:id="colonnaID" resizable="false" text="Tessera" />
                         <TableColumn fx:id="colonnaTipo" resizable="false" text="Tipo"/>
                         <TableColumn fx:id="colonnaCreazione" resizable="false" text="Creazione" />
                         <TableColumn fx:id="colonnaCosto" resizable="false" text="Prezzo"/>
@@ -54,5 +54,9 @@
                 </TableColumn>
             </columns>
         </TableView>
+    </StackPane>
+
+    <StackPane AnchorPane.bottomAnchor="18" AnchorPane.rightAnchor="18" >
+        <Button fx:id="aggiungiFloating" prefHeight="45" text="Aggiungi" style="-fx-background-color: #0078d7; -fx-text-fill: white"/>
     </StackPane>
 </AnchorPane>

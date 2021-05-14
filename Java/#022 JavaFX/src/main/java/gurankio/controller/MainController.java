@@ -9,6 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -75,6 +76,9 @@ public class MainController {
     private TableColumn<Abbonamento, LocalDate> colonnaNascita;
     @FXML
     private TableColumn<Abbonamento, String> colonnaExtra;
+
+    @FXML
+    private Button aggiungiFloating;
 
     @FXML
     private void initialize() {
@@ -175,7 +179,8 @@ public class MainController {
                 }
             }
         });
-        current.setOnMouseEntered(event -> current.setTextFill(Color.BLUE));
+
+        current.setOnMouseEntered(event -> current.setTextFill(Color.rgb(0x00, 0x78, 0xd7)));
         current.setOnMouseExited(event -> current.setTextFill(Color.BLACK));
 
         colonnaID.setCellValueFactory(cell -> cell.getValue().numeroTesseraProperty());
@@ -190,7 +195,7 @@ public class MainController {
         colonnaExtra.setCellValueFactory(cell -> cell.getValue().getCliente() instanceof Adulto ? ((Adulto) cell.getValue().getCliente()).sessoProperty().asString() : ((Minore) cell.getValue().getCliente()).categoriaProperty().asString());
 
         final List<TableColumn<Abbonamento, ?>> colonne = tabella.getColumns().stream().map(TableColumn::getColumns).flatMap(Collection::stream).collect(Collectors.toUnmodifiableList());
-        final int[] proporzioni = {3, 6, 5, 4, 4, 6, 6, 5, 6};
+        final int[] proporzioni = {5, 6, 5, 4, 4, 6, 6, 5, 6};
         final int totale = Arrays.stream(proporzioni).sum();
         final double[] proporzioniPercentuale = Arrays.stream(proporzioni).mapToDouble(n -> (double) n / totale).toArray();
         assert colonne.size() == proporzioniPercentuale.length;
@@ -224,6 +229,8 @@ public class MainController {
 
         tabella.itemsProperty().bindBidirectional(DatabaseManager.databaseProperty());
         tabella.getStyleClass().addAll(JMetroStyleClass.ALTERNATING_ROW_COLORS, JMetroStyleClass.TABLE_GRID_LINES);
+
+        aggiungiFloating.setOnAction(event -> ViewManager.addController.add());
     }
 
     private static class AbbonamentoTableRow extends TableRow<Abbonamento> {

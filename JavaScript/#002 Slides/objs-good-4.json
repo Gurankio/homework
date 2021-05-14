@@ -1,0 +1,172 @@
+[
+  {
+    "title": "Slide 14",
+    "body": "Blocchi di codice nella pagina   \n",
+    "html": "<html>\n    <head>\n        <script>\n            // codice JavaScript\n        </script>\n    </head>\n    <body>\n        <script>\n            // codice JavaScript\n        </script>\n        <script>\n            // codice JavaScript\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 20",
+    "body": "Per accedere a un elemento HTML, JavaScript può utilizzare il metodo document.getElementById(id). L'attributo id definisce l'elemento HTML. La proprietà innerHTML definisce il contenuto HTML.   \n",
+    "html": "<html>\n    <head>\n    </head>\n    <body>\n        <h1>\n            La mia prima pagina web\n        </h1>\n        <p id=\"testo\">\n        </p>\n        <script>\n            document.getElementById(\"testo\").innerHTML = \"Ciao!\";\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 21",
+    "body": "Un altro metodo i visualizzazione dell'output JavaScript è il metodo document.write().    \n",
+    "html": "<html>\n    <head>\n    </head>\n    <body>\n        <h1>\n            La mia prima pagina web\n        </h1>\n        <script>\n            document.write(\"Ciao!\");\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 22",
+    "body": "Attenzione! L'utilizzo di document.write() dopo il caricamento di un documento HTML eliminerà tutta la pagina HTML esistente. Tale metodo dovrebbe essere utilizzato solo per i test.   \n",
+    "html": "<html>\n    <head>\n    </head>\n    <body>\n        <h1>\n            La mia prima pagina web\n        </h1>\n        <script>\n            document.write(\"Ciao!\");\n        </script>\n        <br/>\n        <button onclick=\"document.write(5 + 6)\" type=\"button\">Cliccami</button>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 25",
+    "body": "Il metodo console.log() viene utilizzato per effettuare il debug e per visualizzare i dati nel browser.    \n",
+    "html": "<html>\n    <head>\n    </head>\n    <body>\n        <h1>\n            La mia prima pagina web\n        </h1>\n        <p>\n            Premi F12 per attivare il debug.\n        </p>\n        <p>\n            Selezione \"Console\" nel menù del debugger.\n        </p>\n        <script>\n            console.log(5 + 6);\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 26",
+    "body": "È possibile stampare una pagina web utilizzando un semplice codice in JavaScript. Il metodo print() stampa il contenuto della finestra corrente aprendo la finestra di dialogo \"Stampa\" che consente di scegliere tra varie opzioni di stampa.   \n",
+    "html": "<html>\n <head>\n </head>\n <body>\n  <h1>\n   La mia prima pagina web\n  </h1>\n  <button onclick=\"window.print()\">Stampa la pagina</button>\n </body>\n</html>"
+  },
+  {
+    "title": "Slide 42",
+    "body": "JavaScript sono contenitori per l'archiviazione dei valori dei dati. In questo esempio, x, y, e z, sono variabili, dichiarate con la parola chiave var:  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            In questo esempio, x, y, e z sono variabili.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var x = 5;\n            var y = 6;\n            var z = x + y;\n            document.getElementById(\"demo\").innerHTML = \"Il valore di z è: \" + z;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 44",
+    "body": "Nella programmazione, proprio come in algebra, usiamo variabili (come prezzo1) per contenere valori e nelle espressioni (totale = prezzo1 + prezzo2).    \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Variables\n        </h2>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var prezzo1 = 5;\n            var prezzo2 = 6;\n            var totale = prezzo1 + prezzo2;\n            document.getElementById(\"demo\").innerHTML = \"Il totale è: \" + totale;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 47",
+    "body": "Le variabili JavaScript possono contenere numeri come 100 e valori di testo come \"Marco Polo\". Nella programmazione, i valori di testo sono chiamati stringhe di testo. Le stringhe sono scritte tra virgolette doppie o singole. I numeri sono scritti senza virgolette. Mettendo un numero tra virgolette, verrà trattato come una stringa di testo.  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Le stringhe sono scritte tra virgolette.\n        </p>\n        <p>\n            I numeri vengono scritti senza virgolette.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var pi = 3.14;\n            var persona = \"Marco Polo\";\n            var città = \'Venezia\';\n            document.getElementById(\"demo\").innerHTML = pi + \"<br>\" + persona + \"<br>\" + città;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 49",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Variables\n        </h2>\n        <p>\n            Create a variable, assign a value to it, and display it:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var carName;\n            carName = \"Volvo\";\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 50",
+    "body": "È possibile dichiarare molte variabili in un'unica istruzione. Per fare questo bisogna iniziare l'istruzione con var e separare le variabili con una virgola.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Puoi dichiarare molte variabili in un\'unica istruzione.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var persona = \"Marco Polo\", carName = \"Volvo\", prezzo = 200;\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 51",
+    "body": "Una dichiarazione può estendersi su più righe. L'esempio precedente può anche essere scritto nel modo seguente:   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Puoi dichiarare molte variabili in un\'unica istruzione.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var persona = \"Marco Polo\", carName = \"Volvo\", prezzo = 200;\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 52",
+    "body": "Nei programmi per computer, le variabili vengono spesso dichiarate senza valore. Il valore può essere qualcosa che deve essere calcolato o qualcosa che verrà fornito in seguito, come l'input dell'utente. Una variabile dichiarata senza un valore avrà il valore undefined. La variabile carName avrà il valore undefined dopo l'esecuzione di questa istruzione:  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Una variabile dichiarata senza un valore avrà il valore undefined.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var carName;\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 53",
+    "body": "Dichiarando nuovamente una variabile JavaScript, non perderà il suo valore. La variabile carName avrà ancora il valore \"Volvo\" dopo l'esecuzione di queste istruzioni:  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Se dichiari nuovamente una variabile JavaScript, non perderà il suo valore.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var carName = \"Volvo\";\n            var carName;\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 54",
+    "body": "Come con l'algebra, è possibile eseguire operazioni aritmetiche con variabili JavaScript, utilizzando operatori come = e +  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Il risultato della somma di 5 + 2 + 3 è:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var x = 5 + 2 + 3;\n            document.getElementById(\"demo\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 55",
+    "body": "È anche possibile sommare stringhe, ma le stringhe verranno concatenate:   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Il risultato della somma di \"Marco\" + \" \" + \"Polo\" è:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var x = \"Marco\" + \" \" + \"Polo\";\n            document.getElementById(\"demo\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 56",
+    "body": "Se inseriamo un numero tra virgolette, il resto dei numeri verrà trattato come stringhe e concatenato.  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Il risultato della somma di \"5\" + 2 + 3 è:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            x = \"5\" + 2 + 3;\n            document.getElementById(\"demo\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 57",
+    "body": "Le cifre prima della stringa verranno invece trattate come numeri.  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili JavaScript\n        </h2>\n        <p>\n            Il risultato della somma di 2 + 3 + \"5\" + 6 + 7 è:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            x = 2 + 3 + \"5\" + 6 + 7;\n            document.getElementById(\"demo\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 63",
+    "body": "È possibile accedere alle variabili globali da qualsiasi punto in un programma JavaScript. \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Ambito globale JavaScript\n        </h2>\n        <p>\n            È possibile accedere a una variabile globale da qualsiasi script o funzione.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var carName = \"Volvo\"; // variabile dichiarata prima della funzione\n            myFunction();\n\n            function myFunction() {\n                document.getElementById(\"demo\").innerHTML = \"Posso visualizzare\" + carName;\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 65",
+    "body": "È possibile accedere alle variabili locali solo dall'interno della funzione in cui sono dichiarate. \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Block Scope\n        </h2>\n        <p>\n            Al di fuori della funzione carName assume il valore undefined.\n        </p>\n        <p id=\"demo1\">\n        </p>\n        <p id=\"demo2\">\n        </p>\n        <script>\n            myFunction();\n\n            function myFunction() {\n                // variabile dichiarata nello stesso blocco della funzione\n                var carName = \"Volvo\";\n                // typeof restituisce il tipo della variabile\n                document.getElementById(\"demo1\").innerHTML = typeof carName + \" \" + carName; \n            }\n\n            document.getElementById(\"demo2\").innerHTML = typeof carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 69",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            Ambiti JavaScript\n        </h2>\n        <p id=\"demo\">\n        </p>\n        <script>\n            {\n                {\n                    var x = 5;\n                }\n                let y = 7;\n            }\n            try {\n                document.write(x);\n                document.write(y);\n            } catch (e) {\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 71",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            Dichiarazione di una variabile utilizzando var\n        </h2>\n        <p>\n            La variabile x dichiarata all\'inizio vale\n        </p>\n        <p id=\"prova\">\n        </p>\n        <hr/>\n        <p>\n            La variabile x dichiarata all\'interno del blocco vale\n        </p>\n        <p id=\"prova1\">\n        </p>\n        <script>\n            var x = 10; // in questo blocco x vale 10 \n            {\n                var x = 2; // in questo blocco x vale 2\n                document.getElementById(\"prova\").innerHTML = x;\n            }\n            // in questo blocco x vale 2    \n            document.getElementById(\"prova1\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 73",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            Dichiarazione di una variabile utilizzando let\n        </h2>\n        <p>\n            La variabile x dichiarata all\'inizio vale\n        </p>\n        <p id=\"prova\">\n        </p>\n        <hr/>\n        <p>\n            La variabile x dichiarata all\'interno del blocco vale\n        </p>\n        <p id=\"prova1\">\n        </p>\n        <script>\n            var x = 10; // in questo blocco x vale 10   \n            {\n                let x = 2; // in questo blocco x vale 2  \n                document.getElementById(\"prova\").innerHTML = x;\n            }\n            // in questo blocco x vale 10    \n            document.getElementById(\"prova1\").innerHTML = x;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 76",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            Ciclo con l\'utilizzo di var\n        </h2>\n        <p>\n            Il valore della variabile i al termine del ciclo è\n        </p>\n        <p id=\"valore_x_var\">\n        </p>\n        <script>\n            var i = 5;\n            for (var i = 0; i < 10; i++) {\n                // ...    \n            }\n            document.getElementById(\"valore_x_var\").innerHTML = i;\n        </script>\n        <hr/>\n        <h2>\n            Ciclo con l\'utilizzo di let\n        </h2>\n        <p>\n            Il valore della variabile n al termine del ciclo è\n        </p>\n        <p id=\"valore_x_let\">\n        </p>\n        <script>\n            let n = 5;\n            for (let n = 0; n < 10; n++) {\n                // ... \n            }\n            document.getElementById(\"valore_x_let\").innerHTML = n;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 78",
+    "body": "In JavaScript, l'ambito globale è l'ambiente JavaScript. In HTML, l'ambito globale è l'oggetto finestra. Le variabili globali definite con la parola chiave var appartengono all'oggetto finestra.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili globali in JavaScript\n        </h2>\n        <p>\n            In HTML, le variabili globali definite con <b>var</b>, sono variabili di finestra.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            var carName = \"Volvo\";  // in questa parte del codice si può usare window.carName   \n            document.getElementById(\"demo\").innerHTML = \"Casa automobilistica \" + window.carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 79",
+    "body": "Le variabili globali definite con la parola chiave let non appartengono all'oggetto finestra.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            Variabili globali in JavaScript\n        </h2>\n        <p>\n            In HTML, le variabili globali definite con\n            <b>\n                let\n            </b>\n            , non sono variabili di finestra.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            let carName = \"Volvo\";       // non è possibile utilizzare window.carName    \n            document.getElementById(\"demo\").innerHTML = \"Casa automobilistica\" + window.carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 80",
+    "body": "Le variabili definite con var possono essere inizializzate in qualsiasi momento. Possiamo usare la variabile prima che venga dichiarata.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Hoisting\n        </h2>\n        <p>\n            Con <b>var</b>, posso utilizzare una variabile prima che venga dichiarata:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            carName = \"Volvo\";\n            document.getElementById(\"demo\").innerHTML = \"Casa automobilistica\" + carName;\n            var carName;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 82",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Hoisting\n        </h2>\n        <p>\n            Con <b>let</b>, non posso utilizzare una variabile prima che venga dichiarata:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            try {\n                carName = \"Volvo\";\n                let carName;\n                document.getElementById(\"demo\").innerHTML = \"Casa automobilistica\" + carName;\n            } catch (errore) {\n                document.getElementById(\"demo\").innerHTML = errore.name + \": \" + errore.message;\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 84",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript const\n        </h2>\n        <p>\n            Non è possibile modificare un valore primitivo.\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            try {\n                const PI = 3.141592653589793;\n                PI = 3.14;\n            } catch (errore) {\n                document.getElementById(\"demo\").innerHTML = errore;\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 89",
+    "body": "",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript const\n        </h2>\n        <p>\n            La dichiarazione di un oggetto costante NON rende le proprietà dell\'oggetto immutabili:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            // creo un oggetto:      \n            const car = {type: \"Fiat\", model: \"500\", color: \"bianca\"};\n            // modifico una proprietà: \n            car.color = \"rossa\";\n            // aggiungo una proprietà:  \n            car.owner = \"Marco\";\n            // visualizzo le proprietà:     \n            document.getElementById(\"demo\").innerHTML = \"Marca \" + car.type + \"; Modello \" + \n                car.model + \"; Colore \" + car.color + \"; Proprietario \" + car.owner;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 90",
+    "body": "Non è possibile riassegnare un valore ad una costante.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript const\n        </h2>\n        <p>\n            Non è è possibile riassegnare un oggetto costante:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            try {\n                const car = {type: \"Fiat\", model: \"500\", color: \"bianca\"};\n                car = {type: \"Volvo\", model: \"EX60\", color: \"rossa\"};\n            } catch (errore) {\n                document.getElementById(\"demo\").innerHTML = errore;\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 91",
+    "body": "È possibile modificare gli elementi di un array costante.   \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript const\n        </h2>\n        <p>\n            La dichiarazione di un array costante NON rende gli elementi immutabili:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            // creo un Array:   \n            const cars = [\"Saab\", \"Volvo\", \"BMW\"];\n            // modifico il primo elemento:    \n            cars[0] = \"Toyota\";\n            // aggiungo un elemento:     \n            cars.push(\"Audi\");\n            // visualizzo l\'Array:     \n            document.getElementById(\"demo\").innerHTML = cars;\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 92",
+    "body": "Come per le variabili costanti, non è possibile riassegnare un array costante.\n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript const\n        </h2>\n        <p>\n            Non è possibile riassegnare un array costante:\n        </p>\n        <p id=\"demo\">\n        </p>\n        <script>\n            try {\n                const cars = [\"Saab\", \"Volvo\", \"BMW\"];\n                cars = [\"Toyota\", \"Volvo\", \"Audi\"];\n            } catch (errore) {\n                document.getElementById(\"demo\").innerHTML = errore;\n            }\n        </script>\n    </body>\n</html>"
+  },
+  {
+    "title": "Slide 97",
+    "body": "Hoisting  \n",
+    "html": "<html>\n    <body>\n        <h2>\n            JavaScript Hoisting\n        </h2>\n        <p>\n            Con <b>const</b>, non è possibile utilizzare una variabile prima che venga dichiarata.\n        </p>\n        <p id=\"demo\">\n            testo non modificato\n        </p>\n        <script>\n            carName = \"Volvo\";\n            const carName;\n            document.getElementById(\"demo\").innerHTML = carName;\n        </script>\n    </body>\n</html>"
+  }
+]

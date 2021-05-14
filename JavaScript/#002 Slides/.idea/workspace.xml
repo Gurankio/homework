@@ -20,90 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="687d2a79-02f4-44a9-a8f1-de715341c6d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/database2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/database3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/ViewManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/controller/AddController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/controller/MainController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/controller/RenewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/Abbonamento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/Adulto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/Cliente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/DatabaseManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/Minore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/PersistenceManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/model/PersistentCSV.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/util/MapBindings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/add.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/find.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/main.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/renew.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/.idea/#002 Spiegazione.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/Tryit Editor v3.6.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/codemirror.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/codemirror_jsx.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/compito1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/index1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../#002 Spiegazione/sasso.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs-good-1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs-good-3.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs-good-full-1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/objs-good-full-2.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/slides.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objs-good-4.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../C/#111 ForkJoin" beforeDir="false" afterPath="$PROJECT_DIR$/../../C/#111 ForkJoin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#000 Template/src/gurankio/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#000 Template/src/gurankio/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/#022 JavaFX+#021.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/libraries/org_openjfx_javafx_controls_15.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/libraries/org_openjfx_javafx_fxml_15.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Abbonamento$Tipologia.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Abbonamento.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Adulto$Sesso.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Adulto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Cliente.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Minore$Categoria.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/data/Minore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/gui/controller/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/gui/view/sample.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/DynamicMenu$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/DynamicMenu$Action.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/DynamicMenu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/GenericScanner$MissingPromptConstructor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/GenericScanner$Prompts.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/GenericScanner.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/Logger$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/Logger$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/Logger.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/out/production/#022 JavaFX+#021/gurankio/util/PersistentCSV.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/data/Abbonamento.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/data/Adulto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/data/Cliente.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/data/Minore.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/gui/controller/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/gui/view/main.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/util/DynamicMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/util/GenericScanner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/util/Logger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX+#021/src/gurankio/util/PersistentCSV.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX 2.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/7.0/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/controller/MainController$AbbonamentoTableRow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/controller/MainController$AbbonamentoTableRow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/model/DatabaseManager$Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/model/DatabaseManager$Action.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/model/DatabaseManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/classes/java/main/gurankio/model/DatabaseManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/libs/#022 JavaFX-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/libs/#022 JavaFX-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/resources/main/gurankio/views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/resources/main/gurankio/views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/java/gurankio/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Java/#022 JavaFX/src/main/resources/gurankio/views/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Archive.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/slides.js" beforeDir="false" afterPath="$PROJECT_DIR$/slides.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +95,10 @@
       <option name="presentableId" value="Default" />
       <updated>1620649751607</updated>
       <workItem from="1620649753542" duration="15441000" />
+      <workItem from="1620822985442" duration="83000" />
+      <workItem from="1620832951040" duration="1684000" />
+      <workItem from="1620901198467" duration="540000" />
+      <workItem from="1620901885585" duration="42000" />
     </task>
     <servers />
   </component>
@@ -173,8 +115,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="873" y="351" width="800" height="717" key="#Intentions" timestamp="1620833452222">
+      <screen x="0" y="23" width="3440" height="1326" />
+    </state>
+    <state x="873" y="351" width="800" height="717" key="#Intentions/0.23.3440.1326@0.23.3440.1326" timestamp="1620833452222" />
+    <state x="1133" y="558" key="#Language_Injections" timestamp="1620833461490">
+      <screen x="0" y="23" width="3440" height="1326" />
+    </state>
+    <state x="1133" y="558" key="#Language_Injections/0.23.3440.1326@0.23.3440.1326" timestamp="1620833461490" />
     <state x="641" y="439" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1620658123161">
       <screen x="0" y="23" width="3440" height="1326" />
     </state>
