@@ -392,7 +392,7 @@ const data = [
     {
         "title": "Slide 82",
         "body": "Esempio   \n",
-        "html": "<html>\n <body>\n  <h2>\n   JavaScript Hoisting\n  </h2>\n  <p>\n   Con\n   <b>\n    let\n   </b>\n   , non posso utilizzare una variabile prima che venga      dichiarata:\n  </p>\n  <p id=\"demo\">\n  </p>\n  <script>\n   try {         carName = \"Volvo\";         let carName;         document.getElementById(\"demo\").innerHTML =          \"Casa automobilistica\" + carName;       }       catch(errore) {         document.getElementById(\"demo\").innerHTML =          errore.name + \": \" + errore.message;       }\n  </script>\n </body>\n</html>"
+        "html": "<html>\n <body>\n  <h2>\n   JavaScript Hoisting\n  </h2>\n  <p>\n   Con <b>let</b>, non posso utilizzare una variabile prima che venga dichiarata:\n  </p>\n  <p id=\"demo\">\n  </p>\n  <script>\n   try {         carName = \"Volvo\";         let carName;         document.getElementById(\"demo\").innerHTML =          \"Casa automobilistica\" + carName;       }       catch(errore) {         document.getElementById(\"demo\").innerHTML =          errore.name + \": \" + errore.message;       }\n  </script>\n </body>\n</html>"
     },
     {
         "title": "Slide 83",

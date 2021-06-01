@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifica</title>
+</head>
+<body>
+
+    <div>
+        <h3>Jacopo Del Granchio</h3>
+        <h2>Verifica del 21.05.2021</h2>
+    </div>
+    <hr>
+    <div>
+        <!-- 1. Utilizza tutti i metodi di output che conosci per visualizzare il tuo nome e cognome -->
+        <div>
+            <h4>Esercizio 1</h4>
+            <button onclick="es1alert()">Nome con window.alert()</button><br>
+            <button onclick="es1write()" id="cancella">Nome con document.write()</button><br>
+            <button onclick="es1inner()">Nome con element.innerHTML</button><br>
+            <button onclick="es1log()">Nome con console.log()</button><br>
+            <pre id="nome"></pre>
+        </div>
+        <hr>
+
+        <!-- 2. Crea una variabile “prezzo”, realizza una funzione che calcoli l’importo dell’IVA (22%),
+                stampa il “prezzo”, l’IVA ed il prezzo comprensivo di IVA.
+                (tutti gli importi devono essere stampati con 2 cifre decimali) -->
+        <div>
+            <h4>Esercizio 2</h4>
+            <p>Valore di "prezzo": </p><pre id="prezzo"></pre>
+            <p>IVA: </p><pre id="iva"></pre>
+            <p>Valore di "prezzo" comprensivo di IVA: </p><pre id="prezzoIVA"></pre>
+        </div>
+        <hr>
+
+        <!-- 3. Modifica la variabile “prezzo” e visualizza il nuovo valore ed il tipo della variabile -->
+        <div>
+            <h4>Esercizio 3</h4>
+            <p>Nuovo valore di "prezzo": </p><pre id="shadowPrezzo"></pre>
+            <p>Nuovo tipo di "prezzo" </p><pre id="shadowTipo"></pre>
+        </div>
+        <hr>
+
+        <!-- 4. Senza modificare ulteriormente la variabile “prezzo”, visualizza il valore iniziale della variabile -->
+        <div>
+            <h4>Esercizio 4</h4>
+            <p>Valore di "prezzo" originale: </p><pre id="prezzoDopo"></pre>
+        </div>
+        <hr>
+
+        <!-- 5. Crea l’oggetto alunno con le proprietà nome, cognome, classe, sezione ed il metodo nomeCompleto
+                che contenga nome e cognome. Visualizza il nomeCompleto, la classe e la sezione utilizzando il metodo che preferisci -->
+        <div>
+            <h4>Esercizio 5</h4>
+            <p>Nome completo dello studente: </p><pre id="studenteNomeCompleto"></pre>
+            <p>Classe dello studente: </p><pre id="studenteClasse"></pre>
+            <p>Sezione dello studente: </p><pre id="studenteSezione"></pre>
+        </div>
+        <hr>
+
+        <!-- 6. Aggiungi all’oggetto alunno la proprietà “età” e visualizza nella console il nome formato da lettere
+                maiuscole, il cognome formato da lettere minuscole, il risultato della lunghezza della stringa nomeCompleto + l’età -->
+        <div>
+            <h4>Esercizio 6</h4>
+            <p>Apri la console!</p>
+        </div>
+        <hr>
+
+        <!-- 7. Crea un evento che cancelli la pagina WEB
+                (descrivi nella pagina l’azione da compiere per cancellare la stessa) -->
+        <div>
+            <h4>Esercizio 7</h4>
+            <p>Per cancellare la pagina WEB basta utilizzare document.write() dopo il caricamento della stessa.</p>
+            <a href="#cancella" >Il secondo bottone del primo esercizio, se cliccato due volte, cancella la pagina WEB e stampa il mio nome.</a>
+        </div>
+        <hr>
+
+        <!-- 8. Crea un array con 5 elementi e stampa l’array sotto forma di lista non ordinata -->
+        <div>
+            <h4>Esercizio 8</h4>
+            <p>Valori dell'array: </p><ul id="array"></ul>
+        </div>
+        <hr>
+
+        <!-- 9. Modifica il secondo elemento dell’array ed aggiungi un nuovo elemento,
+                quindi stampa l’array sotto forma di lista ordinata -->
+        <div>
+            <h4>Esercizio 9</h4>
+            <p>Nuovi valori dell'array: </p><ol id="arrayOrdinato"></ol>
+        </div>
+        <hr>
+
+        <!-- 10. Crea un array chiamato supermercato formato da 3 array (alimentari, igieneCasa e igienePersona), ciascun array deve contenere almeno 3 elementi.
+                 Crea un testo predefinito che dovrà essere modificato tramite 6 pulsanti che eseguono i seguenti eventi:
+                   a) Cliccando sul primo pulsante vengono visualizzati tutti i prodotti del supermercato
+                   b) Cliccando sul secondo pulsante vengono visualizzati solo i prodotti alimentari
+                   c) Cliccando sul terzo pulsante vengono visualizzati solo i prodotti igieneCasa
+                   d) Cliccando sul quarto pulsante vengono visualizzati solo i prodotti igienePersona
+                   e) Cliccando sul quinto pulsante verrà eliminato l’ultimo elemento dell’ultimo array
+                   f) Cliccando sul sesto pulsante viene resettata la visualizzazione del testo predefinito -->
+        <div>
+            <h4>Esercizio 10</h4>
+            <p>Output del supermercato: </p><pre id="supermercato"></pre>
+            <button onclick="es10a()">Visualizza Tutto</button><br>
+            <button onclick="es10b()">Visualizza Alimentari</button><br>
+            <button onclick="es10c()">Visualizza Igiene Casa</button><br>
+            <button onclick="es10d()">Visualizza Igiene Persona</button><br>
+            <button onclick="es10e()">Elimina ultimo elemento dell'ultimo array.</button><br>
+            <button onclick="es10f()">Reset</button><br>
+        </div>
+        <hr>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
