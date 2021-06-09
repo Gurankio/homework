@@ -1,14 +1,16 @@
 package gurankio;
 
+import gurankio.util.AutoPersistentCSV;
 import gurankio.util.Logger;
 import gurankio.util.PersistentCSV;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Queue;
 import java.util.Stack;
 
-public class Abbonamento implements PersistentCSV {
+public class Abbonamento implements AutoPersistentCSV {
 
     private int numeroTessera;
     private LocalDate dataCreazione; // posso calcolare la data di scadenza.
@@ -64,22 +66,23 @@ public class Abbonamento implements PersistentCSV {
 
     // Funzioni per IO su file.
 
+    /*
     @Override
-    public void serialize(Stack<String> tokens) {
-        tokens.push(String.valueOf(numeroTessera));
-        tokens.push(dataCreazione.format(Main.DATE_TIME_FORMATTER));
-        tokens.push(tipologia.toString());
-        tokens.push(cliente.getClass().getName());
+    public void serialize(Queue<String> tokens) {
+        tokens.add(String.valueOf(numeroTessera));
+        tokens.add(dataCreazione.format(Main.DATE_TIME_FORMATTER));
+        tokens.add(tipologia.toString());
+        tokens.add(cliente.getClass().getName());
         cliente.serialize(tokens);
     }
 
     @Override
-    public boolean parse(Stack<String> tokens) {
+    public boolean parse(Queue<String> tokens) {
         try {
-            numeroTessera = Integer.parseInt(tokens.pop());
-            dataCreazione = LocalDate.parse(tokens.pop(), Main.DATE_TIME_FORMATTER);
-            tipologia = Tipologia.valueOf(tokens.pop());
-            cliente = (Cliente) Class.forName(tokens.pop()).getConstructor().newInstance();
+            numeroTessera = Integer.parseInt(tokens.remove());
+            dataCreazione = LocalDate.parse(tokens.remove(), Main.DATE_TIME_FORMATTER);
+            tipologia = Tipologia.valueOf(tokens.remove());
+            cliente = (Cliente) Class.forName(tokens.remove()).getConstructor().newInstance();
             cliente.parse(tokens);
             return true;
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
@@ -87,6 +90,7 @@ public class Abbonamento implements PersistentCSV {
             return false;
         }
     }
+*/
 
     @Override
     public String toString() {

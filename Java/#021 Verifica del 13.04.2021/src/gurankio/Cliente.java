@@ -1,11 +1,13 @@
 package gurankio;
 
+import gurankio.util.AutoPersistentCSV;
 import gurankio.util.PersistentCSV;
 
 import java.time.LocalDate;
+import java.util.Queue;
 import java.util.Stack;
 
-public abstract class Cliente implements PersistentCSV {
+public abstract class Cliente implements AutoPersistentCSV {
 
     private String nome;
     private String cognome;
@@ -49,20 +51,22 @@ public abstract class Cliente implements PersistentCSV {
 
     // Funzioni per IO su file.
 
+    /*
     @Override
-    public void serialize(Stack<String> tokens) {
-        tokens.push(nome);
-        tokens.push(cognome);
-        tokens.push(dataNascita.format(Main.DATE_TIME_FORMATTER));
+    public void serialize(Queue<String> tokens) {
+        tokens.add(nome);
+        tokens.add(cognome);
+        tokens.add(dataNascita.format(Main.DATE_TIME_FORMATTER));
     }
 
     @Override
-    public boolean parse(Stack<String> tokens) {
-        nome = tokens.pop();
-        cognome = tokens.pop();
-        dataNascita = LocalDate.parse(tokens.pop(), Main.DATE_TIME_FORMATTER);
+    public boolean parse(Queue<String> tokens) {
+        nome = tokens.remove();
+        cognome = tokens.remove();
+        dataNascita = LocalDate.parse(tokens.remove(), Main.DATE_TIME_FORMATTER);
         return true;
     }
+    */
 
     @Override
     public String toString() {

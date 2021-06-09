@@ -1,7 +1,5 @@
 package gurankio;
 
-import java.util.Objects;
-
 public class Cd {
 
     private String titolo;

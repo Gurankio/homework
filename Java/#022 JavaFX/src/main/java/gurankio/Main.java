@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     // TODO: cose che potrebbero mancare: Modifica e Filtro.
-    // TODO: cosa divertende da fare: riscrivere con RxJava e RxJavaFx
+    // TODO: cosa divertente da fare: riscrivere con RxJava e RxJavaFx
 
     // Deve essere accessibile per i FileChooser.
     public static Stage stage;
@@ -27,7 +27,7 @@ public class Main extends Application {
         stage.setMinWidth(1100);
         stage.setMinHeight(600);
         stage.setTitle("Questa schermata è offerta da Java, un linguaggio di alto livello!");
-        stage.setOnCloseRequest(event -> System.exit(0)); // fix per il mio macOS
+        // stage.setOnCloseRequest(event -> System.exit(0)); // fix per il mio macOS
         stage.setScene(scene);
         stage.show();
     }

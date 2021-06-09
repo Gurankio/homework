@@ -3,6 +3,7 @@ package gurankio.container;
 import gurankio.util.GenericScanner;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Refrigerato extends Container {
 
@@ -29,5 +30,18 @@ public class Refrigerato extends Container {
     @Override
     public String toString() {
         return String.format("Container refrigerato '%03d', di stazza %.2f con %.2f di carico a temperatura %.2f.", getCodice(), getStazza(), getCarico(), getTemperatura());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Refrigerato)) return false;
+        Refrigerato that = (Refrigerato) o;
+        return Double.compare(that.temperatura, temperatura) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(temperatura);
     }
 }

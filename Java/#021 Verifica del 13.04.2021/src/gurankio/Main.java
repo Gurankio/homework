@@ -5,6 +5,7 @@ import gurankio.util.GenericScanner;
 import gurankio.util.PersistentCSV;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -32,14 +33,10 @@ public class Main {
 	 *    minori: bambini 65% di sconto, ragazzi 45% di sconto, teenager 35% di sconto;
 	 */
 
-	// Come le date saranno formattate in tutto il programma.
-	public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-	private static final File file = new File("database.txt");
-	private static final List<Abbonamento> abbonamenti = PersistentCSV.load(file)
-			.filter(o -> o instanceof Abbonamento)
-			.map(o -> (Abbonamento) o)
-			.collect(Collectors.toList());
+	private static final List<Abbonamento> abbonamenti = PersistentCSV.loadClass("database.txt", Abbonamento.class).collect(Collectors.toList());
+
+	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 	public static void main(String[] args) {
 		new DynamicMenu() {
@@ -135,8 +132,12 @@ public class Main {
 					return true;
 				});
 				option("[S]alva su file", String.class, s -> {
-					if (PersistentCSV.save(file, abbonamenti.stream())) println("Salvataggio avvenuto con successo.");
-					else println("Salvataggio fallito.");
+					try {
+						PersistentCSV.save("database.txt", abbonamenti.stream());
+						println("Salvataggio avvenuto con successo.");
+					} catch (IOException e) {
+						println("Salvataggio fallito.");
+					}
 					return true;
 				});
 				close("[E]sci", String.class);

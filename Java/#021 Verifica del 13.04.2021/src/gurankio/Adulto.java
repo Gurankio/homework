@@ -1,6 +1,7 @@
 package gurankio;
 
 import java.time.LocalDate;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Adulto extends Cliente {
@@ -30,17 +31,19 @@ public class Adulto extends Cliente {
 
     // Funzioni per IO su file.
 
+    /*
     @Override
-    public void serialize(Stack<String> tokens) {
+    public void serialize(Queue<String> tokens) {
         tokens.add(sesso.toString());
         super.serialize(tokens);
     }
 
     @Override
-    public boolean parse(Stack<String> tokens) {
-        sesso = Sesso.valueOf(tokens.pop());
+    public boolean parse(Queue<String> tokens) {
+        sesso = Sesso.valueOf(tokens.remove());
         return super.parse(tokens);
     }
+    */
 
     @Override
     public String toString() {

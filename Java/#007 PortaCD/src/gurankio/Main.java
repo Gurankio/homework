@@ -30,4 +30,5 @@ public class Main {
 
 		new Menu(Main.class).console();
 	}
+
 }

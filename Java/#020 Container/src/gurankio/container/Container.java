@@ -50,4 +50,6 @@ public class Container extends Persistent {
     public String toString() {
         return String.format("Container '%03d', di stazza %.2f con %.2f di carico.", getCodice(), getStazza(), getCarico());
     }
+
+
 }

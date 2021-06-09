@@ -1,6 +1,7 @@
 package gurankio;
 
 import java.time.LocalDate;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Minore extends Cliente {
@@ -30,17 +31,19 @@ public class Minore extends Cliente {
 
     // Funzioni per IO su file.
 
+    /*
     @Override
-    public void serialize(Stack<String> tokens) {
+    public void serialize(Queue<String> tokens) {
         tokens.add(categoria.toString());
         super.serialize(tokens);
     }
 
     @Override
-    public boolean parse(Stack<String> tokens) {
-        categoria = Categoria.valueOf(tokens.pop());
+    public boolean parse(Queue<String> tokens) {
+        categoria = Categoria.valueOf(tokens.remove());
         return super.parse(tokens);
     }
+    */
 
     // Struttura Dati
 
